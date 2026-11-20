@@ -10,7 +10,8 @@ export const dynamic = "force-dynamic";
  *
  * Photos are deliberately outside the private uploads bucket: a ranking has to
  * show the same avatar to everybody, so this route exposes only the bytes that
- * were already sent as a public leaderboard image.
+ * were already sent as a public leaderboard image. A learner who never uploaded
+ * a photo gets a generated default instead, so every row has a picture.
  */
 export async function GET(
   _request: Request,
@@ -24,9 +25,6 @@ export async function GET(
 
   try {
     const avatar = await getLeaderboardAvatar(decodedId);
-    if (!avatar) {
-      return NextResponse.json({ error: "No photo." }, { status: 404 });
-    }
     return new NextResponse(new Uint8Array(avatar.bytes), {
       status: 200,
       headers: {

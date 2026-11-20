@@ -1,5 +1,6 @@
 import "server-only";
 
+import { generatedAvatar } from "./avatar";
 import { getDatabase } from "./database";
 
 /**
@@ -50,7 +51,6 @@ export type LeaderboardSubmission = {
 type Row = {
   id: string;
   display_name: string;
-  has_avatar: boolean;
   steps_completed: number;
   practices_completed: number;
   score_total: number;
@@ -124,7 +124,9 @@ function toEntry(row: Row, rank: number): LeaderboardEntry {
     id: row.id,
     rank,
     name: row.display_name,
-    hasAvatar: Boolean(row.has_avatar),
+    // Every entry has a picture: the uploaded photo when there is one, otherwise
+    // the deterministic default produced by generatedAvatar.
+    hasAvatar: true,
     stepsCompleted: steps,
     practicesCompleted: Number(row.practices_completed) || 0,
     score,
@@ -142,7 +144,7 @@ export async function listLeaderboard(limit = 50): Promise<LeaderboardEntry[]> {
   const sql = getDatabase();
   const capped = clampInt(limit, 100) || 50;
   const rows = (await sql`
-    SELECT id, display_name, avatar_data IS NOT NULL AS has_avatar,
+    SELECT id, display_name,
            steps_completed, practices_completed, score_total, source, updated_at
     FROM leaderboard_entries
     ORDER BY score_total DESC, steps_completed DESC, updated_at ASC
@@ -179,7 +181,7 @@ export async function saveLeaderboardEntry(
       practices_completed = GREATEST(leaderboard_entries.practices_completed, EXCLUDED.practices_completed),
       score_total = GREATEST(leaderboard_entries.score_total, EXCLUDED.score_total),
       updated_at = now()
-    RETURNING id, display_name, avatar_data IS NOT NULL AS has_avatar,
+    RETURNING id, display_name,
               steps_completed, practices_completed, score_total, source, updated_at`) as unknown as Row[];
 
   const entry = toEntry(rows[0], 1);
@@ -197,20 +199,24 @@ export async function saveLeaderboardEntry(
 
 export async function getLeaderboardAvatar(
   id: string,
-): Promise<{ contentType: string; bytes: Buffer } | null> {
+): Promise<{ contentType: string; bytes: Buffer }> {
   await ensureTable();
   const rows = (await getDatabase()`
     SELECT avatar_data FROM leaderboard_entries WHERE id = ${id}`) as unknown as Array<{
     avatar_data: string | null;
   }>;
   const raw = rows[0]?.avatar_data;
-  if (typeof raw !== "string") return null;
+  const match = typeof raw === "string" ? AVATAR_PATTERN.exec(raw) : null;
+  if (match) {
+    const bytes = Buffer.from(match[2], "base64");
+    if (bytes.byteLength > 0 && bytes.byteLength <= MAX_AVATAR_BYTES) {
+      return { contentType: match[1], bytes };
+    }
+  }
 
-  const match = AVATAR_PATTERN.exec(raw);
-  if (!match) return null;
-  const bytes = Buffer.from(match[2], "base64");
-  if (bytes.byteLength === 0 || bytes.byteLength > MAX_AVATAR_BYTES) return null;
-  return { contentType: match[1], bytes };
+  // No uploaded photo (or a malformed one): serve the learner's generated
+  // default so every row on the board still shows a picture.
+  return generatedAvatar(id);
 }
 
 /**
