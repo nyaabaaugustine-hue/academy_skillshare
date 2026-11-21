@@ -10,6 +10,8 @@ export const dynamic = "force-dynamic";
 const WORKER_URL = (process.env.TUTOR_WORKER_URL || "https://skillbridge-tutor.skillsbridg-academy.workers.dev")
   .trim()
   .replace(/\/+$/, "");
+const MAX_BODY_BYTES = 32 * 1024;
+const UPSTREAM_TIMEOUT_MS = 30000;
 
 function json(body, status = 200) {
   return NextResponse.json(body, { status, headers: { "Cache-Control": "no-store" } });
@@ -82,7 +84,7 @@ async function callTutor(prompt) {
   if (serviceAuth) headers.Authorization = serviceAuth;
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 30000);
+  const timeout = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
   try {
     const res = await fetch(`${WORKER_URL}/v1/tutor/chat`, {
       method: "POST",
@@ -106,11 +108,30 @@ export async function POST(request) {
   const unauthorized = await assertAdmin();
   if (unauthorized) return unauthorized;
 
-  let payload;
+  const contentLength = Number(request.headers.get("content-length") || 0);
+  if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
+    return json({ error: "payload_too_large" }, 413);
+  }
+
+  let raw = "";
   try {
-    payload = await request.json();
+    raw = await request.text();
   } catch {
     return json({ error: "invalid_json" }, 400);
+  }
+  if (Buffer.byteLength(raw, "utf8") > MAX_BODY_BYTES) {
+    return json({ error: "payload_too_large" }, 413);
+  }
+
+  let payload;
+  try {
+    payload = JSON.parse(raw);
+  } catch {
+    return json({ error: "invalid_json" }, 400);
+  }
+
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    return json({ error: "invalid_payload" }, 400);
   }
 
   const toolId = String(payload?.toolId || "").trim();
@@ -118,7 +139,6 @@ export async function POST(request) {
   const tool = getAiTool(toolId);
   if (!tool) return json({ error: "unknown_tool" }, 404);
   if (!input) return json({ error: "missing_input" }, 400);
-  if (!payload || typeof payload !== "object" || Array.isArray(payload)) return json({ error: "invalid_payload" }, 400);
 
   const records = await gatherStudentRecords();
   const prompt = buildPrompt(tool, input, records);

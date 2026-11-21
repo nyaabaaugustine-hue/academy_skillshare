@@ -110602,7 +110602,7 @@ else{r=h.y
 r===$&&A.a()
 s=B.c.m(r.gaNB(),"Cloudflare")?"Online":"Offline"}r=B.v.a7(0.12)
 q=A.ai(12)
-q=A.ah(g,B.WN,B.j,g,g,new A.ab(r,g,A.bb(B.v.a7(0.24),1),q,g,g,B.p),g,36,g,g,g,g,36)
+q=new A.Lr("AI",new A.zT("https://res.cloudinary.com/ea91sdts/image/upload/v1795290743/robot_ai_button_tight_transparent.png"),36,g)
 r=t.p
 p=A.b([A.z("AI Tutor",g,g,g,g,g,g,g,g)],r)
 c=!(c.a.a<420)
