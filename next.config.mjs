@@ -56,7 +56,7 @@ const contentSecurityPolicy = [
     ? "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://www.gstatic.com"
     : "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://www.gstatic.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "img-src 'self' data: blob: https://res.cloudinary.com https://images.unsplash.com",
+  "img-src 'self' data: blob: https: https://res.cloudinary.com https://images.unsplash.com",
   "font-src 'self' data: https://fonts.gstatic.com",
   "media-src 'self' blob: data: https://res.cloudinary.com",
   isDev

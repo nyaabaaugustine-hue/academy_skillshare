@@ -3,6 +3,25 @@ import { db } from "../../../lib/db";
 
 export const dynamic = "force-dynamic";
 
+const DAY = new Intl.DateTimeFormat("en-GB", {
+  day: "2-digit",
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+const dateInput = (value) => {
+  if (!value) return "";
+  if (typeof value === "string") return value.slice(0, 10);
+  return value.toISOString().slice(0, 10);
+};
+
+const dayLabel = (value) => {
+  if (!value) return "";
+  const date = value instanceof Date ? value : new Date(`${value}T00:00:00Z`);
+  return Number.isNaN(date.getTime()) ? "" : DAY.format(date);
+};
+
 function CourseFields({ course }) {
   return (
     <div className="admin-grid">
@@ -12,23 +31,83 @@ function CourseFields({ course }) {
       </label>
       <label className="admin-field">
         <span>Level or age band</span>
-        <input name="level" defaultValue={course?.level ?? ""} maxLength={80} />
+        <input
+          name="level"
+          defaultValue={course?.level ?? ""}
+          maxLength={80}
+          placeholder="e.g. Ages 12–18 · Beginner"
+        />
       </label>
       <label className="admin-field">
         <span>Duration</span>
-        <input name="duration" defaultValue={course?.duration ?? ""} maxLength={80} />
+        <input
+          name="duration"
+          defaultValue={course?.duration ?? ""}
+          maxLength={80}
+          placeholder="e.g. 12 weeks"
+        />
+      </label>
+      <label className="admin-field">
+        <span>Start date</span>
+        <input
+          name="start_date"
+          type="date"
+          defaultValue={dateInput(course?.start_date)}
+        />
+      </label>
+      <label className="admin-field">
+        <span>Format</span>
+        <input
+          name="format"
+          defaultValue={course?.format ?? ""}
+          maxLength={120}
+          placeholder="e.g. Weekly · online + in person"
+        />
       </label>
       <label className="admin-field admin-field-wide">
         <span>Summary</span>
-        <textarea name="summary" rows={3} defaultValue={course?.summary ?? ""} maxLength={600} />
+        <textarea
+          name="summary"
+          rows={3}
+          defaultValue={course?.summary ?? ""}
+          maxLength={600}
+          placeholder="The short paragraph shown on the homepage spotlight."
+        />
       </label>
       <label className="admin-field admin-field-wide">
         <span>Topics (comma separated)</span>
         <input name="topics" defaultValue={course?.topics ?? ""} maxLength={600} />
       </label>
       <label className="admin-field admin-field-wide">
+        <span>Outcomes (comma separated)</span>
+        <input
+          name="outcomes"
+          defaultValue={course?.outcomes ?? ""}
+          maxLength={900}
+          placeholder="What learners will be able to do by the end"
+        />
+      </label>
+      <label className="admin-field admin-field-wide">
+        <span>Cover image URL</span>
+        <input
+          name="image"
+          defaultValue={course?.image ?? ""}
+          maxLength={1200}
+          placeholder="/images/python-beginners.jpg or https://…"
+        />
+      </label>
+      <label className="admin-field admin-field-wide">
         <span>Course link</span>
         <input name="link" defaultValue={course?.link ?? ""} maxLength={1200} />
+      </label>
+      <label className="admin-field">
+        <span>Call-to-action label</span>
+        <input
+          name="cta_label"
+          defaultValue={course?.cta_label ?? ""}
+          maxLength={80}
+          placeholder="Register on the LMS"
+        />
       </label>
       <label className="admin-field">
         <span>Order</span>
@@ -41,22 +120,51 @@ function CourseFields({ course }) {
         />
       </label>
       <label className="admin-check">
+        <input type="checkbox" name="featured" defaultChecked={course?.featured ?? false} />
+        <span>Feature on the homepage</span>
+      </label>
+      <label className="admin-check">
         <input type="checkbox" name="published" defaultChecked={course?.published ?? true} />
-        <span>Show in the LMS</span>
+        <span>Show in the LMS catalogue</span>
       </label>
     </div>
   );
+}
+
+function savedMessage(saved) {
+  if (saved === "created") return "Course added. The homepage spotlight is updated.";
+  if (saved === "updated") return "Course updated.";
+  if (saved === "deleted") return "Course deleted.";
+  if (saved === "status") return "Visibility updated.";
+  if (saved === "spotlight") return "Homepage spotlight updated.";
+  return "Saved.";
 }
 
 export default async function AdminLmsPage({ searchParams }) {
   await requireAdmin();
   const params = await searchParams;
 
-  const courses = await db()`
-    select id, title, level, summary, topics, duration, link, position, published
-    from lms_courses
-    order by position asc, id asc
-  `;
+  let schemaReady = true;
+  let courses;
+
+  try {
+    courses = await db()`
+      select id, title, level, summary, topics, duration, link, start_date,
+             featured, image, outcomes, format, cta_label, position, published
+      from lms_courses
+      order by position asc, id asc
+    `;
+  } catch {
+    schemaReady = false;
+    courses = await db()`
+      select id, title, level, summary, topics, duration, link, position, published
+      from lms_courses
+      order by position asc, id asc
+    `;
+  }
+
+  const featured = courses.find((course) => course.featured);
+  const error = params?.error;
 
   return (
     <>
@@ -66,16 +174,64 @@ export default async function AdminLmsPage({ searchParams }) {
       </header>
 
       {params?.saved ? (
-        <p className="admin-alert admin-alert-ok" role="status">Saved.</p>
-      ) : null}
-      {params?.error ? (
-        <p className="admin-alert admin-alert-error" role="alert">
-          That did not save. A course title is required.
+        <p className="admin-alert admin-alert-ok" role="status">
+          {savedMessage(params.saved)}
         </p>
       ) : null}
 
-      <section className="admin-panel">
-        <h2>Add a course</h2>
+      {error === "required" ? (
+        <p className="admin-alert admin-alert-error" role="alert">
+          A course title is required.
+        </p>
+      ) : null}
+      {error === "missing" ? (
+        <p className="admin-alert admin-alert-error" role="alert">
+          That course could not be found. Refresh and try again.
+        </p>
+      ) : null}
+      {error === "schema" || !schemaReady ? (
+        <p className="admin-alert admin-alert-error" role="alert">
+          The homepage spotlight columns are missing from the database. Run{" "}
+          <code>npm run db:install</code> (or apply <code>db/schema.sql</code> in the
+          Neon SQL editor), then reload this page.
+        </p>
+      ) : null}
+      {error === "save" ? (
+        <p className="admin-alert admin-alert-error" role="alert">
+          That did not save. Check the fields and try again.
+        </p>
+      ) : null}
+
+      <section className="admin-spotlight-note" aria-label="Homepage spotlight">
+        <span className="admin-spotlight-star" aria-hidden="true">
+          ★
+        </span>
+        <div>
+          <strong>Homepage spotlight</strong>
+          <p>
+            One published course can be featured on the public homepage. It appears
+            with its cover image, start date, outcomes and links to the learner app.
+          </p>
+          {featured ? (
+            <small>
+              Currently featuring: <b>{featured.title}</b>
+              {featured.start_date ? ` · starts ${dayLabel(featured.start_date)}` : ""}
+            </small>
+          ) : (
+            <small>No course is featured yet. Choose one below.</small>
+          )}
+        </div>
+      </section>
+
+      <section className="admin-panel" id="add-course">
+        <div className="admin-panel-head">
+          <div>
+            <h2>Add a course</h2>
+            <p className="admin-panel-sub">
+              Add the full detail now and mark it as featured to update the homepage.
+            </p>
+          </div>
+        </div>
         <form action="/api/admin/lms" method="post" className="admin-form">
           <input type="hidden" name="intent" value="create" />
           <CourseFields />
@@ -98,13 +254,28 @@ export default async function AdminLmsPage({ searchParams }) {
                   <div>
                     <h3>{course.title}</h3>
                     <p className="admin-record-meta">
-                      {[course.level, course.duration].filter(Boolean).join(" · ") ||
-                        "no level set"}
+                      {[
+                        course.start_date ? `Starts ${dayLabel(course.start_date)}` : "",
+                        course.format,
+                        course.duration,
+                        course.level,
+                      ]
+                        .filter(Boolean)
+                        .join(" · ") || "No course details set"}
                     </p>
                   </div>
-                  <span className={`admin-pill admin-pill-${course.published ? "new" : "closed"}`}>
-                    {course.published ? "published" : "hidden"}
-                  </span>
+                  <div className="admin-pill-group">
+                    {course.featured ? (
+                      <span className="admin-pill admin-pill-featured">featured</span>
+                    ) : null}
+                    <span
+                      className={`admin-pill admin-pill-${
+                        course.published ? "new" : "closed"
+                      }`}
+                    >
+                      {course.published ? "published" : "hidden"}
+                    </span>
+                  </div>
                 </div>
 
                 {course.summary ? (
@@ -112,7 +283,7 @@ export default async function AdminLmsPage({ searchParams }) {
                 ) : null}
 
                 <details className="admin-details">
-                  <summary>Edit course</summary>
+                  <summary>Edit course details</summary>
                   <form action="/api/admin/lms" method="post" className="admin-form">
                     <input type="hidden" name="intent" value="update" />
                     <input type="hidden" name="id" value={course.id} />
@@ -132,7 +303,18 @@ export default async function AdminLmsPage({ searchParams }) {
                       value={course.published ? "unpublish" : "publish"}
                     />
                     <button type="submit" className="admin-button admin-button-quiet">
-                      {course.published ? "Hide" : "Publish"}
+                      {course.published ? "Hide from LMS" : "Publish to LMS"}
+                    </button>
+                  </form>
+                  <form action="/api/admin/lms" method="post">
+                    <input type="hidden" name="id" value={course.id} />
+                    <input
+                      type="hidden"
+                      name="intent"
+                      value={course.featured ? "unfeature" : "feature"}
+                    />
+                    <button type="submit" className="admin-button admin-button-quiet">
+                      {course.featured ? "Remove spotlight" : "Feature on homepage"}
                     </button>
                   </form>
                   <form action="/api/admin/lms" method="post">

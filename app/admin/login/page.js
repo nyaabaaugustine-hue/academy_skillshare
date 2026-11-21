@@ -1,6 +1,7 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { demoEnabled, isAdmin } from "../../../lib/admin-auth";
+import { isAdmin } from "../../../lib/admin-auth";
 
 export const metadata = { title: "Admin sign in — SkillBridge" };
 
@@ -8,50 +9,61 @@ export default async function AdminLoginPage({ searchParams }) {
   if (await isAdmin()) redirect("/admin");
 
   const params = await searchParams;
-  const failed = params?.error === "1";
+  const error = params?.error;
+  const next = typeof params?.next === "string" ? params.next : "/admin";
 
   return (
     <>
-      <h1>Sign in</h1>
+      <span className="admin-eyebrow">STAFF SIGN IN</span>
+      <h1>Welcome back</h1>
       <p className="admin-gate-copy">
-        Enter the admin password to manage school enquiries, team members and news.
+        Sign in with your SkillBridge operator email to manage enquiries, learners
+        and the public site.
       </p>
-      <form action="/api/admin/login" method="post" className="admin-form">
+
+      {error === "rate" ? (
+        <p className="admin-alert admin-alert-error" role="alert">
+          Too many attempts. Wait a few minutes and try again.
+        </p>
+      ) : null}
+      {error === "1" ? (
+        <p className="admin-alert admin-alert-error" role="alert">
+          That email and password did not match. Check both and try again.
+        </p>
+      ) : null}
+
+      <form action="/api/admin/login" method="post" className="admin-form admin-login-form">
+        <input type="hidden" name="next" value={next} />
+        <label className="admin-field">
+          <span>Email address</span>
+          <input
+            type="email"
+            name="email"
+            autoComplete="username"
+            inputMode="email"
+            placeholder="you@skillbridge.tech"
+            autoFocus
+            required
+          />
+        </label>
         <label className="admin-field">
           <span>Password</span>
           <input
             type="password"
             name="password"
             autoComplete="current-password"
-            autoFocus
             required
           />
         </label>
-        {failed ? (
-          <p className="admin-alert admin-alert-error" role="alert">
-            That password did not match. Try again.
-          </p>
-        ) : null}
-        <button type="submit" className="admin-button admin-button-primary">
-          Sign in
+        <button type="submit" className="admin-button admin-button-primary admin-login-submit">
+          Sign in to the console <span aria-hidden="true">→</span>
         </button>
       </form>
 
-      {demoEnabled() ? (
-        <div className="admin-demo">
-          <span className="admin-demo-label">DEMO MODE</span>
-          <form action="/api/admin/login" method="post">
-            <input type="hidden" name="intent" value="demo" />
-            <button type="submit" className="admin-button admin-button-demo">
-              Enter the demo dashboard →
-            </button>
-          </form>
-          <p className="admin-gate-note">
-            No password needed while ADMIN_DEMO=1 is set. Remove it before the site
-            goes live.
-          </p>
-        </div>
-      ) : null}
+      <div className="admin-gate-links">
+        <Link href="/">← Back to the public site</Link>
+        <a href="mailto:support@skillbridge.tech">Need access?</a>
+      </div>
     </>
   );
 }

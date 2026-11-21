@@ -1,9 +1,15 @@
 import { auth } from "@/lib/auth/server";
 import { getFlutterAppOrigin } from "@/lib/flutter-app-origin";
 
-const handlers = auth.handler();
 const allowedOrigin = getFlutterAppOrigin();
-type AuthRouteContext = Parameters<typeof handlers.GET>[1];
+type AuthHandlers = ReturnType<typeof auth.handler>;
+type AuthRouteContext = { params: Promise<{ path: string[] }> };
+
+let _handlers: AuthHandlers | null = null;
+function getHandlers(): AuthHandlers {
+  if (!_handlers) _handlers = auth.handler();
+  return _handlers;
+}
 
 function hostOf(value: string): string {
   try {
@@ -119,30 +125,30 @@ export function OPTIONS(request: Request): Response {
 
 export function GET(request: Request, context: AuthRouteContext): Promise<Response> {
   return withCors(request, async () =>
-    handlers.GET(await withTrustedOrigin(request), context),
+    getHandlers().GET(await withTrustedOrigin(request), context),
   );
 }
 
 export function POST(request: Request, context: AuthRouteContext): Promise<Response> {
   return withCors(request, async () =>
-    handlers.POST(await withTrustedOrigin(request), context),
+    getHandlers().POST(await withTrustedOrigin(request), context),
   );
 }
 
 export function PUT(request: Request, context: AuthRouteContext): Promise<Response> {
   return withCors(request, async () =>
-    handlers.PUT(await withTrustedOrigin(request), context),
+    getHandlers().PUT(await withTrustedOrigin(request), context),
   );
 }
 
 export function PATCH(request: Request, context: AuthRouteContext): Promise<Response> {
   return withCors(request, async () =>
-    handlers.PATCH(await withTrustedOrigin(request), context),
+    getHandlers().PATCH(await withTrustedOrigin(request), context),
   );
 }
 
 export function DELETE(request: Request, context: AuthRouteContext): Promise<Response> {
   return withCors(request, async () =>
-    handlers.DELETE(await withTrustedOrigin(request), context),
+    getHandlers().DELETE(await withTrustedOrigin(request), context),
   );
 }

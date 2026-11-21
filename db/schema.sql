@@ -55,10 +55,30 @@ create table if not exists lms_courses (
   topics text,
   duration text,
   link text,
+  start_date date,
+  featured boolean not null default false,
+  image text,
+  outcomes text,
+  format text,
+  cta_label text,
   position integer not null default 0,
   published boolean not null default true,
   created_at timestamptz not null default now()
 );
+
+-- Columns added after the first release. `create table if not exists` does not
+-- change an existing table, so keep these idempotent alters alongside it.
+alter table lms_courses add column if not exists start_date date;
+alter table lms_courses add column if not exists featured boolean not null default false;
+alter table lms_courses add column if not exists image text;
+alter table lms_courses add column if not exists outcomes text;
+alter table lms_courses add column if not exists format text;
+alter table lms_courses add column if not exists cta_label text;
+
+-- Only one course can hold the homepage spotlight at a time. The admin API
+-- clears the previous featured row before setting a new one.
+create unique index if not exists lms_courses_one_featured_idx
+  on lms_courses (featured) where featured = true;
 
 -- PWA apps the organisation publishes or recommends.
 create table if not exists pwa_apps (

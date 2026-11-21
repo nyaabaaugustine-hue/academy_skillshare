@@ -3,14 +3,14 @@
 import { usePathname } from "next/navigation";
 
 const links = [
-  { href: "/admin", label: "Overview" },
-  { href: "/admin/enquiries", label: "School enquiries" },
-  { href: "/admin/learners", label: "Learners" },
-  { href: "/admin/students", label: "LMS students" },
-  { href: "/admin/team", label: "Team" },
-  { href: "/admin/news", label: "News" },
-  { href: "/admin/lms", label: "LMS courses" },
-  { href: "/admin/apps", label: "PWA apps" },
+  { href: "/admin", label: "Overview", icon: "▦" },
+  { href: "/admin/enquiries", label: "School enquiries", icon: "✉" },
+  { href: "/admin/learners", label: "Learners", icon: "◉" },
+  { href: "/admin/students", label: "LMS students", icon: "◎" },
+  { href: "/admin/lms", label: "LMS courses", icon: "▷" },
+  { href: "/admin/news", label: "News", icon: "▤" },
+  { href: "/admin/team", label: "Team", icon: "♧" },
+  { href: "/admin/apps", label: "PWA apps", icon: "▣" },
 ];
 
 export default function AdminNav() {
@@ -18,6 +18,7 @@ export default function AdminNav() {
 
   return (
     <nav className="admin-nav" aria-label="Admin sections">
+      <span className="admin-nav-label">Workspace</span>
       {links.map((link) => {
         const active =
           link.href === "/admin" ? pathname === "/admin" : pathname.startsWith(link.href);
@@ -28,6 +29,9 @@ export default function AdminNav() {
             className={active ? "is-active" : undefined}
             aria-current={active ? "page" : undefined}
           >
+            <span className="admin-nav-icon" aria-hidden="true">
+              {link.icon}
+            </span>
             {link.label}
           </a>
         );

@@ -3,7 +3,8 @@
 import { SiteFooter, SiteHeader } from "../components/site-chrome";
 import HomeHero from "../components/home-hero";
 import EnquiryButton from "../components/enquiry-popup";
-import { getFeaturedNews, getTeamMembers } from "../lib/content";
+import { getFeaturedCourse, getFeaturedNews, getTeamMembers } from "../lib/content";
+import { learnerAuthUrl } from "../lib/learner-app-url";
 
 const programmes = [
   {
@@ -53,10 +54,18 @@ function SectionEyebrow({ children }) {
 export const revalidate = 30;
 
 export default async function Home({ searchParams }) {
-  const [team, news] = await Promise.all([getTeamMembers(), getFeaturedNews()]);
+  const [team, news, course] = await Promise.all([
+    getTeamMembers(),
+    getFeaturedNews(),
+    getFeaturedCourse(),
+  ]);
   const params = await searchParams;
   const schoolStatus = params?.school;
   const courseStatus = params?.course;
+  const courseWords = course.title.trim().split(/\s+/);
+  const courseLead =
+    courseWords.length > 1 ? courseWords.slice(0, -1).join(" ") : course.title;
+  const courseAccent = courseWords.length > 1 ? courseWords[courseWords.length - 1] : "";
   return (
     <main>
       <SiteHeader />
@@ -123,34 +132,73 @@ export default async function Home({ searchParams }) {
         <div className="section-wrap featured-grid">
           <div className="featured-media">
             <img
-              src="/images/python-beginners.jpg"
-              alt="Teenagers learning to code in Python with a mentor in a bright makerspace"
+              src={course.image}
+              alt={`${course.title} at SkillBridge`}
+              loading="lazy"
             />
-            <span className="featured-badge">FEATURED COURSE</span>
+            <span className="featured-badge">
+              <span className="featured-badge-dot" aria-hidden="true" />
+              UPCOMING COURSE
+            </span>
             <div className="featured-media-meta">
-              <span><strong>12 weeks</strong>Guided learning</span>
-              <span><strong>Python 3</strong>No experience needed</span>
-              <span><strong>Weekly</strong>Online + in person</span>
+              <span>
+                <small>STARTS</small>
+                <strong>{course.startDateLabel}</strong>
+              </span>
+              <span>
+                <small>DURATION</small>
+                <strong>{course.duration || "Flexible"}</strong>
+              </span>
+              <span>
+                <small>FORMAT</small>
+                <strong>{course.format || "Online + in person"}</strong>
+              </span>
             </div>
           </div>
+
           <div className="featured-copy">
-            <SectionEyebrow>NEW FOR THIS TERM</SectionEyebrow>
-            <h2>Python for <span>beginners.</span></h2>
-            <p>
-              Start from zero and finish with a working project. In twelve weekly sessions,
-              learners write their first real programs, build a small app, and learn the
-              problem-solving habits that carry into every other subject.
-            </p>
-            <ul className="featured-outcomes">
-              <li>Writing and running your own Python</li>
-              <li>Variables, loops and decisions</li>
-              <li>Building a project step by step</li>
-              <li>Sharing work with a supportive group</li>
-            </ul>
+            <SectionEyebrow>ENROLMENT OPEN</SectionEyebrow>
+            <h2>
+              {courseLead} {courseAccent ? <span>{courseAccent}</span> : null}
+            </h2>
+            <p>{course.summary}</p>
+
+            {course.topics.length > 0 ? (
+              <ul className="featured-topics" aria-label="Course topics">
+                {course.topics.map((topic) => (
+                  <li key={topic}>{topic}</li>
+                ))}
+              </ul>
+            ) : null}
+
+            <div className="featured-facts">
+              <span>
+                <small>LEVEL</small>
+                <b>{course.level || "All levels"}</b>
+              </span>
+              <span>
+                <small>FORMAT</small>
+                <b>{course.format || "Online + in person"}</b>
+              </span>
+              <span>
+                <small>DURATION</small>
+                <b>{course.duration || "Flexible"}</b>
+              </span>
+            </div>
+
+            <div className="featured-outcomes-block">
+              <span className="featured-outcomes-title">WHAT YOU WILL LEARN</span>
+              <ul className="featured-outcomes">
+                {course.outcomes.map((outcome) => (
+                  <li key={outcome}>{outcome}</li>
+                ))}
+              </ul>
+            </div>
 
             {courseStatus === "joined" ? (
               <p className="form-note form-note-ok" role="status">
-                You are on the list. We will email you the start date and what to bring.
+                You are on the interest list. We will email you the start date and
+                what to bring.
               </p>
             ) : null}
             {courseStatus === "error" ? (
@@ -159,37 +207,83 @@ export default async function Home({ searchParams }) {
               </p>
             ) : null}
 
-            <div className="featured-form-panel">
-              <h3>Join the next Python cohort</h3>
-              <p>Free for learners aged 12–18. Places are limited to 20 per cohort.</p>
-              <form className="school-form" action="/api/enroll" method="post" aria-label="Python for Beginners enrolment">
-                <input type="hidden" name="programme" value="Python for Beginners" />
+            <div className="featured-cta-panel">
+              <div className="featured-cta-head">
+                <strong>{course.ctaLabel}</strong>
+                <p>
+                  Registration and sign-in happen in the SkillBridge learner app.
+                  Creating an account takes a few minutes.
+                </p>
+              </div>
+              <div className="featured-cta-actions">
+                <a className="button button-green" href={learnerAuthUrl}>
+                  Create learner account <Arrow />
+                </a>
+                <a className="button button-glass" href={learnerAuthUrl}>
+                  Sign in to the LMS
+                </a>
+              </div>
+              <p className="featured-cta-note">
+                Already registered? Sign in with the same email you used to enrol.
+                {course.link ? (
+                  <>
+                    {" "}
+                    <a href={course.link}>Course details ↗</a>
+                  </>
+                ) : null}
+              </p>
+            </div>
+
+            <details className="featured-waitlist">
+              <summary>Prefer to hear from us first? Join the interest list</summary>
+              <p>
+                Share a few details and our team will contact you about the next
+                cohort.
+              </p>
+              <form
+                className="school-form"
+                action="/api/enroll"
+                method="post"
+                aria-label={`${course.title} interest list`}
+              >
+                <input type="hidden" name="programme" value={course.title} />
                 <div className="form-field">
                   <label htmlFor="learner-name">Full name</label>
                   <input id="learner-name" name="full_name" autoComplete="name" required />
                 </div>
                 <div className="form-field">
                   <label htmlFor="learner-email">Email</label>
-                  <input id="learner-email" name="email" type="email" autoComplete="email" required />
+                  <input
+                    id="learner-email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                  />
                 </div>
                 <div className="form-field">
                   <label htmlFor="learner-phone">Phone (optional)</label>
                   <input id="learner-phone" name="phone" type="tel" autoComplete="tel" />
                 </div>
                 <div className="form-field">
-                  <label htmlFor="learner-school">School or community (optional)</label>
+                  <label htmlFor="learner-school">
+                    School or community (optional)
+                  </label>
                   <input id="learner-school" name="school" />
                 </div>
                 <div className="form-field-wide">
                   <button className="button button-green school-submit" type="submit">
-                    Reserve a place <span aria-hidden="true" className="arrow">↗</span>
+                    Join the interest list{" "}
+                    <span aria-hidden="true" className="arrow">
+                      ↗
+                    </span>
                   </button>
                   <p className="form-note">
                     We only use these details to contact you about the course.
                   </p>
                 </div>
               </form>
-            </div>
+            </details>
           </div>
         </div>
       </section>

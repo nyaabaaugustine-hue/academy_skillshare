@@ -1,4 +1,4 @@
-import { isAdmin } from "../../lib/admin-auth";
+import { getAdminSession } from "../../lib/admin-auth";
 import AdminNav from "./admin-nav";
 import "./admin.css";
 
@@ -8,14 +8,30 @@ export const metadata = {
 };
 
 export default async function AdminLayout({ children }) {
-  const signedIn = await isAdmin();
+  const session = await getAdminSession();
 
-  if (!signedIn) {
+  if (!session) {
     return (
       <div className="admin-gate">
-        <div className="admin-gate-card">
-          <span className="admin-eyebrow">SKILLBRIDGE ADMIN</span>
-          {children}
+        <div className="admin-gate-shell">
+          <aside className="admin-gate-brand">
+            <span className="admin-gate-logo" aria-hidden="true">
+              S
+            </span>
+            <span className="admin-eyebrow">SKILLBRIDGE</span>
+            <h2>Staff console</h2>
+            <p>
+              One workspace for school enquiries, learners, the course catalogue
+              and everything the public site shows.
+            </p>
+            <ul>
+              <li>Review and respond to new enquiries</li>
+              <li>Track learners through the pipeline</li>
+              <li>Publish courses, news and team profiles</li>
+            </ul>
+            <small>Authorised staff only · Accra, Ghana</small>
+          </aside>
+          <div className="admin-gate-card">{children}</div>
         </div>
       </div>
     );
@@ -24,15 +40,30 @@ export default async function AdminLayout({ children }) {
   return (
     <div className="admin-shell">
       <aside className="admin-side">
-        <div className="admin-brand">
-          <strong>SKILLBRIDGE</strong>
-          <small>Admin</small>
-        </div>
+        <a className="admin-brand" href="/admin" aria-label="SkillBridge admin home">
+          <span className="admin-brand-mark" aria-hidden="true">
+            S
+          </span>
+          <span>
+            <strong>SkillBridge</strong>
+            <small>Staff console</small>
+          </span>
+        </a>
+
         <AdminNav />
+
         <div className="admin-side-foot">
-          <a href="/" target="_blank" rel="noreferrer">View site ↗</a>
+          <div className="admin-side-account">
+            <span>Signed in as</span>
+            <strong title={session.email}>{session.email || "Administrator"}</strong>
+          </div>
+          <a href="/" target="_blank" rel="noreferrer">
+            View public site ↗
+          </a>
           <form action="/api/admin/logout" method="post">
-            <button type="submit" className="admin-link-button">Sign out</button>
+            <button type="submit" className="admin-link-button">
+              Sign out
+            </button>
           </form>
         </div>
       </aside>
