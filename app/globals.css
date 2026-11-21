@@ -352,3 +352,24 @@ button.enquiry-plain{border:0;background:none;padding:0;color:inherit;font:inher
 
 @media(max-width:640px){.enquiry-dialog{padding:28px 20px 22px;border-radius:14px}.enquiry-form.school-form{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.enquiry-modal,.enquiry-dialog{transition:none}.enquiry-modal .enquiry-dialog{transform:none;opacity:1}.enquiry-tick{animation:none}}
+/* === Premium AI floating button === */
+.ai-fab-wrap{position:fixed;right:22px;bottom:22px;z-index:1200;display:flex;flex-direction:column;align-items:flex-end;gap:12px;pointer-events:none}
+.ai-fab-wrap *{pointer-events:auto}
+.ai-fab{position:relative;width:74px;height:74px;border-radius:50%;display:grid;place-items:center;text-decoration:none;isolation:isolate;transform:translateZ(0);transition:transform .35s cubic-bezier(.2,.8,.2,1),filter .35s ease}
+.ai-fab:hover,.ai-fab:focus-visible{transform:translateY(-4px) scale(1.06);filter:saturate(1.08);outline:none}
+.ai-fab-img{width:72px;height:72px;object-fit:contain;position:relative;z-index:3;filter:drop-shadow(0 12px 24px rgba(14,165,164,.35)) drop-shadow(0 2px 6px rgba(0,0,0,.25));animation:ai-fab-float 4.8s ease-in-out infinite}
+.ai-fab-glow{position:absolute;inset:8px;border-radius:50%;background:radial-gradient(circle at 35% 30%, rgba(125,211,252,.55), rgba(14,165,164,.18) 45%, rgba(99,102,241,.12) 70%, transparent 72%);filter:blur(2px);z-index:1}
+.ai-fab-ring{position:absolute;inset:-2px;border-radius:50%;border:2px solid rgba(94,234,212,.45);z-index:0;animation:ai-fab-pulse 2.8s cubic-bezier(.2,.7,.2,1) infinite}
+.ai-fab-ring-delay{animation-delay:1.4s;border-color:rgba(125,211,252,.35)}
+.ai-fab-badge{position:absolute;right:2px;top:2px;z-index:4;background:linear-gradient(135deg,#14b8a6,#6366f1);color:#fff;font-size:10px;font-weight:800;letter-spacing:.04em;padding:3px 6px;border-radius:999px;box-shadow:0 6px 16px rgba(99,102,241,.45);border:1px solid rgba(255,255,255,.35)}
+.ai-fab-bubble{max-width:min(290px,calc(100vw - 40px));background:linear-gradient(180deg, rgba(15,23,42,.92), rgba(15,23,42,.84));color:#e6f7f5;border:1px solid rgba(94,234,212,.22);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:14px 14px 12px;border-radius:16px;box-shadow:0 20px 40px rgba(2,6,23,.45),0 0 0 1px rgba(255,255,255,.03) inset;transform:translateY(10px) scale(.96);opacity:0;visibility:hidden;transition:opacity .35s ease,transform .35s cubic-bezier(.2,.8,.2,1),visibility .35s}
+.ai-fab-bubble.is-visible{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+.ai-fab-bubble::after{content:"";position:absolute;right:28px;bottom:-7px;width:14px;height:14px;background:rgba(15,23,42,.9);border-right:1px solid rgba(94,234,212,.22);border-bottom:1px solid rgba(94,234,212,.22);transform:rotate(45deg)}
+.ai-fab-bubble-type{display:inline-flex;align-items:center;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#5eead4;background:rgba(20,184,166,.12);border:1px solid rgba(94,234,212,.2);padding:3px 8px;border-radius:999px;margin-bottom:8px}
+.ai-fab-bubble p{margin:0 0 10px;font-size:13px;line-height:1.45;color:#e2e8f0}
+.ai-fab-bubble-cta{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#042f2e;background:linear-gradient(135deg,#5eead4,#99f6e4);padding:7px 11px;border-radius:999px;text-decoration:none;box-shadow:0 8px 18px rgba(45,212,191,.25);transition:transform .2s ease,box-shadow .2s ease}
+.ai-fab-bubble-cta:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(45,212,191,.35)}
+@keyframes ai-fab-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes ai-fab-pulse{0%{transform:scale(.92);opacity:.75}70%{transform:scale(1.45);opacity:0}100%{transform:scale(1.45);opacity:0}}
+@media (max-width:640px){.ai-fab-wrap{right:14px;bottom:14px}.ai-fab,.ai-fab-img{width:64px;height:64px}.ai-fab-bubble{max-width:min(260px,calc(100vw - 28px))}}
+@media (prefers-reduced-motion:reduce){.ai-fab,.ai-fab-img,.ai-fab-ring,.ai-fab-bubble,.ai-fab-bubble-cta{animation:none!important;transition:none!important}}

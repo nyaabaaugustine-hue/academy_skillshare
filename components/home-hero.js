@@ -78,7 +78,8 @@ export default function HomeHero() {
           <h1>{slide.title}</h1>
           <p>{slide.description}</p>
           <div className="hero-actions">
-            <a className="button button-green" href="/programmes">Explore programmes <span aria-hidden="true" className="arrow">↗</span></a>
+            <a className="button button-green" href="#featured-course">Join Python for Beginners <span aria-hidden="true" className="arrow">↗</span></a>
+            <a className="button button-glass" href="/programmes">Explore programmes</a>
             <EnquiryButton
               className="button button-glass"
               enquiryType="Volunteering"

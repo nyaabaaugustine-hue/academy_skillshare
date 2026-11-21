@@ -11,6 +11,7 @@ const links = [
   { href: "/admin/news", label: "News", icon: "▤" },
   { href: "/admin/team", label: "Team", icon: "♧" },
   { href: "/admin/apps", label: "PWA apps", icon: "▣" },
+  { href: "/admin/ai", label: "AI tools", icon: "✦" },
 ];
 
 export default function AdminNav() {

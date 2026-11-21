@@ -1,4 +1,5 @@
 import "./globals.css";
+import AiFloatingButton from "./components/AiFloatingButton";
 
 export const metadata = {
   title: "SkillBridge | Learn Today. Innovate Tomorrow.",
@@ -17,7 +18,10 @@ export default function RootLayout({ children }) {
       {/* Browser extensions (ClickUp and friends) stamp attributes onto <body>
           before React hydrates, which React reports as a mismatch on an
           element this app never gave a className or style to. */}
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        {children}
+        <AiFloatingButton />
+      </body>
     </html>
   );
 }

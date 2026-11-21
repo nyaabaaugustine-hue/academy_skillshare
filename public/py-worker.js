@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 /**
  * Runs learner Python in a Web Worker via Pyodide.
  *
