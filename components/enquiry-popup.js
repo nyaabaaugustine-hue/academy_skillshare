@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 
 import TurnstileWidget from "./turnstile-widget";
 import { cloudflarePublicConfig } from "../lib/cloudflare/public-config";
+import { programmeOptions as defaultProgrammeOptions } from "../lib/upcoming-trainings";
 
 const TYPES = [
   "General enquiry",
@@ -27,6 +28,7 @@ export default function EnquiryButton({
   title = "Start a conversation",
   description = "Share a few details and what you have in mind. We usually reply within two working days.",
   programme = "",
+  programmeOptions = defaultProgrammeOptions,
 }) {
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -38,6 +40,11 @@ export default function EnquiryButton({
   const firstFieldRef = useRef(null);
   const headingId = useId();
   const formId = useId();
+  const [selectedType, setSelectedType] = useState(enquiryType);
+  const showProgramme = selectedType === "Programmes and courses" || Boolean(programme);
+  const programmeChoices = Array.from(
+    new Set([...(programme ? [programme] : []), ...programmeOptions].filter(Boolean)),
+  );
 
   const close = useCallback(() => {
     setVisible(false);
@@ -201,7 +208,12 @@ export default function EnquiryButton({
                       </div>
                       <div className="form-field">
                         <label htmlFor={`${formId}-type`}>Type of enquiry</label>
-                        <select id={`${formId}-type`} name="enquiry_type" defaultValue={enquiryType}>
+                        <select
+                          id={`${formId}-type`}
+                          name="enquiry_type"
+                          defaultValue={enquiryType}
+                          onChange={(event) => setSelectedType(event.target.value)}
+                        >
                           {TYPES.map((type) => (
                             <option key={type} value={type}>{type}</option>
                           ))}
@@ -222,7 +234,19 @@ export default function EnquiryButton({
                         />
                       </div>
 
-                      {programme ? (
+                      {showProgramme ? (
+                        <div className="form-field form-field-wide">
+                          <label htmlFor={`${formId}-programme`}>Course / training of interest</label>
+                          <select id={`${formId}-programme`} name="programme" defaultValue={programme || ""}>
+                            <option value="">Select a course or upcoming training</option>
+                            {programmeChoices.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      ) : programme ? (
                         <input type="hidden" name="programme" value={programme} />
                       ) : null}
 
