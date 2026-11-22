@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { verifyTurnstile } from "../../../lib/cloudflare/turnstile";
+import { sendSlackNotification } from "../../../lib/notifications/slack";
 
 /**
  * Public contact popup. Forwards to the same Formspree form the school-enquiry
@@ -67,6 +68,12 @@ export async function POST(request) {
       { status: 502 },
     );
   }
+
+  await sendSlackNotification({
+    text:
+      `:inbox_tray: New website contact enquiry received (${enquiry.enquiry_type || "General enquiry"}). ` +
+      "Review in SkillBridge admin.",
+  });
 
   return NextResponse.json({ ok: true });
 }

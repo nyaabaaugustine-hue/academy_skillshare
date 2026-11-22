@@ -7,6 +7,7 @@ import { getFeaturedCourse, getFeaturedNews, getTeamMembers } from "../lib/conte
 import { learnerAuthUrl } from "../lib/learner-app-url";
 import { cloudflarePublicConfig } from "../lib/cloudflare/public-config";
 import TurnstileWidget from "../components/turnstile-widget";
+import UpcomingTrainings from "../components/upcoming-trainings";
 
 const programmes = [
   {
@@ -290,6 +291,8 @@ export default async function Home({ searchParams }) {
         </div>
       </section>
 
+      <UpcomingTrainings />
+
       <section className="video-section">
         <div className="section-wrap">
           <div className="video-heading">
@@ -347,12 +350,12 @@ export default async function Home({ searchParams }) {
             </div>
             <a className="text-link" href="/team">Meet the full team <Arrow /></a>
           </div>
-          <p className="profile-disclaimer">Stephen’s name and portrait are supplied; other profile details and biographies are sample content.</p>
+          <p className="profile-disclaimer">A dedicated team shaping accessible, practical technology learning across Ghana.</p>
           <div className="team-grid home-team-grid">
             {team.map((member, index) => (
               <article className="team-card" key={member.name}>
                 <div className="team-photo-wrap">
-                  <img src={member.image} alt={`Sample portrait for ${member.role}`} className="team-photo" />
+                  <img src={member.image} alt={`${member.name}, ${member.role}`} className="team-photo" loading="lazy" />
                   <span className="team-number">0{index + 1}</span>
                 </div>
                 <div className="team-card-content">

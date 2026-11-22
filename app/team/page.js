@@ -2,14 +2,15 @@
 
 import { SiteFooter, SiteHeader } from "../../components/site-chrome";
 import EnquiryButton from "../../components/enquiry-popup";
-import team from "../../components/team-data";
+import { getTeamMembers } from "../../lib/content";
 
 export const metadata = {
   title: "Our Team | SkillBridge",
   description: "Meet the people and expertise that help SkillBridge make technology learning accessible."
 };
 
-export default function TeamPage() {
+export default async function TeamPage() {
+  const team = await getTeamMembers();
   return (
     <>
       <SiteHeader />
@@ -33,13 +34,13 @@ export default function TeamPage() {
           <div className="inner-section-heading team-heading">
             <div className="eyebrow"><span />OUR PEOPLE</div>
             <h2>Different strengths. One shared purpose.</h2>
-            <p>Stephen’s name and portrait are supplied. Other profile details and biographies remain sample content and should be confirmed with the team.</p>
+            <p>The people behind SkillBridge bring together education, technology, and community partnerships to create practical learning opportunities.</p>
           </div>
           <div className="team-grid">
             {team.map((member, index) => (
               <article className="team-card" key={member.name}>
                 <div className="team-photo-wrap">
-                  <img src={member.image} alt={`Sample portrait for ${member.role}`} className="team-photo" />
+                  <img src={member.image} alt={`${member.name}, ${member.role}`} className="team-photo" loading="lazy" />
                   <span className="team-number">0{index + 1}</span>
                 </div>
                 <div className="team-card-content">

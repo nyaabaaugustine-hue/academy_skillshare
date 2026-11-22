@@ -38,6 +38,11 @@ export default async function AdminLoginPage({ searchParams }) {
           Bot verification failed. Please try again.
         </p>
       ) : null}
+      {params?.reset === "requested" ? (
+        <p className="admin-alert admin-alert-ok" role="status">
+          If that admin email is registered, password reset instructions have been sent to the system administrator.
+        </p>
+      ) : null}
 
       <form action="/api/admin/login" method="post" className="admin-form admin-login-form">
         <input type="hidden" name="next" value={next} />
@@ -54,7 +59,10 @@ export default async function AdminLoginPage({ searchParams }) {
           />
         </label>
         <label className="admin-field">
-          <span>Password</span>
+          <span className="admin-field-row">
+            <span>Password</span>
+            <Link href="/admin/forgot-password" className="admin-forgot-link">Forgot password?</Link>
+          </span>
           <input
             type="password"
             name="password"

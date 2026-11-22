@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { db } from "../../../lib/db";
 import { verifyTurnstile } from "../../../lib/cloudflare/turnstile";
+import { sendSlackNotification } from "../../../lib/notifications/slack";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/maeodqly";
 
@@ -71,6 +72,13 @@ export async function POST(request) {
       ...enquiry,
     }),
   }).catch(() => {});
+
+  await sendSlackNotification({
+    text:
+      ":school: New school registration enquiry received" +
+      (enquiry.programme_interest ? ` (${enquiry.programme_interest})` : "") +
+      ". Review in SkillBridge admin.",
+  });
 
   return NextResponse.redirect(
     new URL("/?school=received#school-registration", request.url),
