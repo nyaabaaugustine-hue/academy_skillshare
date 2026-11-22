@@ -106,7 +106,7 @@ export default function UpcomingTrainings() {
       if (!last) last = ts;
       const dt = (ts - last) / 1000;
       last = ts;
-      if (!paused && !document.hidden) {
+      if (!paused && !document.hidden && document.body.dataset.enquiryOpen !== "true") {
         offset += speed * dt;
         const half = track.scrollWidth / 2;
         if (half > 0 && offset >= half) offset -= half;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import TurnstileWidget from "./turnstile-widget";
 import { cloudflarePublicConfig } from "../lib/cloudflare/public-config";
@@ -57,6 +58,7 @@ export default function EnquiryButton({
     const frame = window.setTimeout(() => setVisible(true), 20);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.body.dataset.enquiryOpen = "true";
     const focusTimer = window.setTimeout(() => firstFieldRef.current?.focus(), 90);
 
     const onKeyDown = (event) => {
@@ -87,6 +89,7 @@ export default function EnquiryButton({
       window.clearTimeout(focusTimer);
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = previousOverflow;
+      delete document.body.dataset.enquiryOpen;
     };
   }, [mounted, close]);
 
@@ -126,126 +129,129 @@ export default function EnquiryButton({
         {children}
       </button>
 
-      {mounted ? (
-        <div
-          className={`enquiry-modal${visible ? " is-visible" : ""}`}
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) close();
-          }}
-        >
-          <div
-            ref={dialogRef}
-            className="enquiry-dialog"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={headingId}
-          >
-            <button type="button" className="enquiry-close" onClick={close} aria-label="Close form">
-              ×
-            </button>
-
-            {status === "sent" ? (
-              <div className="enquiry-sent" role="status">
-                <span className="enquiry-tick" aria-hidden="true">✓</span>
-                <h2 id={headingId}>Thank you — your message is on its way.</h2>
-                <p>
-                  Our team has your details and will reply by email. For anything urgent, write to
-                  support@skillsbridge.tech.
-                </p>
-                <button type="button" className="button button-primary" onClick={close}>
-                  Close
+      {mounted && typeof document !== "undefined"
+        ? createPortal(
+            <div
+              className={`enquiry-modal${visible ? " is-visible" : ""}`}
+              onMouseDown={(event) => {
+                if (event.target === event.currentTarget) close();
+              }}
+            >
+              <div
+                ref={dialogRef}
+                className="enquiry-dialog"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby={headingId}
+              >
+                <button type="button" className="enquiry-close" onClick={close} aria-label="Close form">
+                  ×
                 </button>
-              </div>
-            ) : (
-              <>
-                <div className="eyebrow"><span />LET’S CONNECT</div>
-                <h2 id={headingId}>{title}</h2>
-                <p className="enquiry-intro">{description}</p>
 
-                <form className="school-form enquiry-form" onSubmit={submit} noValidate={false}>
-                  <div className="form-field">
-                    <label htmlFor={`${formId}-name`}>Your name</label>
-                    <input
-                      id={`${formId}-name`}
-                      ref={firstFieldRef}
-                      name="name"
-                      autoComplete="name"
-                      required
-                      maxLength={160}
-                    />
-                  </div>
-                  <div className="form-field">
-                    <label htmlFor={`${formId}-email`}>Email</label>
-                    <input
-                      id={`${formId}-email`}
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      required
-                      maxLength={200}
-                    />
-                  </div>
-                  <div className="form-field">
-                    <label htmlFor={`${formId}-phone`}>Phone (optional)</label>
-                    <input
-                      id={`${formId}-phone`}
-                      name="phone"
-                      type="tel"
-                      autoComplete="tel"
-                      maxLength={60}
-                    />
-                  </div>
-                  <div className="form-field">
-                    <label htmlFor={`${formId}-type`}>Type of enquiry</label>
-                    <select id={`${formId}-type`} name="enquiry_type" defaultValue={enquiryType}>
-                      {TYPES.map((type) => (
-                        <option key={type} value={type}>{type}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="form-field form-field-wide">
-                    <label htmlFor={`${formId}-message`}>How can we help?</label>
-                    <textarea
-                      id={`${formId}-message`}
-                      name="message"
-                      rows={3}
-                      maxLength={2000}
-                      defaultValue={
-                        programme
-                          ? `I would like to know more about the ${programme} pathway.`
-                          : ""
-                      }
-                    />
-                  </div>
-
-                  {programme ? (
-                    <input type="hidden" name="programme" value={programme} />
-                  ) : null}
-
-                  <TurnstileWidget siteKey={cloudflarePublicConfig().turnstileSiteKey} action="contact" />
-
-                  {status === "error" ? (
-                    <p className="form-note form-note-error form-field-wide" role="alert">
-                      {error}
+                {status === "sent" ? (
+                  <div className="enquiry-sent" role="status">
+                    <span className="enquiry-tick" aria-hidden="true">✓</span>
+                    <h2 id={headingId}>Thank you — your message is on its way.</h2>
+                    <p>
+                      Our team has your details and will reply by email. For anything urgent, write to
+                      support@skillsbridge.tech.
                     </p>
-                  ) : null}
-
-                  <div className="form-field-wide enquiry-actions">
-                    <button
-                      type="submit"
-                      className="button button-primary"
-                      disabled={status === "sending"}
-                    >
-                      {status === "sending" ? "Sending…" : "Send enquiry"}
+                    <button type="button" className="button button-primary" onClick={close}>
+                      Close
                     </button>
-                    <small>We only use these details to reply to you.</small>
                   </div>
-                </form>
-              </>
-            )}
-          </div>
-        </div>
-      ) : null}
+                ) : (
+                  <>
+                    <div className="eyebrow"><span />LET’S CONNECT</div>
+                    <h2 id={headingId}>{title}</h2>
+                    <p className="enquiry-intro">{description}</p>
+
+                    <form className="school-form enquiry-form" onSubmit={submit} noValidate={false}>
+                      <div className="form-field">
+                        <label htmlFor={`${formId}-name`}>Your name</label>
+                        <input
+                          id={`${formId}-name`}
+                          ref={firstFieldRef}
+                          name="name"
+                          autoComplete="name"
+                          required
+                          maxLength={160}
+                        />
+                      </div>
+                      <div className="form-field">
+                        <label htmlFor={`${formId}-email`}>Email</label>
+                        <input
+                          id={`${formId}-email`}
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          required
+                          maxLength={200}
+                        />
+                      </div>
+                      <div className="form-field">
+                        <label htmlFor={`${formId}-phone`}>Phone (optional)</label>
+                        <input
+                          id={`${formId}-phone`}
+                          name="phone"
+                          type="tel"
+                          autoComplete="tel"
+                          maxLength={60}
+                        />
+                      </div>
+                      <div className="form-field">
+                        <label htmlFor={`${formId}-type`}>Type of enquiry</label>
+                        <select id={`${formId}-type`} name="enquiry_type" defaultValue={enquiryType}>
+                          {TYPES.map((type) => (
+                            <option key={type} value={type}>{type}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="form-field form-field-wide">
+                        <label htmlFor={`${formId}-message`}>How can we help?</label>
+                        <textarea
+                          id={`${formId}-message`}
+                          name="message"
+                          rows={3}
+                          maxLength={2000}
+                          defaultValue={
+                            programme
+                              ? `I would like to know more about the ${programme} pathway.`
+                              : ""
+                          }
+                        />
+                      </div>
+
+                      {programme ? (
+                        <input type="hidden" name="programme" value={programme} />
+                      ) : null}
+
+                      <TurnstileWidget siteKey={cloudflarePublicConfig().turnstileSiteKey} action="contact" />
+
+                      {status === "error" ? (
+                        <p className="form-note form-note-error form-field-wide" role="alert">
+                          {error}
+                        </p>
+                      ) : null}
+
+                      <div className="form-field-wide enquiry-actions">
+                        <button
+                          type="submit"
+                          className="button button-primary"
+                          disabled={status === "sending"}
+                        >
+                          {status === "sending" ? "Sending…" : "Send enquiry"}
+                        </button>
+                        <small>We only use these details to reply to you.</small>
+                      </div>
+                    </form>
+                  </>
+                )}
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </>
   );
 }
