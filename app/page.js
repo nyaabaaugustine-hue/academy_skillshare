@@ -40,11 +40,51 @@ const programmes = [
 ];
 
 const involvement = [
-  { icon: "♧", title: "Volunteer", text: "Share your time and skills." },
-  { icon: "⇄", title: "Partner", text: "Bring technology learning to more communities." },
-  { icon: "♡", title: "Donate", text: "Help provide tools and learning opportunities." },
-  { icon: "⌂", title: "Support a school", text: "Help a school start its digital journey." }
-];
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="8.5" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
+      </svg>
+    ),
+    title: "Volunteer",
+    text: "Share your time and skills.",
+    enquiryType: "Volunteering",
+    description: "Tell us how you'd like to volunteer, your skills, and your availability. We'll connect you with the right opportunity.",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M8 7l-5 5 5 5" /><path d="M16 7l5 5-5 5" /><path d="M14 4l-4 16" />
+      </svg>
+    ),
+    title: "Partner",
+    text: "Bring technology learning to more communities.",
+    enquiryType: "Partnerships",
+    description: "Share your organization and partnership idea. We'll explore how we can bring technology learning to more communities together.",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21.2l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8z" />
+      </svg>
+    ),
+    title: "Donate",
+    text: "Help provide tools and learning opportunities.",
+    enquiryType: "Donations and support",
+    description: "Tell us how you'd like to support SkillBridge. We'll share the best way to help provide tools and learning opportunities.",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M3 10.5L12 3l9 7.5" /><path d="M5 9.8V21h14V9.8" /><path d="M9 21v-6h6v6" />
+      </svg>
+    ),
+    title: "Support a school",
+    text: "Help a school start its digital journey.",
+    enquiryType: "School registration",
+    description: "Tell us about the school you'd like to support or register. We'll help them start their digital learning journey.",
+  },
+]
 
 function Arrow() {
   return <span aria-hidden="true" className="arrow">↗</span>;
@@ -467,9 +507,20 @@ export default async function Home({ searchParams }) {
           </div>
           <div className="involved-grid">
             {involvement.map((item) => (
-              <a href="#contact" className="involved-card" key={item.title}>
-                <span className="involved-icon">{item.icon}</span><b>{item.title}</b><small>{item.text}</small><Arrow />
-              </a>
+              <EnquiryButton
+                key={item.title}
+                className="involved-card"
+                enquiryType={item.enquiryType}
+                title={item.title}
+                description={item.description}
+              >
+                <span className="involved-icon">{item.icon}</span>
+                <div className="involved-card-body">
+                  <b>{item.title}</b>
+                  <small>{item.text}</small>
+                </div>
+                <span className="involved-card-cta">Get started <Arrow /></span>
+              </EnquiryButton>
             ))}
           </div>
         </div>
