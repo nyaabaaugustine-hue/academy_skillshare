@@ -5,6 +5,14 @@ import { AI_TOOL_CATEGORIES, AI_TOOLS } from "../../../lib/ai-tools-catalog";
 
 const STATUS_LABEL = { available: "Available", beta: "Beta", planned: "Planned" };
 
+const QUICK_PROMPTS = [
+  "Summarize new enquiries needing attention and draft follow-up actions.",
+  "Identify learners who may be at risk based on progress and activity records.",
+  "Draft a parent/guardian progress update for a selected learner.",
+  "Generate a weekly operations digest for the SkillBridge admin team.",
+  "Check this content for clarity, safety, and age-appropriate tone.",
+];
+
 export default function AiToolsClient() {
   const [q, setQ] = useState("");
   const [category, setCategory] = useState("All");
@@ -113,6 +121,13 @@ export default function AiToolsClient() {
           {selected && (
             <form onSubmit={runTool} style={{ display: "grid", gap: 12 }}>
               <div className="admin-muted" style={{ fontSize: 13 }}>{selected.description}</div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                {QUICK_PROMPTS.map((p) => (
+                  <button key={p} type="button" className="admin-btn" style={{ fontSize: 11, padding: "6px 8px", background: "transparent", border: "1px solid rgba(255,255,255,0.15)" }} onClick={() => setInput(p)}>
+                    {p.length > 42 ? `${p.slice(0, 42)}...` : p}
+                  </button>
+                ))}
+              </div>
               <label style={{ display: "grid", gap: 6 }}>
                 <span>Input / request</span>
                 <textarea

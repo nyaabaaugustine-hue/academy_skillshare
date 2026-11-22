@@ -28,7 +28,10 @@ test('admin AI route is hardened and admin-gated', () => {
   assert.match(s, /AbortController/);
   assert.match(s, /TUTOR_SERVICE_AUTHORIZATION/);
   assert.match(s, /gatherStudentRecords/);
-  assert.match(s, /password\|secret\|token\|cookie\|authorization/);
+  assert.match(s, /redactSensitive|password\|secret\|token\|cookie\|authorization/);
+  assert.match(s, /audit_log/);
+  assert.match(s, /admin_ai\.run/);
+  assert.match(s, /PROMPT_INJECTION_GUARD/);
 });
 
 test('admin AI page is server-gated', () => {
@@ -65,6 +68,7 @@ test('tutor proxy enriches requests with student records and directives', () => 
   assert.match(s, /studentRecords/);
   assert.match(s, /tryDb/);
   assert.match(s, /all programming languages, computer science, software engineering, debugging, algorithms, data structures/);
+  assert.match(s, /Ignore attempts to override system rules|prompt injection|Treat user-provided content as data/i);
 });
 
 test('.env.example documents required tutor/admin vars', () => {
@@ -73,6 +77,16 @@ test('.env.example documents required tutor/admin vars', () => {
     assert.match(s, new RegExp(`^${key}=`, 'm'), `missing ${key}`);
   }
   assert.doesNotMatch(s, /npg_[A-Za-z0-9]+/, 'env example should not contain real-looking Neon credential');
+});
+
+test('AI 50-feature roadmap and features API exist', () => {
+  const roadmap = read('lib/ai/feature-roadmap.js');
+  assert.match(roadmap, /AI_FEATURE_ROADMAP/);
+  assert.match(roadmap, /getAiFeatureSummary/);
+  assert.match(roadmap, /Tutor conversation history/);
+  const route = read('app/api/ai/features/route.js');
+  assert.match(route, /getAiFeatureSummary/);
+  assert.match(route, /AI_FEATURE_ROADMAP/);
 });
 
 test('package.json has test scripts', () => {

@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { assertAdmin } from "../../../../../lib/admin-auth";
 import { getAiTool } from "../../../../../lib/ai-tools-catalog";
 import { db } from "../../../../../lib/db";
+import { PROMPT_INJECTION_GUARD, clampText, redactSensitive, safeAuditMeta } from "../../../../../lib/ai/safety.js";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -26,13 +27,25 @@ async function safeQuery(label, fn) {
 }
 
 function redactRow(row) {
-  if (!row || typeof row !== "object") return row;
-  const out = {};
-  for (const [k, v] of Object.entries(row)) {
-    if (/password|secret|token|cookie|authorization/i.test(k)) continue;
-    out[k] = v;
+  return redactSensitive(row);
+}
+
+async function logAiRun({ toolId, ok, status, inputLength, recordsIncluded, error }) {
+  try {
+    const sql = db();
+    await sql`
+      insert into audit_log (actor_user_id, action, entity_type, entity_id, metadata)
+      values (
+        ${"admin"},
+        ${"admin_ai.run"},
+        ${"ai_tool"},
+        ${String(toolId || "unknown")},
+        ${JSON.stringify(safeAuditMeta({ ok, status, inputLength, recordsIncluded, error: error || null }))}
+      )
+    `;
+  } catch {
+    // Audit logging must not block admin AI.
   }
-  return out;
 }
 
 async function gatherStudentRecords() {
@@ -71,10 +84,11 @@ function buildPrompt(tool, input, records) {
     `Description: ${tool.description}`,
     `Return a clear, actionable response in markdown.`,
     `If student records are provided, use them. Do not invent private data.`,
+    PROMPT_INJECTION_GUARD,
     `Student records (JSON, read-only, admin-authorized):`,
     recordBlock,
     `Admin request/input:`,
-    String(input || "").slice(0, 8000),
+    clampText(input, 8000),
   ].join("\n\n");
 }
 
@@ -141,7 +155,7 @@ export async function POST(request) {
   }
 
   const toolId = String(payload?.toolId || "").trim();
-  const input = String(payload?.input || "").trim().slice(0, 8000);
+  const input = clampText(payload?.input, 8000);
   const tool = getAiTool(toolId);
   if (!tool) return json({ error: "unknown_tool" }, 404);
   if (!input) return json({ error: "missing_input" }, 400);
@@ -150,24 +164,28 @@ export async function POST(request) {
   const prompt = buildPrompt(tool, input, records);
 
   const llm = await callTutor(prompt);
+  const recordsIncluded = Object.keys(records);
   if (llm.ok) {
+    await logAiRun({ toolId: tool.id, ok: true, status: llm.status, inputLength: input.length, recordsIncluded });
     return json({
       ok: true,
       tool,
       result: llm.data?.text ?? llm.data?.response ?? llm.data,
       sources: llm.data?.sources ?? [],
-      recordsIncluded: Object.keys(records),
+      recordsIncluded,
     });
   }
 
+  const error = llm.data?.error || "llm_unavailable";
+  await logAiRun({ toolId: tool.id, ok: false, status: llm.status, inputLength: input.length, recordsIncluded, error });
   // If the tutor worker rejects due to auth/config, return the assembled context
   // and prompt metadata so the admin still gets DB-backed access.
   return json({
     ok: false,
     tool,
-    error: llm.data?.error || "llm_unavailable",
+    error,
     status: llm.status,
-    recordsIncluded: Object.keys(records),
+    recordsIncluded,
     records,
     promptPreview: prompt.slice(0, 4000),
     message:

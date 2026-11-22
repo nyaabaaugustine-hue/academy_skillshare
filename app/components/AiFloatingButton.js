@@ -21,31 +21,53 @@ const QUICK_ACTIONS = [
   { label: "Plan", href: `${HREF}?mode=plan` },
 ];
 
+const DISMISS_KEY = "sb-ai-fab-bubble-dismissed";
+
 export default function AiFloatingButton() {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(0);
   const [visible, setVisible] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
   const prompt = useMemo(() => PROMPTS[idx % PROMPTS.length], [idx]);
 
   useEffect(() => {
-    const show = setTimeout(() => setVisible(true), 1800);
+    if (dismissed) return;
+    let cancelled = false;
+    try {
+      if (sessionStorage.getItem(DISMISS_KEY) === "1") {
+        const t = setTimeout(() => { if (!cancelled) setDismissed(true); }, 0);
+        return () => { cancelled = true; clearTimeout(t); };
+      }
+    } catch {}
+    const show = setTimeout(() => { if (!cancelled) setVisible(true); }, 1800);
     const rotate = setInterval(() => {
+      if (cancelled) return;
       setIdx((i) => (i + 1) % PROMPTS.length);
       setVisible(true);
     }, 12000);
-    return () => { clearTimeout(show); clearInterval(rotate); };
-  }, []);
+    return () => { cancelled = true; clearTimeout(show); clearInterval(rotate); };
+  }, [dismissed]);
 
   useEffect(() => {
-    if (!visible) return;
+    if (!visible || dismissed) return;
     const hide = setTimeout(() => setVisible(false), 6500);
     return () => clearTimeout(hide);
-  }, [visible, idx]);
+  }, [visible, idx, dismissed]);
+
+  function dismissBubble(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    setDismissed(true);
+    setVisible(false);
+    setOpen(false);
+    try { sessionStorage.setItem(DISMISS_KEY, "1"); } catch {}
+  }
 
   return (
     <div className="ai-fab-wrap" aria-live="polite">
-      <div className={`ai-fab-bubble ${visible || open ? "is-visible" : ""}`} role="status">
+      <div className={`ai-fab-bubble ${!dismissed && (visible || open) ? "is-visible" : ""}`} role="status">
+        <button type="button" className="ai-fab-bubble-close" aria-label="Close AI tutor reminder" onClick={dismissBubble}>×</button>
         <span className="ai-fab-bubble-type">{prompt.type === "quiz" ? "Quiz" : "Reminder"}</span>
         <p>{prompt.text}</p>
         <a href={HREF} className="ai-fab-bubble-cta">{prompt.type === "quiz" ? "Answer with AI" : "Open AI Tutor"}</a>
