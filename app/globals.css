@@ -101,7 +101,8 @@ a{color:inherit;text-decoration:none}
 .phone-screenshot{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#fff}
 .phone-home-indicator{position:absolute;bottom:3px;left:50%;width:36px;height:4px;transform:translateX(-50%);border-radius:6px;background:#10284f}
 .phone-caption{font-size:8px;font-weight:800;letter-spacing:1.2px;color:#8b9bb1}
-.get-involved-section{position:relative;padding:84px 0;background:linear-gradient(180deg,rgba(7,18,38,.62) 0%,rgba(7,18,38,.45) 45%,rgba(7,18,38,.72) 100%),url('https://res.cloudinary.com/z43ds8bn/image/upload/v1795345224/Black_Profile_with_Golden_Halo.png') center/cover no-repeat}
+.change-news-backdrop{position:relative;background:linear-gradient(180deg,rgba(7,18,38,.62) 0%,rgba(7,18,38,.45) 45%,rgba(7,18,38,.72) 100%),url('https://res.cloudinary.com/z43ds8bn/image/upload/v1795345224/Black_Profile_with_Golden_Halo.png') center/cover no-repeat}
+.get-involved-section{position:relative;padding:84px 0 56px;background:transparent}
 .involved-heading{text-align:center;max-width:660px;margin:0 auto 40px}
 .involved-heading .eyebrow{justify-content:center;color:#f0d48a}
 .involved-heading .eyebrow::before,.involved-heading .eyebrow::after{background:rgba(240,212,138,.45)}
@@ -121,7 +122,12 @@ a{color:inherit;text-decoration:none}
 .involved-card-cta .arrow{font-size:14px}
 .news-section{padding-top:82px;padding-bottom:82px;display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:center}
 .news-section h2{font-size:34px}
-.news-placeholder{border:1px solid var(--line);border-radius:var(--radius);padding:30px 34px;background:linear-gradient(110deg,#f5f8fd,#fff)}
+.change-news-backdrop .news-section{padding-top:28px}
+.change-news-backdrop .news-section .eyebrow{color:#f0d48a}
+.change-news-backdrop .news-section .eyebrow::before,.change-news-backdrop .news-section .eyebrow::after{background:rgba(240,212,138,.45)}
+.change-news-backdrop .news-section h2{color:#fff}
+.change-news-backdrop .news-section h2 span{color:#f0d48a}
+.news-placeholder{border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:30px 34px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px)}
 .news-image{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:calc(var(--radius) - 1px);margin-bottom:22px}
 .news-date{font-size:9px;letter-spacing:1.5px;font-weight:800;color:var(--blue)}
 .news-placeholder h3{font:800 23px/1.25 'Manrope',sans-serif;color:var(--navy);max-width:520px;margin:16px 0 10px}

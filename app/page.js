@@ -533,53 +533,55 @@ export default async function Home({ searchParams }) {
         </div>
       </section>
 
-      <section className="get-involved-section" id="get-involved">
-        <div className="section-wrap involved-inner">
-          <div className="involved-heading">
-            <SectionEyebrow>BE PART OF THE CHANGE</SectionEyebrow>
-            <h2>Help build Ghana’s <span>digital future.</span></h2>
-            <p>It takes a community to open opportunities. Your time, support or partnership can help a child take their next step.</p>
+      <div className="change-news-backdrop">
+        <section className="get-involved-section" id="get-involved">
+          <div className="section-wrap involved-inner">
+            <div className="involved-heading">
+              <SectionEyebrow>BE PART OF THE CHANGE</SectionEyebrow>
+              <h2>Help build Ghana’s <span>digital future.</span></h2>
+              <p>It takes a community to open opportunities. Your time, support or partnership can help a child take their next step.</p>
+            </div>
+            <div className="involved-grid">
+              {involvement.map((item) => (
+                <EnquiryButton
+                  key={item.title}
+                  className="involved-card"
+                  enquiryType={item.enquiryType}
+                  title={item.title}
+                  description={item.description}
+                >
+                  <span className="involved-icon">{item.icon}</span>
+                  <div className="involved-card-body">
+                    <b>{item.title}</b>
+                    <small>{item.text}</small>
+                  </div>
+                  <span className="involved-card-cta">Get started <Arrow /></span>
+                </EnquiryButton>
+              ))}
+            </div>
           </div>
-          <div className="involved-grid">
-            {involvement.map((item) => (
-              <EnquiryButton
-                key={item.title}
-                className="involved-card"
-                enquiryType={item.enquiryType}
-                title={item.title}
-                description={item.description}
-              >
-                <span className="involved-icon">{item.icon}</span>
-                <div className="involved-card-body">
-                  <b>{item.title}</b>
-                  <small>{item.text}</small>
-                </div>
-                <span className="involved-card-cta">Get started <Arrow /></span>
-              </EnquiryButton>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="news-section section-wrap" id="news">
-        <div>
-          <SectionEyebrow>STORIES FROM OUR COMMUNITY</SectionEyebrow>
-          <h2>Our <span>News Stories.</span></h2>
-        </div>
-        <div className="news-placeholder">
-          <img
-            className="news-image"
-            src={news.image}
-            alt="A young person using a tablet to explore digital learning"
-          />
-          <div className="news-date">SKILLBRIDGE JOURNAL</div>
-          <h3>{news.title}</h3>
-          <p>{news.excerpt}</p>
-          <EnquiryButton className="text-link enquiry-plain" enquiryType="General enquiry">
-            Connect with us <Arrow />
-          </EnquiryButton>
-        </div>
-      </section>
+        <section className="news-section section-wrap" id="news">
+          <div>
+            <SectionEyebrow>STORIES FROM OUR COMMUNITY</SectionEyebrow>
+            <h2>Our <span>News Stories.</span></h2>
+          </div>
+          <div className="news-placeholder">
+            <img
+              className="news-image"
+              src={news.image}
+              alt="A young person using a tablet to explore digital learning"
+            />
+            <div className="news-date">SKILLBRIDGE JOURNAL</div>
+            <h3>{news.title}</h3>
+            <p>{news.excerpt}</p>
+            <EnquiryButton className="text-link enquiry-plain" enquiryType="General enquiry">
+              Connect with us <Arrow />
+            </EnquiryButton>
+          </div>
+        </section>
+      </div>
 
       <section className="contact-band" id="contact">
         <div className="section-wrap contact-inner">
