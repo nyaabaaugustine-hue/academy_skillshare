@@ -13,6 +13,22 @@ const WORKER_URL = (process.env.TUTOR_WORKER_URL || "https://skillbridge-tutor.s
   .replace(/\/+$/, "");
 const MAX_BODY_BYTES = 32 * 1024;
 const UPSTREAM_TIMEOUT_MS = 30000;
+const RATE_WINDOW_MS = 5 * 60 * 1000;
+const RATE_MAX = 15;
+const rateHits = globalThis.__sbAdminAiRateHits || new Map();
+globalThis.__sbAdminAiRateHits = rateHits;
+
+function checkRateLimit(key) {
+  const now = Date.now();
+  const entry = rateHits.get(key);
+  if (!entry || now > entry.resetAt) {
+    rateHits.set(key, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return { ok: true, remaining: RATE_MAX - 1, resetAt: now + RATE_WINDOW_MS };
+  }
+  if (entry.count >= RATE_MAX) return { ok: false, remaining: 0, resetAt: entry.resetAt };
+  entry.count += 1;
+  return { ok: true, remaining: RATE_MAX - entry.count, resetAt: entry.resetAt };
+}
 
 function json(body, status = 200) {
   return NextResponse.json(body, { status, headers: { "Cache-Control": "no-store" } });
@@ -127,6 +143,15 @@ async function callTutor(prompt) {
 export async function POST(request) {
   const unauthorized = await assertAdmin();
   if (unauthorized) return unauthorized;
+
+  const rl = checkRateLimit("admin_ai");
+  if (!rl.ok) {
+    return json({
+      error: "rate_limited",
+      message: "Too many AI requests. Please wait a few minutes and try again.",
+      retryAfterMs: Math.max(0, rl.resetAt - Date.now()),
+    }, 429);
+  }
 
   const contentLength = Number(request.headers.get("content-length") || 0);
   if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {

@@ -4,18 +4,20 @@ import { usePathname } from "next/navigation";
 
 const links = [
   { href: "/admin", label: "Overview", icon: "▦" },
+  { href: "/admin/search", label: "Search", icon: "⌕" },
   { href: "/admin/enquiries", label: "School enquiries", icon: "✉" },
   { href: "/admin/learners", label: "Learners", icon: "◉" },
   { href: "/admin/students", label: "LMS students", icon: "◎" },
   { href: "/admin/lms", label: "LMS courses", icon: "▷" },
   { href: "/admin/trainings", label: "Trainings", icon: "◷" },
   { href: "/admin/showcase", label: "Showcase", icon: "★" },
-  { href: "/admin/awards", label: "Awards", icon: "🏅" },
+  { href: "/admin/awards", label: "Awards", icon: "◆" },
   { href: "/admin/news", label: "News", icon: "▤" },
-  { href: "/admin/team", label: "Team", icon: "♧" },
+  { href: "/admin/team", label: "Team", icon: "♣" },
   { href: "/admin/apps", label: "PWA apps", icon: "▣" },
-  { href: "/admin/cloudflare", label: "Cloudflare", icon: "CF" },
+  { href: "/admin/cloudflare", label: "Cloudflare", icon: "☁" },
   { href: "/admin/ai", label: "AI tools", icon: "✦" },
+  { href: "/admin/ai-audit", label: "AI audit", icon: "⎘" },
 ];
 
 export default function AdminNav() {

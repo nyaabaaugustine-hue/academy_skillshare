@@ -60,7 +60,7 @@ export default function AiToolsClient() {
         body: JSON.stringify({ toolId: selected.id, input }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Request failed");
+      if (!res.ok) throw new Error(data?.message || data?.error || "Request failed");
       setResult(data);
     } catch (err) {
       setError(err.message || "Failed to run tool");
@@ -77,7 +77,8 @@ export default function AiToolsClient() {
           <h1>AI tools</h1>
           <p className="admin-muted">
             {AI_TOOLS.length} registered tools. Admin AI runs have read-only access to student records
-            (learners, progress, enquiries, LMS, leaderboard) via server-side DB context.
+            (learners, progress, enquiries, LMS, leaderboard) via server-side DB context.{" "}
+            <a href="/admin/ai-audit" style={{ color: "#5eead4" }}>View AI audit trail</a>.
           </p>
         </div>
       </div>

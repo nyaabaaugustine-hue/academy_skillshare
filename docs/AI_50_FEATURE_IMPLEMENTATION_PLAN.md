@@ -12,8 +12,8 @@
 |---|---|---|---|
 | 31 | PII redaction layer | In progress | Centralize key-based redaction for AI record contexts; avoid secrets/tokens/passwords in prompts/logs. |
 | 32 | Prompt injection guard | In progress | Add server-side safety directives in tutor proxy/admin AI prompts; ignore user attempts to override system/policy/data boundaries. |
-| 37 | Audit trail viewer/logging | In progress | Log admin AI runs to `audit_log` with tool, status, record scopes, input length; no raw sensitive prompt/records. |
-| 38 | Rate/abuse limits | Partial | Existing payload/time limits; add basic input length/shape checks and document rate-limit next step. |
+| 37 | Audit trail viewer/logging | Implemented (foundation) | Admin AI runs logged to `audit_log` (`admin_ai.run`) with tool, status, record scopes, input length, redacted metadata; admin viewer at `/admin/ai-audit`. |
+| 38 | Rate/abuse limits | Implemented (basic) | Payload/time limits plus in-memory admin AI run rate limit (15/5min) and 429 response; production should move to shared store if needed. |
 | 39 | Model fallback policy | Partial | Existing fallback in admin AI run; keep graceful error handling. |
 | 48 | Certificate/award caption generator | Available via tool | Already in admin AI catalog as content/copy capability; can be run through admin AI. |
 | 3 | "Explain this lesson" button | In progress | Add tutor CTAs on programmes/course pages linking to learner app tutor with mode/query. |

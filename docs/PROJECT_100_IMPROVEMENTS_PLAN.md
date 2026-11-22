@@ -64,7 +64,7 @@ Track and implement 100 improvements for the SkillBridge Academy website/platfor
 ## 4) Admin Dashboard & Operations
 - [x] 36. Add dashboard KPI cards (enquiry pipeline KPIs).
 - [x] 37. Add “Needs attention” panel/filter.
-- [ ] 38. Add global admin search.
+- [x] 38. Add global admin search. (Admin `/admin/search`, allowlisted read-only queries across enquiries/learners/courses/trainings/showcase/awards/news/team)
 - [x] 39. Add audit log (basic enquiry action logging).
 - [ ] 40. Add role-based access control.
 - [ ] 41. Add admin activity timeline.
