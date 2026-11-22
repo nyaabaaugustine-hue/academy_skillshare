@@ -35,7 +35,7 @@ export async function POST(request) {
     );
   }
 
-  const turnstile = await verifyTurnstile(request, form.get("cf-turnstile-response"));
+  const turnstile = await verifyTurnstile(request, form.get("cf-turnstile-response"), { action: "admin-login" });
   if (!turnstile.ok) {
     return NextResponse.redirect(
       new URL("/admin/login?error=turnstile", request.url),

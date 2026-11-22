@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { db } from "../../../lib/db";
+import { verifyTurnstile } from "../../../lib/cloudflare/turnstile";
 
 const text = (form, key, max = 400) =>
   String(form.get(key) ?? "").trim().slice(0, max);
@@ -12,6 +13,15 @@ const text = (form, key, max = 400) =>
  */
 export async function POST(request) {
   const form = await request.formData();
+
+  const turnstile = await verifyTurnstile(request, form.get("cf-turnstile-response"), { action: "course-enroll" });
+  if (!turnstile.ok) {
+    return NextResponse.redirect(
+      new URL("/?course=turnstile#featured-course", request.url),
+      303,
+    );
+  }
+
   const full_name = text(form, "full_name", 160);
   const email = text(form, "email", 200);
   const phone = text(form, "phone", 60);

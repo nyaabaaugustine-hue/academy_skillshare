@@ -31,6 +31,7 @@ Generated from code references and `.env.example`. **Do not paste real secrets i
 | `CLOUDFLARE_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key | Public. |
 | `NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY` | same as site key | Public client-side Turnstile key. |
 | `CLOUDFLARE_TURNSTILE_SECRET_KEY` | Cloudflare Turnstile secret | Server-side only. Enforced only when set. |
+| `TURNSTILE_HOSTNAMES` | Comma-separated allowed frontend hostnames | Recommended in production (e.g. `skillbridgeacademy.tech,www.skillbridgeacademy.tech`). Do not include localhost in production. |
 | `NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN` | Cloudflare Web Analytics token | Public beacon token. |
 | `CLOUDFLARE_WEB_ANALYTICS_TOKEN` | same token if needed server-side | Public token; optional. |
 | `TUTOR_WORKER_URL` | `https://...workers.dev` | AI tutor Worker URL. Server-side only. |
@@ -71,9 +72,10 @@ NEXT_PUBLIC_LEARN_URL=
 FLUTTER_APP_ORIGIN=
 
 # Optional - Turnstile
-CLOUDFLARE_TURNSTILE_SITE_KEY=
-NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY=
+CLOUDFLARE_TURNSTILE_SITE_KEY=0x4AAAAAAGNKd_uKkUhFtuMt
+NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY=0x4AAAAAAGNKd_uKkUhFtuMt
 CLOUDFLARE_TURNSTILE_SECRET_KEY=
+TURNSTILE_HOSTNAMES=skillbridgeacademy.tech,www.skillbridgeacademy.tech
 
 # Optional - Cloudflare Web Analytics
 NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN=

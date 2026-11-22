@@ -16,8 +16,15 @@ export default function TurnstileWidget({ siteKey, action = "form" }) {
 
     const render = () => {
       if (!window.turnstile?.render || node.dataset.rendered === "1") return;
-      window.turnstile.render(node, { sitekey: siteKey, action });
+      const widgetId = window.turnstile.render(node, {
+        sitekey: siteKey,
+        action,
+        "expired-callback": () => {
+          try { window.turnstile.reset(widgetId); } catch {}
+        },
+      });
       node.dataset.rendered = "1";
+      node.dataset.turnstileWidgetId = String(widgetId);
     };
 
     if (window.turnstile?.render) {

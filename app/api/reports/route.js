@@ -13,8 +13,8 @@ export async function POST(request) {
   let body;
   try { body = await request.json(); } catch { return NextResponse.json({ error: "Invalid request." }, { status: 400 }); }
 
-  const turnstile = await verifyTurnstile(request, body?.turnstileToken);
-  if (!turnstile.ok) return NextResponse.json({ error: turnstile.error || "Verification failed." }, { status: 400 });
+  const turnstile = await verifyTurnstile(request, body?.turnstileToken, { action: "report_project" });
+  if (!turnstile.ok) return NextResponse.json({ error: "Verification failed. Please try again.", code: turnstile.error }, { status: 400 });
 
   const projectId = Number(body?.projectId);
   const projectTitle = text(body?.projectTitle, 180);

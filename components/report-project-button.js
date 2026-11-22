@@ -30,8 +30,11 @@ export default function ReportProjectButton({ projectId, projectTitle, siteKey }
       if (!res.ok) throw new Error(data.error || "Could not submit report.");
       setStatus({ type: "ok", msg: "Report received. Our team will review it." });
       e.currentTarget.reset();
-      if (window.turnstile?.reset) try { window.turnstile.reset(); } catch {}
+      const wid = e.currentTarget.querySelector("[data-turnstile-widget-id]")?.dataset.turnstileWidgetId;
+      if (window.turnstile?.reset) try { window.turnstile.reset(wid ? Number(wid) : undefined); } catch {}
     } catch (err) {
+      const wid = e.currentTarget.querySelector("[data-turnstile-widget-id]")?.dataset.turnstileWidgetId;
+      if (window.turnstile?.reset) try { window.turnstile.reset(wid ? Number(wid) : undefined); } catch {}
       setStatus({ type: "error", msg: err.message || "Could not submit report." });
     } finally {
       setLoading(false);

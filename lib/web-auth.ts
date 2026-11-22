@@ -228,11 +228,28 @@ export async function requestPasswordReset(emailInput: string): Promise<void> {
   const email = normaliseEmail(emailInput);
   if (!validEmail(email)) throw new Error("Enter a valid email address.");
 
-  const { error } = await authClient.requestPasswordReset({
-    email,
-    redirectTo: new URL("/reset-password", window.location.origin).toString(),
-  });
-  if (error) throw new Error(error.message);
+  const origin = window.location.origin;
+  const redirectCandidates = [
+    `${origin}/reset-password`,
+    "/reset-password",
+  ];
+
+  let lastError: { message?: string } | null = null;
+  for (const redirectTo of redirectCandidates) {
+    const { error } = await authClient.requestPasswordReset({ email, redirectTo });
+    if (!error) return;
+    lastError = error;
+    const msg = String(error.message || "").toLowerCase();
+    if (!msg.includes("redirect")) break;
+  }
+
+  const message = String(lastError?.message || "Could not send reset email. Please try again.");
+  if (message.toLowerCase().includes("redirect")) {
+    throw new Error(
+      "Password reset link could not be created for this site URL. Please contact support@skillbridgeacademy.tech and ask admin to allow this domain in Neon Auth redirect URLs.",
+    );
+  }
+  throw new Error(message);
 }
 
 export async function setNewPassword(password: string): Promise<void> {

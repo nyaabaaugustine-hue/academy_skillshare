@@ -103,6 +103,11 @@ export default function EnquiryButton({
   const submit = async (event) => {
     event.preventDefault();
     if (status === "sending") return;
+    const form = event.currentTarget;
+    const resetTurnstile = () => {
+      const wid = form.querySelector("[data-turnstile-widget-id]")?.dataset.turnstileWidgetId;
+      if (window.turnstile?.reset) try { window.turnstile.reset(wid ? Number(wid) : undefined); } catch {}
+    };
 
     setStatus("sending");
     setError("");
@@ -110,12 +115,14 @@ export default function EnquiryButton({
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { accept: "application/json" },
-        body: new FormData(event.currentTarget),
+        body: new FormData(form),
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data?.error ?? "send failed");
+      resetTurnstile();
       setStatus("sent");
     } catch {
+      resetTurnstile();
       setStatus("error");
       setError(
         "That did not send. Check your details and try again, or email support@skillbridgeacademy.tech or info@skillbridgeacademy.tech.",

@@ -19,9 +19,9 @@ export async function POST(request) {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  const turnstile = await verifyTurnstile(request, body?.turnstileToken);
+  const turnstile = await verifyTurnstile(request, body?.turnstileToken, { action: "project_submission" });
   if (!turnstile.ok) {
-    return NextResponse.json({ error: turnstile.error || "Verification failed." }, { status: 400 });
+    return NextResponse.json({ error: "Verification failed. Please try again.", code: turnstile.error }, { status: 400 });
   }
 
   const learnerAlias = publicLearnerName(body.learnerAlias);

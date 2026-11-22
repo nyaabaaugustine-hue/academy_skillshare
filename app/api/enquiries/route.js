@@ -18,7 +18,7 @@ const text = (form, key, max = 400) =>
 export async function POST(request) {
   const form = await request.formData();
 
-  const turnstile = await verifyTurnstile(request, form.get("cf-turnstile-response"));
+  const turnstile = await verifyTurnstile(request, form.get("cf-turnstile-response"), { action: "school-enquiry" });
   if (!turnstile.ok) {
     return NextResponse.redirect(
       new URL("/?school=error#school-registration", request.url),

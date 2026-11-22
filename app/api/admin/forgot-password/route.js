@@ -34,7 +34,7 @@ export async function POST(request) {
     );
   }
 
-  const turnstile = await verifyTurnstile(request, form.get("cf-turnstile-response"));
+  const turnstile = await verifyTurnstile(request, form.get("cf-turnstile-response"), { action: "admin-forgot-password" });
   if (!turnstile.ok) {
     return NextResponse.redirect(
       new URL("/admin/forgot-password?error=turnstile", request.url),

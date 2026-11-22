@@ -262,6 +262,11 @@ export default async function Home({ searchParams }) {
                 That did not send. Add your name and a valid email and try again.
               </p>
             ) : null}
+            {courseStatus === "turnstile" ? (
+              <p className="form-note form-note-error" role="alert">
+                Verification failed. Please complete the check and try again.
+              </p>
+            ) : null}
 
             <div className="featured-cta-panel">
               <div className="featured-cta-head">
@@ -328,6 +333,7 @@ export default async function Home({ searchParams }) {
                   <input id="learner-school" name="school" />
                 </div>
                 <div className="form-field-wide">
+                  <TurnstileWidget siteKey={cloudflarePublicConfig().turnstileSiteKey} action="course-enroll" />
                   <button className="button button-green school-submit" type="submit">
                     Join the interest list{" "}
                     <span aria-hidden="true" className="arrow">

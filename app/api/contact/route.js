@@ -21,7 +21,7 @@ export async function POST(request) {
     return NextResponse.json({ error: "That request could not be read." }, { status: 400 });
   }
 
-  const turnstile = await verifyTurnstile(request, form.get("cf-turnstile-response"));
+  const turnstile = await verifyTurnstile(request, form.get("cf-turnstile-response"), { action: "contact" });
   if (!turnstile.ok) {
     return NextResponse.json(
       { error: "Bot verification failed. Please try again." },

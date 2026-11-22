@@ -37,9 +37,12 @@ export default function ProjectSubmissionForm({ siteKey }) {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.error || "Could not submit project.");
       form.reset();
-      if (window.turnstile?.reset) try { window.turnstile.reset(); } catch {}
+      const wid = form.querySelector("[data-turnstile-widget-id]")?.dataset.turnstileWidgetId;
+      if (window.turnstile?.reset) try { window.turnstile.reset(wid ? Number(wid) : undefined); } catch {}
       setStatus({ type: "ok", msg: "Project submitted! Our team will review it. If approved, it may appear on the showcase." });
     } catch (err) {
+      const wid = form.querySelector("[data-turnstile-widget-id]")?.dataset.turnstileWidgetId;
+      if (window.turnstile?.reset) try { window.turnstile.reset(wid ? Number(wid) : undefined); } catch {}
       setStatus({ type: "error", msg: err.message || "Could not submit project." });
     } finally {
       setLoading(false);
