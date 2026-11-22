@@ -26,7 +26,7 @@ Track and implement 100 improvements for the SkillBridge Academy website/platfor
 - [ ] 15. Create dedicated landing pages (schools, parents, volunteers, partners).
 
 ## 2) Courses, Trainings & Bootcamps
-- [ ] 16. Make trainings admin-managed in Neon DB.
+- [x] 16. Make trainings admin-managed in Neon DB (admin CRUD + homepage DB-backed with fallback).
 - [ ] 17. Add training detail pages.
 - [ ] 18. Add registration status (Open/Closing Soon/Full/Waitlist/Completed).
 - [ ] 19. Add seat/capacity tracking.

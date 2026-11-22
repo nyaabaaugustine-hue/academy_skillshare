@@ -3,7 +3,7 @@
 import { SiteFooter, SiteHeader } from "../components/site-chrome";
 import HomeHero from "../components/home-hero";
 import EnquiryButton from "../components/enquiry-popup";
-import { getFeaturedCourse, getFeaturedNews, getTeamMembers } from "../lib/content";
+import { getFeaturedCourse, getFeaturedNews, getTeamMembers, getUpcomingTrainings } from "../lib/content";
 import { learnerAuthUrl } from "../lib/learner-app-url";
 import { cloudflarePublicConfig } from "../lib/cloudflare/public-config";
 import TurnstileWidget from "../components/turnstile-widget";
@@ -97,10 +97,11 @@ function SectionEyebrow({ children }) {
 export const revalidate = 30;
 
 export default async function Home({ searchParams }) {
-  const [team, news, course] = await Promise.all([
+  const [team, news, course, upcomingTrainings] = await Promise.all([
     getTeamMembers(),
     getFeaturedNews(),
     getFeaturedCourse(),
+    getUpcomingTrainings(),
   ]);
   const params = await searchParams;
   const schoolStatus = params?.school;
@@ -337,7 +338,7 @@ export default async function Home({ searchParams }) {
         </div>
       </section>
 
-      <UpcomingTrainings />
+      <UpcomingTrainings trainings={upcomingTrainings} />
 
       <section className="student-hub section-wrap" id="student-hub">
         <div className="hub-copy">

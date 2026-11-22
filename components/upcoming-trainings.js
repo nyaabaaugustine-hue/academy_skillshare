@@ -3,9 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import EnquiryButton from "./enquiry-popup";
-import { upcomingTrainings } from "../lib/upcoming-trainings";
-
-const ITEMS = upcomingTrainings;
+import { upcomingTrainings as fallbackTrainings } from "../lib/upcoming-trainings";
 
 function Card({ item }) {
   return (
@@ -36,7 +34,8 @@ function Card({ item }) {
   );
 }
 
-export default function UpcomingTrainings() {
+export default function UpcomingTrainings({ trainings }) {
+  const base = trainings && trainings.length > 0 ? trainings : fallbackTrainings;
   const trackRef = useRef(null);
   const [paused, setPaused] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
@@ -74,7 +73,7 @@ export default function UpcomingTrainings() {
     return () => window.cancelAnimationFrame(raf);
   }, [paused, reduceMotion]);
 
-  const items = [...ITEMS, ...ITEMS];
+  const items = [...base, ...base];
 
   return (
     <section className="upcoming-section" id="upcoming-trainings">
@@ -107,8 +106,8 @@ export default function UpcomingTrainings() {
             <div
               className="upcoming-slide"
               key={`${item.title}-${i}`}
-              aria-hidden={i >= ITEMS.length ? "true" : undefined}
-              inert={i >= ITEMS.length ? "" : undefined}
+              aria-hidden={i >= base.length ? "true" : undefined}
+              inert={i >= base.length ? "" : undefined}
             >
               <Card item={item} />
             </div>
