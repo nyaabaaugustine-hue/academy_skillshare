@@ -203,7 +203,7 @@ a{color:inherit;text-decoration:none}
 .pathway-card-body>a,.team-card-content>a{display:flex;align-items:center;justify-content:space-between;color:var(--blue);font-size:12px;font-weight:800}
 .pathway-callout{background:#f2f6fc}
 .pathway-callout .inner-cta{padding-top:47px;padding-bottom:47px}
-.team-section{padding-top:82px;padding-bottom:100px;background:linear-gradient(180deg,#fbfcfe 0%,#f4f7fc 100%)}
+.team-section{padding-top:82px;padding-bottom:100px;background:linear-gradient(rgba(251,252,254,.93),rgba(244,247,252,.93)),url('https://res.cloudinary.com/z43ds8bn/image/upload/v1795345655/Repeating_Education_Coding_Logo_Pattern.png') center/480px auto repeat}
 .team-heading{max-width:720px;margin-bottom:46px}
 .team-heading p{max-width:560px}
 .team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:stretch}
@@ -222,7 +222,7 @@ a{color:inherit;text-decoration:none}
 .team-bio{font-size:13px;line-height:1.75;color:#5d6c82;margin:0 0 20px;flex:1}
 .team-card-content>a,.team-card-content .enquiry-card-link{border-top:1px solid rgba(16,40,79,.08);padding-top:16px;margin-top:auto;color:var(--navy);font-size:12px;font-weight:700;letter-spacing:.01em}
 .team-card-content>a:hover,.team-card-content .enquiry-card-link:hover{color:var(--blue)}
-.home-team{padding:84px 0 92px;background:#f7f9fc}
+.home-team{padding:84px 0 92px;background:linear-gradient(rgba(247,249,252,.93),rgba(247,249,252,.93)),url('https://res.cloudinary.com/z43ds8bn/image/upload/v1795345655/Repeating_Education_Coding_Logo_Pattern.png') center/480px auto repeat}
 .home-team-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:16px}
 .home-team-heading h2{font:800 clamp(30px,3vw,40px)/1.16 'Manrope',sans-serif;letter-spacing:-1.4px;margin:17px 0 0;color:var(--navy)}
 .home-team-heading h2 span{color:var(--blue)}
