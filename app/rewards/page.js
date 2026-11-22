@@ -11,21 +11,43 @@ export const metadata = {
 export const revalidate = 60;
 
 const milestones = [
-  { icon: "🚀", title: "First Step", requirement: "Complete your first learning step", reward: "Milestone badge + leaderboard entry" },
-  { icon: "🧠", title: "Practice Starter", requirement: "Complete 3 practice challenges", reward: "Practice badge + progress recognition" },
-  { icon: "🔥", title: "Consistency Builder", requirement: "Complete 6 learning steps", reward: "Consistency badge + mentor shout-out" },
-  { icon: "🛠️", title: "Project Builder", requirement: "Build and submit a real project", reward: "Project showcase feature on the website" },
-  { icon: "⭐", title: "Top Performer", requirement: "Reach top 10 on the leaderboard", reward: "Top Learner spotlight + certificate" },
-  { icon: "🏆", title: "SkillBridge Champion", requirement: "Complete 18 steps with strong average score", reward: "Champion certificate + featured learner story" },
+  { icon: "🚀", title: "First Step", requirement: "Complete your first learning step", reward: "Leaderboard entry + SkillBridge branded pencil/eraser" },
+  { icon: "🧠", title: "Practice Starter", requirement: "Complete 3 practice challenges", reward: "Practice badge + branded notebook or stationery" },
+  { icon: "🔥", title: "Consistency Builder", requirement: "Complete 6 learning steps", reward: "Certificate + educational book/material" },
+  { icon: "🛠️", title: "Project Builder", requirement: "Build and submit a real project", reward: "Project showcase feature + SkillBridge t-shirt" },
+  { icon: "⭐", title: "Top Performer", requirement: "Reach top 10 on the leaderboard", reward: "Top Learner spotlight + books/educational materials" },
+  { icon: "🏆", title: "SkillBridge Champion", requirement: "Complete 18 steps with strong average score", reward: "Champion certificate + t-shirt + featured learner story" },
 ];
 
 const rewards = [
+  { title: "Branded Stationery", text: "Earn SkillBridge branded pencils, erasers, and notebooks for completing learning milestones.", icon: "✏️" },
+  { title: "T-Shirts & Swag", text: "Top learners and project builders can earn SkillBridge t-shirts and fun learning swag.", icon: "👕" },
+  { title: "Books & Educational Material", text: "Receive age-appropriate books, workbooks, and educational materials to support your learning journey.", icon: "📚" },
   { title: "Digital Certificates", text: "Earn shareable certificates for milestones, course completion, and standout performance.", icon: "📜" },
-  { title: "Leaderboard Recognition", text: "Climb the public ranking board as you complete steps, practices, and earn points.", icon: "📊" },
   { title: "Project Showcase", text: "Get your best projects featured on our website to inspire others and show your skills.", icon: "🖥️" },
   { title: "Learner Spotlight", text: "Outstanding learners can be featured in stories, social posts, and community highlights.", icon: "🌟" },
-  { title: "Mentor Feedback", text: "Top project submissions receive feedback and guidance from SkillBridge mentors.", icon: "💬" },
-  { title: "Opportunity Pathways", text: "Strong portfolios and project work can open doors to internships, volunteering, and partner opportunities.", icon: "🚪" },
+];
+
+const pythonProgram = [
+  { level: "Level 1", title: "Python Basics", skills: ["Print, variables, and data types", "Input and simple math", "Writing your first programs"] },
+  { level: "Level 2", title: "Logic & Loops", skills: ["If/else decisions", "For and while loops", "Solving problems step by step"] },
+  { level: "Level 3", title: "Data & Functions", skills: ["Lists and dictionaries", "Functions and reusable code", "Organizing simple projects"] },
+  { level: "Level 4", title: "Build & Share", skills: ["Debugging and testing", "Project planning", "Presenting your project"] },
+];
+
+const pythonBuilds = [
+  "Number guessing game",
+  "Quiz game with score tracking",
+  "Simple calculator",
+  "Story adventure game",
+  "Password generator",
+  "To-do list app",
+  "Turtle art and patterns",
+  "Mini chatbot",
+  "Flashcard study app",
+  "Simple weather or fact reporter",
+  "Rock, paper, scissors game",
+  "Personal budget tracker for kids",
 ];
 
 export default async function RewardsPage() {
@@ -75,10 +97,37 @@ export default async function RewardsPage() {
           </div>
         </section>
 
+        <section className="inner-content section-wrap">
+          <div className="inner-section-heading">
+            <div className="eyebrow"><span />PYTHON STUDY PROGRAM</div>
+            <h2>Learn Python. Build real things.</h2>
+            <p>A child-friendly learning path that takes learners from first code to real projects they can proudly share.</p>
+          </div>
+          <div className="rewards-grid">
+            {pythonProgram.map((level) => (
+              <article className="reward-card" key={level.title}>
+                <small className="reward-level">{level.level}</small>
+                <h3>{level.title}</h3>
+                <ul className="reward-list">
+                  {level.skills.map((skill) => <li key={skill}>{skill}</li>)}
+                </ul>
+              </article>
+            ))}
+          </div>
+          <div className="python-builds">
+            <h3>What you can build with this program</h3>
+            <div className="python-builds-grid">
+              {pythonBuilds.map((item) => (
+                <span className="python-build-chip" key={item}>{item}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="values-band">
           <div className="section-wrap">
             <div className="inner-section-heading">
-              <div className="eyebrow"><span />REWARDS</div>
+              <div className="eyebrow"><span />REWARDS &amp; PRIZES</div>
               <h2>How learners get recognized</h2>
             </div>
             <div className="rewards-grid rewards-grid-3">

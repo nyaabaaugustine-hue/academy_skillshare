@@ -476,3 +476,9 @@ button.enquiry-plain{border:0;background:none;padding:0;color:inherit;font:inher
 .showcase-meta a{color:var(--blue)}
 @media(max-width:930px){.leaderboard-layout{grid-template-columns:1fr}.rewards-grid,.rewards-grid-3,.showcase-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:650px){.rewards-grid,.rewards-grid-3,.showcase-grid{grid-template-columns:1fr}.leaderboard-table th,.leaderboard-table td{padding:12px 10px}}
+.reward-level{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.reward-list{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;color:var(--muted);font-size:13px;line-height:1.6}
+.python-builds{margin-top:28px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}
+.python-builds h3{margin:0 0 16px;font:700 22px/1.3 'Manrope',sans-serif;color:var(--navy)}
+.python-builds-grid{display:flex;flex-wrap:wrap;gap:10px}
+.python-build-chip{display:inline-flex;padding:10px 14px;border-radius:999px;background:#f4f8fe;border:1px solid #dce7f5;font-size:13px;font-weight:600;color:var(--navy)}
