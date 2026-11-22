@@ -51,10 +51,21 @@ export default async function LeaderboardPage() {
               Our leaderboard celebrates learners who show up, practice, complete steps, and build real skills.
               Every point represents progress.
             </p>
+            <div className="hero-actions">
+              <a className="button button-green" href="/rewards">View rewards <span className="arrow">→</span></a>
+              <a className="button button-glass" href="/playground">Practice Python <span className="arrow">→</span></a>
+            </div>
             <div className="hero-share-wrap">
               <ShareActions url={absoluteUrl("/leaderboard")} text="See who’s leading the learning journey on the SkillBridge Academy leaderboard!" title="Share leaderboard" />
             </div>
           </div>
+        </section>
+
+        <section className="section-wrap ip-stats" aria-label="Leaderboard highlights">
+          <article className="ip-stat"><strong>{entries.length}</strong><b>Ranked learners</b><p>Learners currently on the board.</p></article>
+          <article className="ip-stat"><strong>Score</strong><b>Points earned</b><p>Total progress across completed steps.</p></article>
+          <article className="ip-stat"><strong>Practice</strong><b>Skills built</b><p>Challenges completed build confidence.</p></article>
+          <article className="ip-stat"><strong>Rewards</strong><b>Milestones</b><p>Progress can unlock recognition and prizes.</p></article>
         </section>
 
         <section className="inner-content section-wrap">

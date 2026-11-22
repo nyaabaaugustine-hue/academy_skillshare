@@ -1,6 +1,8 @@
 "use client";
 /* eslint-disable @next/next/no-html-link-for-pages, @next/next/no-img-element */
 
+import InstallAppButton from "./install-app-button";
+
 const appUrl = (process.env.NEXT_PUBLIC_APP_URL || "https://www.skillbridgeacademy.tech").replace(/\/$/, "");
 const pwaUrl = `${appUrl}/app/index.html?v=2`;
 
@@ -101,7 +103,7 @@ export function SiteFooter({ showMap = true } = {}) {
             </div>
           </div>
           <div><h4>Explore</h4><a href="/about">About us</a><a href="/programmes">Our programmes</a><a href="/playground">Python playground</a><a href="/leaderboard">Leaderboard</a><a href="/rewards">Rewards</a><a href="/team">Our team</a></div>
-          <div><h4>Get involved</h4><a href="/contact">Volunteer</a><a href="/contact">Partner with us</a><a href="/contact">Donate</a><a href="/contact">Support a school</a></div>
+          <div><h4>Get involved</h4><a href="/contact">Volunteer</a><a href="/contact">Partner with us</a><a href="/contact">Donate</a><a href="/contact">Support a school</a><InstallAppButton className="text-link" label="Install app" /></div>
           <div><h4>Contact</h4><p className="location-flags-inline"><span><img className="location-flag" src="https://flagcdn.com/w40/be.png" alt="Belgium flag" width={20} height={15} loading="lazy" />Belgium</span><span><img className="location-flag" src="https://flagcdn.com/w40/us.png" alt="USA flag" width={20} height={15} loading="lazy" />USA</span><span><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" />Ghana</span></p><a href="mailto:support@skillbridgeacademy.tech">support@skillbridgeacademy.tech</a><a href="mailto:info@skillbridgeacademy.tech">info@skillbridgeacademy.tech</a></div>
         </div>
         <div className="footer-bottom section-wrap">
