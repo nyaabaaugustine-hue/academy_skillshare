@@ -14,6 +14,13 @@ const PROMPTS = [
   { type: "quiz", text: "Quick quiz: What does CSS control on a webpage?" },
 ];
 
+const QUICK_ACTIONS = [
+  { label: "Explain", href: `${HREF}?mode=explain` },
+  { label: "Debug", href: `${HREF}?mode=debug` },
+  { label: "Quiz", href: `${HREF}?mode=quiz` },
+  { label: "Plan", href: `${HREF}?mode=plan` },
+];
+
 export default function AiFloatingButton() {
   const [open, setOpen] = useState(false);
   const [idx, setIdx] = useState(0);
@@ -42,6 +49,13 @@ export default function AiFloatingButton() {
         <span className="ai-fab-bubble-type">{prompt.type === "quiz" ? "Quiz" : "Reminder"}</span>
         <p>{prompt.text}</p>
         <a href={HREF} className="ai-fab-bubble-cta">{prompt.type === "quiz" ? "Answer with AI" : "Open AI Tutor"}</a>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8 }}>
+          {QUICK_ACTIONS.map((a) => (
+            <a key={a.label} href={a.href} style={{ fontSize: 11, padding: "4px 8px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.25)", textDecoration: "none", color: "inherit", background: "rgba(255,255,255,0.06)" }}>
+              {a.label}
+            </a>
+          ))}
+        </div>
       </div>
 
       <a

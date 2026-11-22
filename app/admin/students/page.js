@@ -213,7 +213,7 @@ export default async function AdminStudentsPage({ searchParams }) {
       <section className="admin-panel">
         <div className="admin-panel-head">
           <h2>Students ({students.length})</h2>
-          <a className="admin-text-link" href="https://academy-skillshare.vercel.app/app/index.html?v=2" target="_blank" rel="noreferrer">
+          <a className="admin-text-link" href="https://www.skillbridgeacademy.tech/app/index.html?v=2" target="_blank" rel="noreferrer">
             Open learner app ↗
           </a>
         </div>

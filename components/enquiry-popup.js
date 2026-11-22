@@ -2,6 +2,9 @@
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
+import TurnstileWidget from "./turnstile-widget";
+import { cloudflarePublicConfig } from "../lib/cloudflare/public-config";
+
 const TYPES = [
   "General enquiry",
   "Programmes and courses",
@@ -218,6 +221,8 @@ export default function EnquiryButton({
                   {programme ? (
                     <input type="hidden" name="programme" value={programme} />
                   ) : null}
+
+                  <TurnstileWidget siteKey={cloudflarePublicConfig().turnstileSiteKey} action="contact" />
 
                   {status === "error" ? (
                     <p className="form-note form-note-error form-field-wide" role="alert">

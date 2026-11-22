@@ -11,6 +11,7 @@ const links = [
   { href: "/admin/news", label: "News", icon: "▤" },
   { href: "/admin/team", label: "Team", icon: "♧" },
   { href: "/admin/apps", label: "PWA apps", icon: "▣" },
+  { href: "/admin/cloudflare", label: "Cloudflare", icon: "CF" },
   { href: "/admin/ai", label: "AI tools", icon: "✦" },
 ];
 

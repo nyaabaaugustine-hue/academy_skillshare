@@ -5,6 +5,8 @@ import HomeHero from "../components/home-hero";
 import EnquiryButton from "../components/enquiry-popup";
 import { getFeaturedCourse, getFeaturedNews, getTeamMembers } from "../lib/content";
 import { learnerAuthUrl } from "../lib/learner-app-url";
+import { cloudflarePublicConfig } from "../lib/cloudflare/public-config";
+import TurnstileWidget from "../components/turnstile-widget";
 
 const programmes = [
   {
@@ -441,6 +443,7 @@ export default async function Home({ searchParams }) {
                 <textarea id="school-message" name="message" rows="3" />
               </div>
               <div className="form-field-wide">
+                <TurnstileWidget siteKey={cloudflarePublicConfig().turnstileSiteKey} action="school-enquiry" />
                 <button className="button button-primary school-submit" type="submit">Submit school enquiry <span aria-hidden="true" className="arrow">↗</span></button>
                 <p className="form-note">
                   Your enquiry will be sent to our team. For help, contact{" "}

@@ -1,5 +1,6 @@
 import "./globals.css";
 import AiFloatingButton from "./components/AiFloatingButton";
+import { cloudflarePublicConfig } from "../lib/cloudflare/public-config";
 
 export const metadata = {
   title: "SkillBridge | Learn Today. Innovate Tomorrow.",
@@ -21,6 +22,13 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning>
         {children}
         <AiFloatingButton />
+        {cloudflarePublicConfig().analyticsToken ? (
+          <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={JSON.stringify({ token: cloudflarePublicConfig().analyticsToken })}
+          />
+        ) : null}
       </body>
     </html>
   );

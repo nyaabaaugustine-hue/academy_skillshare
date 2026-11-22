@@ -112,7 +112,7 @@ create index if not exists learners_stage_idx on learners (stage, created_at des
 create index if not exists learners_email_idx on learners (email);
 
 -- LMS platform accounts. These tables belong to the learner app
--- (academy-skillshare.vercel.app/app) and are created here so a fresh database
+-- (https://www.skillbridgeacademy.tech/app/) and are created here so a fresh database
 -- has them; on the live database they already exist and these are no-ops.
 -- Sign-in accounts live in neon_auth."user", which Neon Auth manages.
 create table if not exists app_users (

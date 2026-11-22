@@ -2,6 +2,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { isAdmin } from "../../../lib/admin-auth";
+import { cloudflarePublicConfig } from "../../../lib/cloudflare/public-config";
+import TurnstileWidget from "../../../components/turnstile-widget";
 
 export const metadata = { title: "Admin sign in — SkillBridge" };
 
@@ -31,6 +33,11 @@ export default async function AdminLoginPage({ searchParams }) {
           That email and password did not match. Check both and try again.
         </p>
       ) : null}
+      {error === "turnstile" ? (
+        <p className="admin-alert admin-alert-error" role="alert">
+          Bot verification failed. Please try again.
+        </p>
+      ) : null}
 
       <form action="/api/admin/login" method="post" className="admin-form admin-login-form">
         <input type="hidden" name="next" value={next} />
@@ -55,6 +62,7 @@ export default async function AdminLoginPage({ searchParams }) {
             required
           />
         </label>
+        <TurnstileWidget siteKey={cloudflarePublicConfig().turnstileSiteKey} action="admin-login" />
         <button type="submit" className="admin-button admin-button-primary admin-login-submit">
           Sign in to the console <span aria-hidden="true">→</span>
         </button>

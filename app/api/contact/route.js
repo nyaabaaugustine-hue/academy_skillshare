@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { verifyTurnstile } from "../../../lib/cloudflare/turnstile";
+
 /**
  * Public contact popup. Forwards to the same Formspree form the school-enquiry
  * route uses (found in app/api/enquiries/route.js), but answers with JSON so
@@ -16,6 +18,14 @@ export async function POST(request) {
     form = await request.formData();
   } catch {
     return NextResponse.json({ error: "That request could not be read." }, { status: 400 });
+  }
+
+  const turnstile = await verifyTurnstile(request, form.get("cf-turnstile-response"));
+  if (!turnstile.ok) {
+    return NextResponse.json(
+      { error: "Bot verification failed. Please try again." },
+      { status: 403 },
+    );
   }
 
   const enquiry = {

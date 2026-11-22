@@ -96,12 +96,20 @@ async function getStudentRecords(userId: string) {
   }
 }
 
+const TUTOR_MODE_DIRECTIVES: Record<string, string> = {
+  explain: "Mode: Explain. Explain clearly with simple steps, examples, and best practices.",
+  debug: "Mode: Debug. Identify likely cause, explain why, provide a fix, and prevention tips.",
+  quiz: "Mode: Quiz. Ask one question at a time, adapt difficulty, and explain answers after the student responds.",
+  plan: "Mode: Study Plan. Create a practical, personalized study plan with small milestones and next actions.",
+  review: "Mode: Code Review. Review for correctness, readability, security, performance, and best practices; give actionable feedback.",
+  project: "Mode: Project Coach. Break work into milestones, give architecture tips, and suggest next steps.",
+};
+
 async function enrichTutorBody(request: Request, target: string, body: ArrayBuffer): Promise<ArrayBuffer> {
   if (!target.startsWith("v1/tutor/chat") && target !== "v1/tutor/vision") return body;
   const contentType = (request.headers.get("content-type") || "").toLowerCase();
   if (!contentType.includes("application/json")) return body;
   const userId = decodeJwtSub(request);
-  if (!userId) return body;
   let parsed: any;
   try {
     parsed = JSON.parse(new TextDecoder().decode(body));
@@ -109,20 +117,28 @@ async function enrichTutorBody(request: Request, target: string, body: ArrayBuff
     return body;
   }
   if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return body;
-  const records = await getStudentRecords(userId);
-  if (records) {
-    parsed.studentRecords = records;
-    parsed.studentContext = {
-      ...(parsed.studentContext && typeof parsed.studentContext === "object" ? parsed.studentContext : {}),
-      hasPlatformRecords: true,
-      recordsSummary: "Student platform records attached server-side for personalized tutoring.",
-    };
+
+  const mode = String(parsed.mode || parsed.tutorMode || "").toLowerCase().trim();
+  const modeDirective = TUTOR_MODE_DIRECTIVES[mode];
+
+  if (userId) {
+    const records = await getStudentRecords(userId);
+    if (records) {
+      parsed.studentRecords = records;
+      parsed.studentContext = {
+        ...(parsed.studentContext && typeof parsed.studentContext === "object" ? parsed.studentContext : {}),
+        hasPlatformRecords: true,
+        recordsSummary: "Student platform records attached server-side for personalized tutoring.",
+      };
+    }
   }
+
   parsed.systemDirectives = [
     ...(Array.isArray(parsed.systemDirectives) ? parsed.systemDirectives : []),
     "Use the student's attached records when relevant. Be personalized, accurate, and supportive.",
     "Assume strong knowledge across all programming languages, computer science, software engineering, debugging, algorithms, data structures, architecture, and best practices.",
     "When teaching, give clear explanations, best practices, common pitfalls, and practical next steps.",
+    ...(modeDirective ? [modeDirective] : []),
   ];
   return new TextEncoder().encode(JSON.stringify(parsed)).buffer;
 }

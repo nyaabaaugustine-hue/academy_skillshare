@@ -8,6 +8,7 @@ import {
   normaliseAdminEmail,
 } from "../../../../lib/admin-auth";
 import { clientKey, rateLimit } from "../../../../lib/server/rate-limit";
+import { verifyTurnstile } from "../../../../lib/cloudflare/turnstile";
 
 /** Only allow redirects back into the admin area, never an external URL. */
 function safeNext(value) {
@@ -30,6 +31,14 @@ export async function POST(request) {
   if (!limit.ok) {
     return NextResponse.redirect(
       new URL("/admin/login?error=rate", request.url),
+      303,
+    );
+  }
+
+  const turnstile = await verifyTurnstile(request, form.get("cf-turnstile-response"));
+  if (!turnstile.ok) {
+    return NextResponse.redirect(
+      new URL("/admin/login?error=turnstile", request.url),
       303,
     );
   }

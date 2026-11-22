@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages, @next/next/no-img-element */
 
-const appUrl = (process.env.NEXT_PUBLIC_APP_URL || "https://academy-skillshare.vercel.app").replace(/\/$/, "");
+const appUrl = (process.env.NEXT_PUBLIC_APP_URL || "https://www.skillbridgeacademy.tech").replace(/\/$/, "");
 const pwaUrl = `${appUrl}/app/index.html?v=2`;
 
 function Brand() {

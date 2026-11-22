@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { db } from "../../../lib/db";
+import { verifyTurnstile } from "../../../lib/cloudflare/turnstile";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/maeodqly";
 
@@ -15,6 +16,15 @@ const text = (form, key, max = 400) =>
  */
 export async function POST(request) {
   const form = await request.formData();
+
+  const turnstile = await verifyTurnstile(request, form.get("cf-turnstile-response"));
+  if (!turnstile.ok) {
+    return NextResponse.redirect(
+      new URL("/?school=error#school-registration", request.url),
+      303,
+    );
+  }
+
   const enquiry = {
     school_name: text(form, "school_name", 160),
     school_location: text(form, "school_location", 160),
