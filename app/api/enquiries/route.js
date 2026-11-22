@@ -74,10 +74,13 @@ export async function POST(request) {
   }).catch(() => {});
 
   await sendSlackNotification({
-    text:
-      ":school: New school registration enquiry received" +
-      (enquiry.programme_interest ? ` (${enquiry.programme_interest})` : "") +
-      ". Review in SkillBridge admin.",
+    event: "school_enquiry",
+    title: "New school registration enquiry",
+    details: [
+      `Programme: ${enquiry.programme_interest || "Not specified"}`,
+      "Source: school registration form",
+    ],
+    adminPath: "/admin/enquiries",
   });
 
   return NextResponse.redirect(

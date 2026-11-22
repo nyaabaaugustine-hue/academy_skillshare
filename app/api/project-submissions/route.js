@@ -59,7 +59,10 @@ export async function POST(request) {
         (${learnerAlias}, ${ageGroup}, ${guardianName}, ${guardianEmail}, ${projectTitle}, ${skill}, ${description}, ${projectUrl}, ${imageUrl}, ${consentPublish}, ${consentGuardian}, ${"new"})
     `;
     await sendSlackNotification({
-      text: `New project submission: "${projectTitle}" (${skill || "skill not specified"})`,
+      event: "project_submission",
+      title: "New learner project submission",
+      details: [`Project: ${projectTitle}`, `Skill: ${skill || "Not specified"}`, "Status: awaiting review"],
+      adminPath: "/admin/showcase",
     }).catch(() => {});
     return NextResponse.json({ ok: true });
   } catch (e) {

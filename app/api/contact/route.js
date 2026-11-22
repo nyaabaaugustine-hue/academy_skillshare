@@ -70,9 +70,10 @@ export async function POST(request) {
   }
 
   await sendSlackNotification({
-    text:
-      `:inbox_tray: New website contact enquiry received (${enquiry.enquiry_type || "General enquiry"}). ` +
-      "Review in SkillBridge admin.",
+    event: "contact_enquiry",
+    title: "New website contact enquiry",
+    details: [`Type: ${enquiry.enquiry_type || "General enquiry"}`, "Source: website contact form"],
+    adminPath: "/admin/enquiries",
   });
 
   return NextResponse.json({ ok: true });

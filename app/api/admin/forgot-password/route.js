@@ -11,10 +11,11 @@ function isValidEmail(value) {
 
 async function notifyAdminResetRequest() {
   await sendSlackNotification({
-    text:
-      ":key: SkillBridge admin password reset assistance requested. " +
-      "If this was expected, update ADMIN_PASSWORD in the deployment environment. " +
-      `Time: ${new Date().toISOString()}`,
+    event: "admin_password_reset_requested",
+    title: "Admin password reset assistance requested",
+    details: ["Action: verify request and rotate ADMIN_PASSWORD in deployment env if expected"],
+    adminPath: "/admin",
+    severity: "warning",
   });
 }
 

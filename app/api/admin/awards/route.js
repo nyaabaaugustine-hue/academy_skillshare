@@ -4,6 +4,7 @@ import { assertAdmin } from "../../../../lib/admin-auth";
 import { db } from "../../../../lib/db";
 import { createAward, createCertificateAwardsFromLeaderboard } from "../../../../lib/awards";
 import { listLeaderboard } from "../../../../lib/server/leaderboard";
+import { sendSlackNotification } from "../../../../lib/notifications/slack";
 
 const text = (form, key, max = 400) => String(form.get(key) ?? "").trim().slice(0, max);
 const back = (request, query) => NextResponse.redirect(new URL(`/admin/awards${query}`, request.url), 303);
@@ -18,6 +19,14 @@ export async function POST(request) {
     if (intent === "generate_from_leaderboard") {
       const entries = await listLeaderboard(50).catch(() => []);
       const created = await createCertificateAwardsFromLeaderboard(entries);
+      if (created > 0) {
+        await sendSlackNotification({
+          event: "awards_generated",
+          title: "Leaderboard certificates generated",
+          details: [`Created: ${created} certificate(s)`, "Source: admin awards dashboard"],
+          adminPath: "/admin/awards",
+        }).catch(() => {});
+      }
       return back(request, `?saved=generated&count=${created}`);
     }
 
@@ -42,12 +51,13 @@ export async function POST(request) {
       const learnerName = text(form, "learner_name", 80);
       const awardTitle = text(form, "award_title", 160);
       if (!learnerName || !awardTitle) return back(request, "?error=required");
+      const awardType = text(form, "award_type", 40) || "certificate";
       await createAward({
         learnerName,
         learnerAlias: learnerName,
         guardianName: text(form, "guardian_name", 120),
         guardianEmail: text(form, "guardian_email", 200),
-        awardType: text(form, "award_type", 40) || "certificate",
+        awardType,
         awardTitle,
         awardDetail: text(form, "award_detail", 500),
         milestone: text(form, "milestone", 120),
@@ -56,6 +66,12 @@ export async function POST(request) {
         consentVerified: form.get("consent_verified") === "on",
         publicShare: form.get("public_share") === "on",
       });
+      await sendSlackNotification({
+        event: "award_created",
+        title: "New award/certificate recorded",
+        details: [`Type: ${awardType}`, `Title: ${awardTitle}`],
+        adminPath: "/admin/awards",
+      }).catch(() => {});
       return back(request, "?saved=created");
     }
 

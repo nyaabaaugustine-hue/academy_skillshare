@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { db } from "../../../lib/db";
 import { verifyTurnstile } from "../../../lib/cloudflare/turnstile";
+import { sendSlackNotification } from "../../../lib/notifications/slack";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -28,6 +29,13 @@ export async function POST(request) {
       insert into project_reports (project_id, project_title, reason, details, reporter_email, status)
       values (${Number.isInteger(projectId) && projectId > 0 ? projectId : null}, ${projectTitle}, ${reason}, ${details}, ${reporterEmail}, ${"new"})
     `;
+    await sendSlackNotification({
+      event: "project_report",
+      title: "New project report received",
+      details: [`Project: ${projectTitle || "Unknown project"}`, `Reason: ${reason}`, "Status: new"],
+      adminPath: "/admin/showcase",
+      severity: "warning",
+    }).catch(() => {});
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error("project report failed", e);
