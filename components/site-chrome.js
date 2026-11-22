@@ -25,9 +25,9 @@ export function SiteHeader() {
           <a href="/">Home</a>
           <a href="/about">About us</a>
           <a href="/programmes">Programmes</a>
+          <a href="/leaderboard">Leaderboard</a>
+          <a href="/rewards">Rewards</a>
           <a href="/team">Our team</a>
-          <a href="/#student-hub">Student hub</a>
-          <a href="/#news">News &amp; impact</a>
           <a href="/contact">Contact</a>
         </nav>
         <div className="auth-actions">
@@ -38,8 +38,8 @@ export function SiteHeader() {
           <summary aria-label="Open navigation"><span></span><span></span><span></span></summary>
           <nav aria-label="Mobile navigation">
             <a href="/">Home</a><a href="/about">About us</a>
-            <a href="/programmes">Programmes</a><a href="/team">Our team</a>
-            <a href="/#student-hub">Student hub</a><a href="/#news">News &amp; impact</a>
+            <a href="/programmes">Programmes</a><a href="/leaderboard">Leaderboard</a>
+            <a href="/rewards">Rewards</a><a href="/team">Our team</a>
             <a href="/contact">Contact</a>
             <a href={pwaUrl}>Register</a>
             <a href={pwaUrl}>Login</a>
@@ -62,7 +62,7 @@ export function SiteFooter() {
             <a href="/contact" aria-label="LinkedIn">in</a><a href="/contact" aria-label="YouTube">▶</a>
           </div>
         </div>
-        <div><h4>Explore</h4><a href="/about">About us</a><a href="/programmes">Our programmes</a><a href="/team">Our team</a><a href="/#news">News &amp; impact</a></div>
+        <div><h4>Explore</h4><a href="/about">About us</a><a href="/programmes">Our programmes</a><a href="/leaderboard">Leaderboard</a><a href="/rewards">Rewards</a><a href="/team">Our team</a></div>
         <div><h4>Get involved</h4><a href="/contact">Volunteer</a><a href="/contact">Partner with us</a><a href="/contact">Donate</a><a href="/contact">Support a school</a></div>
         <div><h4>Contact</h4><p>🇧🇪 Belgium · 🇺🇸 USA · 🇬🇭 Ghana</p><a href="mailto:support@skillbridgeacademy.tech">support@skillbridgeacademy.tech</a><a href="mailto:info@skillbridgeacademy.tech">info@skillbridgeacademy.tech</a></div>
       </div>
