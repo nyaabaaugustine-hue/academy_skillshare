@@ -407,3 +407,21 @@ button.enquiry-plain{border:0;background:none;padding:0;color:inherit;font:inher
 @media(max-width:930px){.upcoming-heading{flex-direction:column;align-items:flex-start}}
 @media(max-width:650px){.upcoming-section{padding:60px 0}.upcoming-heading{margin-bottom:24px}.upcoming-marquee:before,.upcoming-marquee:after{width:28px}.upcoming-track{gap:16px;padding:4px 16px}.upcoming-slide{width:min(320px,84vw)}.upcoming-card-body{padding:18px}.upcoming-card-body h3{font-size:20px}}
 @media(prefers-reduced-motion:reduce){.upcoming-track,.upcoming-card,.upcoming-card-media img{transition:none!important;animation:none!important;transform:none!important}}
+
+/* Learner auth pages ------------------------------------------------------ */
+.auth-page{padding:72px 20px 88px;background:linear-gradient(180deg,#f8fbff 0%,#eef4fb 100%);min-height:calc(100vh - 180px)}
+.auth-shell{max-width:560px;margin:0 auto}
+.auth-card{background:#fff;border:1px solid rgba(16,40,79,.08);border-radius:20px;padding:36px;box-shadow:0 18px 50px rgba(12,48,96,.06)}
+.auth-card h1{font:800 clamp(30px,4vw,40px)/1.12 'Manrope',sans-serif;letter-spacing:-1.2px;color:var(--navy);margin:14px 0 12px}
+.auth-card h2{font:700 24px/1.25 'Manrope',sans-serif;color:var(--navy);margin:14px 0 10px;letter-spacing:-.4px}
+.auth-copy{font-size:14px;line-height:1.75;color:var(--muted);margin:0 0 24px}
+.auth-form{gap:18px}
+.auth-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:4px}
+.auth-actions .button{min-width:180px}
+.auth-success{text-align:left;padding:8px 0}
+.auth-success p{font-size:14px;line-height:1.75;color:var(--muted);margin:0 0 20px}
+.auth-success .button{margin-top:4px}
+.auth-label-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.auth-inline-link{font-size:11px;font-weight:700;color:var(--blue)}
+.auth-inline-link:hover{color:#0a45a3;text-decoration:underline}
+@media(max-width:650px){.auth-page{padding:48px 16px 64px}.auth-card{padding:24px;border-radius:16px}.auth-actions .button{width:100%}}
