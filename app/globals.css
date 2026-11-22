@@ -101,7 +101,7 @@ a{color:inherit;text-decoration:none}
 .phone-screenshot{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#fff}
 .phone-home-indicator{position:absolute;bottom:3px;left:50%;width:36px;height:4px;transform:translateX(-50%);border-radius:6px;background:#10284f}
 .phone-caption{font-size:8px;font-weight:800;letter-spacing:1.2px;color:#8b9bb1}
-.get-involved-section{background:linear-gradient(180deg,#f4f8fe 0%,#eef4fb 100%);padding:84px 0}
+.get-involved-section{position:relative;padding:84px 0;background:linear-gradient(180deg,rgba(244,248,254,.88) 0%,rgba(238,244,251,.92) 100%),url('https://res.cloudinary.com/z43ds8bn/image/upload/v1795339839/flat-design-colorful-mosaic-pattern_23-2149035606.jpg') center/cover no-repeat}
 .involved-heading{text-align:center;max-width:660px;margin:0 auto 40px}
 .involved-heading .eyebrow{justify-content:center}
 .involved-heading h2{font:800 clamp(30px,3.4vw,42px)/1.12 'Manrope',sans-serif;letter-spacing:-1.4px;margin:16px 0;color:var(--navy)}
