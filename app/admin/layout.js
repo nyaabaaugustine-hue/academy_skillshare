@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { getAdminSession } from "../../lib/admin-auth";
 import AdminNav from "./admin-nav";
 import "./admin.css";
@@ -29,7 +30,7 @@ export default async function AdminLayout({ children }) {
               <li>Track learners through the pipeline</li>
               <li>Publish courses, news and team profiles</li>
             </ul>
-            <small>Authorised staff only · 🇧🇪 Belgium · 🇺🇸 USA · 🇬🇭 Ghana</small>
+            <small className="location-flags-inline">Authorised staff only · <span><img className="location-flag" src="https://flagcdn.com/w40/be.png" alt="Belgium flag" width={20} height={15} loading="lazy" />Belgium</span><span><img className="location-flag" src="https://flagcdn.com/w40/us.png" alt="USA flag" width={20} height={15} loading="lazy" />USA</span><span><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" />Ghana</span></small>
           </aside>
           <div className="admin-gate-card">{children}</div>
         </div>

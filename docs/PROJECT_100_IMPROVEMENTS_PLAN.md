@@ -8,6 +8,18 @@ Track and implement 100 improvements for the SkillBridge Academy website/platfor
 - `[~]` In progress
 - `[x]` Done
 
+## Latest Delivery Plan (Leaderboard, Rewards, Showcase)
+- [x] Add public `/leaderboard` using existing shared leaderboard data.
+- [x] Add `/rewards` with child-friendly prizes, milestones, Python study program, and project showcase.
+- [x] Add child-safe prize/safety rules and guardian-consent messaging.
+- [x] Add project submission form (`/api/project-submissions`) with guardian/publish consent.
+- [x] Add admin showcase review/publish flow (`/admin/showcase`, `/api/admin/showcase`).
+- [x] Add homepage Top Learners + Featured Project spotlight.
+- [x] Add shareable certificate/badge awards with public certificate pages, OG metadata, and social share actions (`/certificates/[token]`, `/admin/awards`).
+- [x] Add automatic milestone certificate generation from leaderboard progress (admin action).
+- [x] Add guardian consent verification flags and private/public award tracking in admin award log.
+- [x] Add project moderation checklist, report button/API, admin report review, and public-field PII safeguards.
+
 ## 1) Homepage & Public UX
 - [x] 1. Improve “Be part of the change” section — premium cards, clearer CTAs, direct enquiry actions.
 - [ ] 2. Add CTA destinations for involvement cards (dedicated pages/flows where needed).

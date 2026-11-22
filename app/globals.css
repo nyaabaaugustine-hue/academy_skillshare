@@ -482,3 +482,67 @@ button.enquiry-plain{border:0;background:none;padding:0;color:inherit;font:inher
 .python-builds h3{margin:0 0 16px;font:700 22px/1.3 'Manrope',sans-serif;color:var(--navy)}
 .python-builds-grid{display:flex;flex-wrap:wrap;gap:10px}
 .python-build-chip{display:inline-flex;padding:10px 14px;border-radius:999px;background:#f4f8fe;border:1px solid #dce7f5;font-size:13px;font-weight:600;color:var(--navy)}
+.submission-form{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px}
+.submission-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.submission-wide{grid-column:1/-1}
+.submission-form .form-field{display:flex;flex-direction:column;gap:6px}
+.submission-form .form-field span{font-size:12px;font-weight:700;color:var(--navy)}
+.submission-form input,.submission-form textarea{width:100%;padding:12px 13px;border:1px solid #d7e1ee;border-radius:10px;font:inherit;color:var(--ink);background:#fff}
+.submission-form input:focus,.submission-form textarea:focus{outline:2px solid rgba(7,84,200,.18);border-color:#8eb1e4}
+.submission-consents{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.submission-form .admin-check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.5}
+.submission-form .admin-check input{width:16px;height:16px;margin-top:2px}
+.submission-form .admin-alert{margin:12px 0;padding:12px 14px;border-radius:10px;font-size:13px}
+.submission-form .admin-alert-ok{background:#ecfdf3;color:#166534;border:1px solid #b7e4c7}
+.submission-form .admin-alert-error{background:#fff1f2;color:#991b1b;border:1px solid #fecdd3}
+@media(max-width:650px){.submission-grid{grid-template-columns:1fr}.submission-wide{grid-column:auto}}
+.spotlight-section{padding:72px 0}
+.spotlight-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.spotlight-grid h2{font:800 clamp(28px,3vw,38px)/1.15 'Manrope',sans-serif;letter-spacing:-1.2px;margin:14px 0;color:var(--navy)}
+.spotlight-grid h2 span{color:var(--blue)}
+.spotlight-copy{color:var(--muted);line-height:1.7;margin:0 0 18px;max-width:520px}
+.spotlight-learners{display:flex;flex-direction:column;gap:12px;margin:0 0 18px}
+.spotlight-learner{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.spotlight-rank{font-size:20px;width:34px;text-align:center}
+.spotlight-learner img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#e8eef7}
+.spotlight-learner b{display:block;font-size:14px;color:var(--navy)}
+.spotlight-learner small{color:var(--muted);font-size:12px}
+.spotlight-project .showcase-card,.spotlight-project .showcase-empty{margin-top:18px}
+@media(max-width:930px){.spotlight-grid{grid-template-columns:1fr}}
+.leaderboard-hero{background-image:url('https://res.cloudinary.com/z43ds8bn/image/upload/v1795341336/Ghanaian_Space_Learning_Banner.png');background-position:center;background-size:cover}
+.leaderboard-hero:before{background:linear-gradient(90deg,rgba(4,27,67,.88) 0%,rgba(4,35,82,.72) 45%,rgba(4,35,82,.45) 100%)}
+.location-flag{display:inline-block;width:20px;height:15px;object-fit:cover;border-radius:3px;vertical-align:-2px;margin-right:6px;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.location-flags-inline{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}
+.location-flags-inline .location-flag{margin-right:4px}
+.hero-share-wrap{margin-top:18px}
+.share-actions{display:flex;flex-direction:column;gap:8px}
+.share-actions-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.share-actions-buttons{display:flex;flex-wrap:wrap;gap:8px}
+.share-action-btn{display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;font:600 12px/1 inherit;cursor:pointer;text-decoration:none}
+.share-action-btn:hover{background:rgba(255,255,255,.16)}
+.share-actions:not(.hero-share-wrap .share-actions) .share-actions-label,.inner-content .share-actions-label{color:var(--muted)}
+.inner-content .share-action-btn,.certificate-side .share-action-btn{color:var(--navy);background:#f4f8fe;border-color:#d7e2f0}
+.inner-content .share-action-btn:hover,.certificate-side .share-action-btn:hover{background:#e8f1ff}
+.report-project{margin-top:12px}
+.report-project-toggle{background:none;border:0;padding:0;color:#8a3a3a;font:600 12px/1 inherit;cursor:pointer;text-decoration:underline}
+.report-project-form{margin-top:10px;display:flex;flex-direction:column;gap:10px;padding:14px;border:1px solid #f0d6d6;border-radius:12px;background:#fff8f8}
+.report-project-form label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:600;color:var(--navy)}
+.report-project-form input,.report-project-form select,.report-project-form textarea{padding:10px 11px;border:1px solid #d7e1ee;border-radius:8px;font:inherit}
+.certificate-layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:start}
+.certificate-card{background:linear-gradient(180deg,#fff 0%,#f7fbff 100%);border:1px solid #dce8f7;border-radius:24px;padding:36px;box-shadow:0 18px 50px rgba(10,35,80,.08);position:relative;overflow:hidden}
+.certificate-card:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(7,84,200,.06),transparent 45%,rgba(24,178,122,.08));pointer-events:none}
+.certificate-badge{display:inline-flex;padding:8px 14px;border-radius:999px;background:#071f49;color:#fff;font-size:12px;font-weight:700;letter-spacing:.05em}
+.certificate-kicker{margin:22px 0 8px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.certificate-card h2{margin:0;font:800 clamp(34px,5vw,56px)/1.05 'Manrope',sans-serif;color:var(--navy);letter-spacing:-1.8px}
+.certificate-award{margin:16px 0 10px;font:700 24px/1.3 'Manrope',sans-serif;color:#0b4aa8}
+.certificate-detail{max-width:680px;color:var(--muted);font-size:16px;line-height:1.7;margin:0}
+.certificate-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:28px 0;padding:20px 0;border-top:1px solid #dce8f7;border-bottom:1px solid #dce8f7}
+.certificate-meta small{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.certificate-meta b{color:var(--navy);font-size:14px;text-transform:capitalize}
+.certificate-footer{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:13px;font-weight:600}
+.certificate-side{display:flex;flex-direction:column;gap:16px}
+.certificate-hero{min-height:360px}
+.button-ghost{background:#fff;color:var(--navy);border:1px solid #d7e2f0}
+.button-ghost:hover{background:#f4f8fe}
+@media(max-width:930px){.certificate-layout{grid-template-columns:1fr}}
+@media(max-width:650px){.certificate-card{padding:24px}.certificate-meta{grid-template-columns:1fr}.certificate-footer{flex-direction:column}}

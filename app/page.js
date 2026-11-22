@@ -3,9 +3,13 @@
 import { SiteFooter, SiteHeader } from "../components/site-chrome";
 import HomeHero from "../components/home-hero";
 import EnquiryButton from "../components/enquiry-popup";
-import { getFeaturedCourse, getFeaturedNews, getTeamMembers, getUpcomingTrainings } from "../lib/content";
+import ShareActions from "../components/share-actions";
+import ReportProjectButton from "../components/report-project-button";
+import { getFeaturedCourse, getFeaturedNews, getTeamMembers, getUpcomingTrainings, getProjectShowcase } from "../lib/content";
+import { listLeaderboard } from "../lib/server/leaderboard";
 import { learnerAuthUrl } from "../lib/learner-app-url";
 import { cloudflarePublicConfig } from "../lib/cloudflare/public-config";
+import { absoluteUrl } from "../lib/site-url";
 import TurnstileWidget from "../components/turnstile-widget";
 import UpcomingTrainings from "../components/upcoming-trainings";
 
@@ -97,11 +101,13 @@ function SectionEyebrow({ children }) {
 export const revalidate = 30;
 
 export default async function Home({ searchParams }) {
-  const [team, news, course, upcomingTrainings] = await Promise.all([
+  const [team, news, course, upcomingTrainings, topLearners, showcaseProjects] = await Promise.all([
     getTeamMembers(),
     getFeaturedNews(),
     getFeaturedCourse(),
     getUpcomingTrainings(),
+    listLeaderboard(3).catch(() => []),
+    getProjectShowcase().catch(() => []),
   ]);
   const params = await searchParams;
   const schoolStatus = params?.school;
@@ -483,6 +489,50 @@ export default async function Home({ searchParams }) {
                 </p>
               </div>
             </form>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-wrap spotlight-section" id="spotlight">
+        <div className="spotlight-grid">
+          <div>
+            <div className="eyebrow"><span />TOP LEARNERS</div>
+            <h2>Celebrating <span>learning progress.</span></h2>
+            <p className="spotlight-copy">Learners who show up, practice, and build skills earn their place on the leaderboard.</p>
+            <div className="spotlight-learners">
+              {topLearners.length === 0 ? (
+                <p className="admin-empty">Leaderboard rankings will appear here as learners complete steps.</p>
+              ) : topLearners.map((entry) => (
+                <div className="spotlight-learner" key={entry.id}>
+                  <span className="spotlight-rank">{entry.rank === 1 ? "🥇" : entry.rank === 2 ? "🥈" : entry.rank === 3 ? "🥉" : `#${entry.rank}`}</span>
+                  <img src={`/api/leaderboard/avatar/${encodeURIComponent(entry.id)}`} alt="" width={40} height={40} />
+                  <div><b>{entry.name}</b><small>{entry.score} pts · {entry.stepsCompleted} steps</small></div>
+                </div>
+              ))}
+            </div>
+            <a className="text-link" href="/leaderboard">View full leaderboard <span className="arrow">↗</span></a>
+          </div>
+          <div className="spotlight-project">
+            <div className="eyebrow"><span />FEATURED PROJECT</div>
+            <h2>Built by <span>young learners.</span></h2>
+            {showcaseProjects[0] ? (
+              <article className="showcase-card">
+                {showcaseProjects[0].image ? <img src={showcaseProjects[0].image} alt={showcaseProjects[0].title} loading="lazy" /> : <div className="showcase-placeholder" aria-hidden="true">{"</>"}</div>}
+                <div className="showcase-body">
+                  <small>{showcaseProjects[0].skill || "Learner project"}</small>
+                  <h3>{showcaseProjects[0].title}</h3>
+                  <p>{showcaseProjects[0].description}</p>
+                  <div className="showcase-meta"><span>{showcaseProjects[0].learner_name || "SkillBridge Learner"}</span><a href="/rewards">See rewards <span className="arrow">↗</span></a></div>
+                  <ReportProjectButton projectId={showcaseProjects[0].id} projectTitle={showcaseProjects[0].title} siteKey={cloudflarePublicConfig().turnstileSiteKey} />
+                </div>
+              </article>
+            ) : (
+              <div className="showcase-empty">
+                <h3>Your project could be here</h3>
+                <p>Build something with your Python or coding skills and get featured on SkillBridge.</p>
+                <a className="button button-primary button-small" href="/rewards#submit-project">Submit a project <span className="arrow">↗</span></a>
+              </div>
+            )}
           </div>
         </div>
       </section>

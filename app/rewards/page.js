@@ -1,11 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
 import { SiteFooter, SiteHeader } from "../../components/site-chrome";
 import EnquiryButton from "../../components/enquiry-popup";
+import ProjectSubmissionForm from "../../components/project-submission-form";
+import ShareActions from "../../components/share-actions";
+import ReportProjectButton from "../../components/report-project-button";
 import { getProjectShowcase } from "../../lib/content";
+import { cloudflarePublicConfig } from "../../lib/cloudflare/public-config";
+import { absoluteUrl } from "../../lib/site-url";
 
 export const metadata = {
   title: "Rewards & Showcase | SkillBridge Academy",
   description: "Earn recognition for learning milestones, build real projects, and get featured on SkillBridge Academy.",
+  alternates: { canonical: "/rewards" },
+  openGraph: {
+    title: "SkillBridge Rewards & Learner Showcase",
+    description: "Child-friendly prizes, certificates, Python study program, and real learner projects.",
+    url: "/rewards",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SkillBridge Rewards & Learner Showcase",
+    description: "Child-friendly prizes, certificates, Python study program, and real learner projects.",
+  },
 };
 
 export const revalidate = 60;
@@ -57,6 +74,7 @@ export default async function RewardsPage() {
   } catch {
     projects = [];
   }
+  const siteKey = cloudflarePublicConfig().turnstileSiteKey;
 
   return (
     <>
@@ -75,6 +93,9 @@ export default async function RewardsPage() {
               <EnquiryButton className="button button-glass" enquiryType="General enquiry" title="Submit a project" description="Tell us about the project you built. We’d love to review it for the SkillBridge learner showcase.">
                 Submit a project <span className="arrow">↗</span>
               </EnquiryButton>
+            </div>
+            <div className="hero-share-wrap">
+              <ShareActions url={absoluteUrl("/rewards")} text="See SkillBridge learner rewards, Python projects, and the learner showcase!" title="Share rewards" />
             </div>
           </div>
         </section>
@@ -144,6 +165,28 @@ export default async function RewardsPage() {
 
         <section className="inner-content section-wrap">
           <div className="inner-section-heading">
+            <div className="eyebrow"><span />PRIZE &amp; SAFETY RULES</div>
+            <h2>How prizes are awarded</h2>
+            <p>We keep rewards fun, fair, and child-safe. Prizes are recognition for learning effort, skill-building, and positive participation.</p>
+          </div>
+          <div className="rewards-grid">
+            <article className="reward-card"><h3>Eligibility</h3><p>Prizes are for active SkillBridge learners. Milestones are based on learning progress, practice, and approved projects.</p></article>
+            <article className="reward-card"><h3>Child safety</h3><p>We only display a learner’s first name/alias with guardian permission. No private contact details are published.</p></article>
+            <article className="reward-card"><h3>Availability</h3><p>Physical prizes (pencils, erasers, t-shirts, books, educational materials) depend on availability, sponsorship, or program campaigns.</p></article>
+          </div>
+        </section>
+
+        <section className="inner-content section-wrap" id="submit-project">
+          <div className="inner-section-heading">
+            <div className="eyebrow"><span />SUBMIT A PROJECT</div>
+            <h2>Share what you built</h2>
+            <p>Built something with Python, web, or robotics skills? Submit it for review. Approved projects can be featured on our website.</p>
+          </div>
+          <ProjectSubmissionForm siteKey={cloudflarePublicConfig().turnstileSiteKey} />
+        </section>
+
+        <section className="inner-content section-wrap">
+          <div className="inner-section-heading">
             <div className="eyebrow"><span />LEARNER PROJECT SHOWCASE</div>
             <h2>Built by SkillBridge learners</h2>
             <p>Real projects created by learners using the skills they’ve gained. This is where learning becomes visible impact.</p>
@@ -169,6 +212,7 @@ export default async function RewardsPage() {
                       <span>{p.learner_name || "SkillBridge Learner"}</span>
                       {p.project_url ? <a href={p.project_url} target="_blank" rel="noreferrer">View project ↗</a> : null}
                     </div>
+                    <ReportProjectButton projectId={p.id} projectTitle={p.title} siteKey={siteKey} />
                   </div>
                 </article>
               ))}

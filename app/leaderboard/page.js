@@ -1,10 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
 import { SiteFooter, SiteHeader } from "../../components/site-chrome";
+import ShareActions from "../../components/share-actions";
 import { listLeaderboard } from "../../lib/server/leaderboard";
+import { absoluteUrl } from "../../lib/site-url";
 
 export const metadata = {
   title: "Leaderboard | SkillBridge Academy",
   description: "See top SkillBridge learners ranked by learning progress, practice, and score.",
+  alternates: { canonical: "/leaderboard" },
+  openGraph: {
+    title: "SkillBridge Learner Leaderboard",
+    description: "Celebrate learners who show up, practice, complete steps, and build real skills.",
+    url: "/leaderboard",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SkillBridge Learner Leaderboard",
+    description: "Celebrate learners who show up, practice, complete steps, and build real skills.",
+  },
 };
 
 export const revalidate = 60;
@@ -29,7 +43,7 @@ export default async function LeaderboardPage() {
     <>
       <SiteHeader />
       <main>
-        <section className="inner-hero">
+        <section className="inner-hero leaderboard-hero">
           <div className="inner-hero-content">
             <div className="eyebrow"><span />LEARNER LEADERBOARD</div>
             <h1>See who’s leading the <em>learning journey.</em></h1>
@@ -37,6 +51,9 @@ export default async function LeaderboardPage() {
               Our leaderboard celebrates learners who show up, practice, complete steps, and build real skills.
               Every point represents progress.
             </p>
+            <div className="hero-share-wrap">
+              <ShareActions url={absoluteUrl("/leaderboard")} text="See who’s leading the learning journey on the SkillBridge Academy leaderboard!" title="Share leaderboard" />
+            </div>
           </div>
         </section>
 

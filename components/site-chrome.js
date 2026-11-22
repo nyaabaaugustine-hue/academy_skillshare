@@ -64,7 +64,7 @@ export function SiteFooter() {
         </div>
         <div><h4>Explore</h4><a href="/about">About us</a><a href="/programmes">Our programmes</a><a href="/leaderboard">Leaderboard</a><a href="/rewards">Rewards</a><a href="/team">Our team</a></div>
         <div><h4>Get involved</h4><a href="/contact">Volunteer</a><a href="/contact">Partner with us</a><a href="/contact">Donate</a><a href="/contact">Support a school</a></div>
-        <div><h4>Contact</h4><p>🇧🇪 Belgium · 🇺🇸 USA · 🇬🇭 Ghana</p><a href="mailto:support@skillbridgeacademy.tech">support@skillbridgeacademy.tech</a><a href="mailto:info@skillbridgeacademy.tech">info@skillbridgeacademy.tech</a></div>
+        <div><h4>Contact</h4><p className="location-flags-inline"><span><img className="location-flag" src="https://flagcdn.com/w40/be.png" alt="Belgium flag" width={20} height={15} loading="lazy" />Belgium</span><span><img className="location-flag" src="https://flagcdn.com/w40/us.png" alt="USA flag" width={20} height={15} loading="lazy" />USA</span><span><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" />Ghana</span></p><a href="mailto:support@skillbridgeacademy.tech">support@skillbridgeacademy.tech</a><a href="mailto:info@skillbridgeacademy.tech">info@skillbridgeacademy.tech</a></div>
       </div>
       <div className="footer-bottom section-wrap">
         <span>© {new Date().getFullYear()} SkillBridge. All rights reserved.</span>

@@ -9,6 +9,8 @@ const links = [
   { href: "/admin/students", label: "LMS students", icon: "◎" },
   { href: "/admin/lms", label: "LMS courses", icon: "▷" },
   { href: "/admin/trainings", label: "Trainings", icon: "◷" },
+  { href: "/admin/showcase", label: "Showcase", icon: "★" },
+  { href: "/admin/awards", label: "Awards", icon: "🏅" },
   { href: "/admin/news", label: "News", icon: "▤" },
   { href: "/admin/team", label: "Team", icon: "♧" },
   { href: "/admin/apps", label: "PWA apps", icon: "▣" },

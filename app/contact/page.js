@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { SiteFooter, SiteHeader } from "../../components/site-chrome";
 import EnquiryButton from "../../components/enquiry-popup";
 
@@ -32,7 +33,7 @@ export default function ContactPage() {
             <h2>We’d love to hear from you.</h2>
             <p>Start a conversation with our team and tell us how you would like to get involved.</p>
             <div className="contact-detail"><span className="contact-detail-icon">✉</span><span><small>EMAIL</small><b><a href="mailto:support@skillbridgeacademy.tech">support@skillbridgeacademy.tech</a></b><b><a href="mailto:info@skillbridgeacademy.tech">info@skillbridgeacademy.tech</a></b></span></div>
-            <div className="contact-detail"><span className="contact-detail-icon">⌖</span><span><small>LOCATIONS</small><b>🇧🇪 Belgium</b><b>🇺🇸 USA</b><b>🇬🇭 Ghana — East Legon, Accra</b></span></div>
+            <div className="contact-detail"><span className="contact-detail-icon">⌖</span><span><small>LOCATIONS</small><b><img className="location-flag" src="https://flagcdn.com/w40/be.png" alt="Belgium flag" width={20} height={15} loading="lazy" />Belgium</b><b><img className="location-flag" src="https://flagcdn.com/w40/us.png" alt="USA flag" width={20} height={15} loading="lazy" />USA</b><b><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" />Ghana — East Legon, Accra</b></span></div>
             <a className="button button-primary" href="https://www.google.com/maps/search/?api=1&query=East%20Legon%2C%20Accra" target="_blank" rel="noreferrer">Open in Google Maps <span className="arrow">↗</span></a>
           </div>
           <div className="map-frame">
@@ -43,7 +44,7 @@ export default function ContactPage() {
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
             />
-            <div className="map-caption"><span className="map-pin">⌖</span><span><b>East Legon, Accra</b><small>🇧🇪 Belgium · 🇺🇸 USA · 🇬🇭 Ghana</small></span></div>
+            <div className="map-caption"><span className="map-pin">⌖</span><span><b>East Legon, Accra</b><small className="location-flags-inline"><span><img className="location-flag" src="https://flagcdn.com/w40/be.png" alt="Belgium flag" width={20} height={15} loading="lazy" />Belgium</span><span><img className="location-flag" src="https://flagcdn.com/w40/us.png" alt="USA flag" width={20} height={15} loading="lazy" />USA</span><span><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" />Ghana</span></small></span></div>
           </div>
         </section>
       </main>
