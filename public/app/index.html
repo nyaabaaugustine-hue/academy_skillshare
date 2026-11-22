@@ -58,12 +58,29 @@
     id="sb-forgot-password"
     href="/forgot-password"
     target="_top"
-    style="position:fixed;right:18px;bottom:18px;z-index:99999;display:inline-flex;align-items:center;gap:8px;padding:11px 14px;border-radius:999px;background:#071f49;color:#fff;text-decoration:none;font:600 13px/1.2 Arial,Helvetica,sans-serif;box-shadow:0 10px 28px rgba(7,31,73,.28);border:1px solid rgba(255,255,255,.12);"
+    style="position:fixed;right:18px;bottom:18px;z-index:99999;display:none;align-items:center;gap:8px;padding:11px 14px;border-radius:999px;background:#071f49;color:#fff;text-decoration:none;font:600 13px/1.2 Arial,Helvetica,sans-serif;box-shadow:0 10px 28px rgba(7,31,73,.28);border:1px solid rgba(255,255,255,.12);"
     aria-label="Forgot password"
   >
     <span style="width:8px;height:8px;border-radius:50%;background:#42c86b;flex:0 0 8px;"></span>
     Forgot password?
   </a>
+  <script>
+    (function () {
+      var btn = document.getElementById("sb-forgot-password");
+      if (!btn) return;
+      function isAuthRoute() {
+        var h = (location.hash || "").toLowerCase();
+        var p = (location.pathname || "").toLowerCase();
+        if (!h || h === "#" || h === "#/" || h === "#/login" || h === "#/signin" || h === "#/sign-in") return true;
+        return /login|sign-?in|auth|forgot|reset|password/.test(h) || /login|sign-?in|auth|forgot|reset/.test(p);
+      }
+      function sync() { btn.style.display = isAuthRoute() ? "inline-flex" : "none"; }
+      window.addEventListener("hashchange", sync);
+      window.addEventListener("popstate", sync);
+      setInterval(sync, 800);
+      sync();
+    })();
+  </script>
 
   <script>
     if (
