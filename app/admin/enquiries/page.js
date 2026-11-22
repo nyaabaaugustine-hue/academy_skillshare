@@ -200,6 +200,12 @@ export default async function AdminEnquiriesPage({ searchParams }) {
               </form>
 
               <div className="admin-actions">
+                <a
+                  className="admin-button admin-button-quiet"
+                  href={`/admin/ai?tool=email-draft-assistant&input=${encodeURIComponent(`Draft a professional follow-up for school enquiry #${row.id} (${row.school_name}, ${row.contact_name}, status: ${row.status}). Summarize context, recommend next action, and draft a short email/WhatsApp message. Use enquiry records if available.`)}`}
+                >
+                  Draft follow-up with AI
+                </a>
                 <form action="/api/admin/enquiries" method="post">
                   <input type="hidden" name="id" value={row.id} />
                   <input type="hidden" name="intent" value="delete" />

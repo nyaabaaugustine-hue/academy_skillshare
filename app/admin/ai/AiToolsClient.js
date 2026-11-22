@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { AI_TOOL_CATEGORIES, AI_TOOLS } from "../../../lib/ai-tools-catalog";
 
 const STATUS_LABEL = { available: "Available", beta: "Beta", planned: "Planned" };
@@ -22,6 +23,17 @@ export default function AiToolsClient() {
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const toolId = searchParams.get("tool");
+    const qInput = searchParams.get("input");
+    const t = setTimeout(() => {
+      if (toolId && AI_TOOLS.some((tool) => tool.id === toolId)) setSelectedId(toolId);
+      if (qInput) setInput(qInput.slice(0, 8000));
+    }, 0);
+    return () => clearTimeout(t);
+  }, [searchParams]);
 
   const filtered = useMemo(() => {
     const qq = q.trim().toLowerCase();
