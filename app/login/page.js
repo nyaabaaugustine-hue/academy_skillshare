@@ -41,6 +41,21 @@ export default function LoginPage() {
             <p className="auth-copy">
               Sign in to continue your learning journey with SkillBridge Academy.
             </p>
+            <div className="auth-intro-video">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                preload="auto"
+                poster=""
+                aria-label="SkillBridge Academy introduction video"
+              >
+                <source src="/videos/skillbridge-intro.mp4" type="video/mp4" />
+                <source src="https://res.cloudinary.com/dx1nrew3h/video/upload/v1794677999/nnnnewww_jl1qzc.mp4" type="video/mp4" />
+              </video>
+            </div>
 
             <form className="school-form auth-form" onSubmit={onSubmit}>
               <div className="form-field form-field-wide">

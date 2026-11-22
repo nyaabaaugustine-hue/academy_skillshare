@@ -117879,7 +117879,7 @@ j=j==null?null:j.l()
 s=3
 return A.h(t.T.b(j)?j:A.dA(j,t.H),$async$m4)
 case 3:n.e=null
-m=A.b9d(A.dD("https://res.cloudinary.com/dx1nrew3h/video/upload/v1794677999/nnnnewww_jl1qzc.mp4",0,null))
+m=A.b9d(A.dD("/videos/skillbridge-intro.mp4",0,null))
 p=5
 s=8
 return A.h(J.af3(m),$async$m4)

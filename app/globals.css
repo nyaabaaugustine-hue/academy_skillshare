@@ -455,6 +455,8 @@ button.enquiry-plain{border:0;background:none;padding:0;color:inherit;font:inher
 .auth-card h1{font:800 clamp(30px,4vw,40px)/1.12 'Manrope',sans-serif;letter-spacing:-1.2px;color:var(--navy);margin:14px 0 12px}
 .auth-card h2{font:700 24px/1.25 'Manrope',sans-serif;color:var(--navy);margin:14px 0 10px;letter-spacing:-.4px}
 .auth-copy{font-size:14px;line-height:1.75;color:var(--muted);margin:0 0 24px}
+.auth-intro-video{margin:0 0 24px;border-radius:14px;overflow:hidden;background:#071f49;box-shadow:0 12px 30px rgba(7,31,73,.12);border:1px solid rgba(16,40,79,.08)}
+.auth-intro-video video{display:block;width:100%;height:auto;max-height:320px;object-fit:cover;background:#071f49}
 .auth-form{gap:18px}
 .auth-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:4px}
 .auth-actions .button{min-width:180px}
