@@ -273,9 +273,12 @@ a{color:inherit;text-decoration:none}
 .form-field input:focus,.form-field select:focus,.form-field textarea:focus{outline:2px solid #8bb5ed;outline-offset:1px;border-color:var(--blue)}
 .form-field-wide{grid-column:1/-1}
 .school-submit{width:100%}
-.form-note{font-size:10px;line-height:1.55;color:#71819a;margin:10px 0 0}
-.form-note-ok{font-size:12px;font-weight:700;color:#14805a}
-.form-note-error{font-size:12px;font-weight:700;color:#b42318}
+.form-note{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.55;color:#42556f;margin:10px 0 0;background:#f4f8fe;border:1px solid #d7e5f5}
+.form-note::before{content:"i";flex:0 0 20px;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;font-style:normal;background:#dbeafe;color:#1d5fcf;margin-top:1px}
+.form-note-ok{color:#1a5f45;background:#effaf4;border-color:#cdebd9}
+.form-note-ok::before{content:"✓";background:#d7f0e3;color:#1b7a52}
+.form-note-error{color:#7a3341;background:#fff7f7;border-color:#efd2d6}
+.form-note-error::before{content:"!";background:#fde3e6;color:#c2415a}
 @media(max-width:930px){.video-heading{gap:24px}.school-registration-grid{grid-template-columns:.85fr 1.15fr;gap:16px}.registration-form-panel{padding:23px}.registration-image{min-height:620px}}
 @media(max-width:650px){.video-section{padding:58px 0}.video-heading{grid-template-columns:1fr;gap:13px;margin-bottom:20px}.video-heading h2{font-size:31px}.school-registration-section{padding:58px 0}.school-registration-grid{grid-template-columns:1fr;gap:16px}.registration-image{min-height:340px}.registration-image-copy{left:22px;right:22px;bottom:24px}.registration-form-panel{padding:22px 18px}.school-form{grid-template-columns:1fr;gap:12px}.form-field-wide{grid-column:auto}}
 
@@ -326,9 +329,12 @@ a{color:inherit;text-decoration:none}
 .featured-waitlist[open] summary:before{content:"–"}
 .featured-waitlist>p{font-size:11px;line-height:1.6;color:#b9cfe9;margin:10px 0 14px}
 .featured-waitlist .school-form{padding:18px;border-radius:10px;background:#fff;color:var(--ink)}
-.featured-waitlist .form-note{color:#71819a}
-.featured-course .form-note-ok{color:#8ff0b6;font-size:11px;margin:0 0 14px}
-.featured-course .form-note-error{color:#ffb4b4;font-size:11px;margin:0 0 14px}
+.featured-waitlist .form-note{color:#c9d8ec;background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12)}
+.featured-waitlist .form-note::before{background:rgba(255,255,255,.14);color:#fff}
+.featured-course .form-note-ok{color:#c8f2da;font-size:12px;margin:0 0 14px;background:rgba(24,178,122,.12);border-color:rgba(24,178,122,.28)}
+.featured-course .form-note-ok::before{background:rgba(24,178,122,.22);color:#8ff0b6}
+.featured-course .form-note-error{color:#ffd7dd;font-size:12px;margin:0 0 14px;background:rgba(194,65,90,.14);border-color:rgba(255,180,180,.22)}
+.featured-course .form-note-error::before{background:rgba(194,65,90,.22);color:#ffb4b4}
 @media(max-width:1100px){.featured-grid{gap:32px}.featured-media{min-height:510px}}
 @media(max-width:930px){.featured-grid{grid-template-columns:1fr;gap:26px}.featured-media{min-height:430px}}
 @media(max-width:650px){.featured-course{padding:60px 0}.featured-copy h2{font-size:32px;letter-spacing:-1.2px}.featured-facts{grid-template-columns:1fr 1fr}.featured-outcomes{grid-template-columns:1fr}.featured-media{min-height:390px}.featured-media-meta{grid-template-columns:1fr 1fr;gap:12px}.featured-media-meta strong{font-size:12px}.featured-cta-actions{flex-direction:column}.featured-cta-actions .button{width:100%}.featured-waitlist .school-form{padding:14px}}
