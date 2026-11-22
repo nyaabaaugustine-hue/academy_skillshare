@@ -378,6 +378,10 @@ export default async function Home({ searchParams }) {
               <div className="phone-home-indicator" />
             </div>
             <span className="phone-caption">SKILLBRIDGE APP PREVIEW</span>
+            <div className="hero-actions" style={{ justifyContent: "center", marginTop: 14, gap: 10, flexWrap: "wrap" }}>
+              <a className="button button-primary button-small" href="/downloads/skillsbridge-1.0.0-beta.apk" download>Download for Android</a>
+              <a className="button button-glass button-small" href="/app/index.html?v=2">Install on iOS / PWA</a>
+            </div>
           </div>
         </div>
       </section>
