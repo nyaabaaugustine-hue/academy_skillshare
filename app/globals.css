@@ -281,8 +281,11 @@ a{color:inherit;text-decoration:none}
 
 /* Featured course ---------------------------------------------------------- */
 .featured-course{padding:92px 0;background:radial-gradient(900px 520px at 88% -10%,rgba(66,200,107,.18),transparent 62%),linear-gradient(160deg,#071f49 0%,#061a3d 100%);color:#fff;position:relative;overflow:hidden}
-.featured-course:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:72px 100%;opacity:.45;pointer-events:none}
-.featured-course .section-wrap{position:relative}
+.featured-course-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.featured-course-bg video{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.85) brightness(.45)}
+.featured-course-bg-overlay{position:absolute;inset:0;background:linear-gradient(100deg,rgba(4,16,38,.78) 0%,rgba(6,26,61,.62) 45%,rgba(7,31,73,.72) 100%)}
+.featured-course:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:72px 100%;opacity:.45;pointer-events:none}
+.featured-course .section-wrap{position:relative;z-index:2}
 .featured-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center}
 .featured-media{position:relative;min-height:560px;border-radius:14px;overflow:hidden;background:#0a2450;box-shadow:0 36px 80px rgba(0,0,0,.38);isolation:isolate}
 .featured-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
@@ -330,7 +333,7 @@ a{color:inherit;text-decoration:none}
 @media(max-width:930px){.featured-grid{grid-template-columns:1fr;gap:26px}.featured-media{min-height:430px}}
 @media(max-width:650px){.featured-course{padding:60px 0}.featured-copy h2{font-size:32px;letter-spacing:-1.2px}.featured-facts{grid-template-columns:1fr 1fr}.featured-outcomes{grid-template-columns:1fr}.featured-media{min-height:390px}.featured-media-meta{grid-template-columns:1fr 1fr;gap:12px}.featured-media-meta strong{font-size:12px}.featured-cta-actions{flex-direction:column}.featured-cta-actions .button{width:100%}.featured-waitlist .school-form{padding:14px}}
 @media(max-width:430px){.featured-facts{grid-template-columns:1fr}.featured-media-meta{grid-template-columns:1fr}.featured-media{min-height:430px}}
-@media(prefers-reduced-motion:reduce){.featured-media img{transition:none}}
+@media(prefers-reduced-motion:reduce){.featured-media img{transition:none}.featured-course-bg video{display:none}}
 
 /* Enquiry popup: contact CTAs open a form instead of leaving the page */
 .enquiry-trigger{font-family:inherit;cursor:pointer}

@@ -172,6 +172,12 @@ export default async function Home({ searchParams }) {
       </section>
 
       <section className="featured-course" id="featured-course">
+        <div className="featured-course-bg" aria-hidden="true">
+          <video autoPlay muted loop playsInline preload="metadata">
+            <source src="https://res.cloudinary.com/dx1nrew3h/video/upload/v1794568662/www.magnific.com_boy-interacting-with-a-robot-premium-stock-video-footage_fucjby.mp4" type="video/mp4" />
+          </video>
+          <div className="featured-course-bg-overlay" />
+        </div>
         <div className="section-wrap featured-grid">
           <div className="featured-media">
             <img
@@ -332,24 +338,6 @@ export default async function Home({ searchParams }) {
       </section>
 
       <UpcomingTrainings />
-
-      <section className="video-section">
-        <div className="section-wrap">
-          <div className="video-heading">
-            <SectionEyebrow>INNOVATION IN ACTION</SectionEyebrow>
-            <div>
-              <h2>See young learners bring ideas to life.</h2>
-              <p>Explore the creativity and curiosity behind hands-on technology learning.</p>
-            </div>
-          </div>
-          <div className="video-frame">
-            <video controls playsInline preload="metadata" aria-label="A young learner interacting with a robot">
-              <source src="https://res.cloudinary.com/dx1nrew3h/video/upload/v1794568662/www.magnific.com_boy-interacting-with-a-robot-premium-stock-video-footage_fucjby.mp4" type="video/mp4" />
-              Your browser does not support embedded video.
-            </video>
-          </div>
-        </div>
-      </section>
 
       <section className="student-hub section-wrap" id="student-hub">
         <div className="hub-copy">
