@@ -1,3 +1,4 @@
+"use client";
 /* eslint-disable @next/next/no-html-link-for-pages, @next/next/no-img-element */
 
 const appUrl = (process.env.NEXT_PUBLIC_APP_URL || "https://www.skillbridgeacademy.tech").replace(/\/$/, "");
@@ -33,7 +34,7 @@ export function SiteHeader() {
           <a className="button button-outline button-small" href={pwaUrl}>Register</a>
           <a className="button button-primary button-small" href={pwaUrl}>Login</a>
         </div>
-        <details className="mobile-menu">
+        <details className="mobile-menu" onClick={(e) => { if (e.target.closest("a")) e.currentTarget.removeAttribute("open"); }}>
           <summary aria-label="Open navigation"><span></span><span></span><span></span></summary>
           <nav aria-label="Mobile navigation">
             <a href="/">Home</a><a href="/about">About us</a>
