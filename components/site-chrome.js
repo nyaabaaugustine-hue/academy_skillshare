@@ -50,27 +50,63 @@ export function SiteHeader() {
   );
 }
 
-export function SiteFooter() {
+function LocationMapSection() {
   return (
-    <footer className="site-footer">
-      <div className="footer-main section-wrap">
-        <div className="footer-brand">
-          <Brand />
-          <p>Empowering young people in Ghana through accessible technology education, creativity and practical skills.</p>
-          <div className="socials">
-            <a href="/contact" aria-label="Facebook">f</a><a href="/contact" aria-label="Instagram">◎</a>
-            <a href="/contact" aria-label="LinkedIn">in</a><a href="/contact" aria-label="YouTube">▶</a>
+    <section className="location-map-section" aria-labelledby="location-map-heading">
+      <div className="section-wrap location-map-inner">
+        <div className="location-map-copy">
+          <div className="eyebrow"><span />WHERE TO FIND US</div>
+          <h2 id="location-map-heading">A global mission, <span>rooted in Ghana.</span></h2>
+          <p>We work with learners, families, schools and partners across borders — with our learning community anchored in East Legon, Accra.</p>
+          <div className="location-map-locations">
+            <div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" /><div><b>Ghana</b><small>East Legon, Accra</small></div></div>
+            <div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/be.png" alt="Belgium flag" width={20} height={15} loading="lazy" /><div><b>Belgium</b><small>Partner presence</small></div></div>
+            <div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/us.png" alt="USA flag" width={20} height={15} loading="lazy" /><div><b>USA</b><small>Partner presence</small></div></div>
+          </div>
+          <a className="button button-primary" href="https://www.google.com/maps/search/?api=1&query=East%20Legon%2C%20Accra" target="_blank" rel="noreferrer">Open in Google Maps <span className="arrow">↗</span></a>
+        </div>
+        <div className="location-map-frame">
+          <iframe
+            title="SkillBridge Academy location in East Legon, Accra, Ghana"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31764.227970961805!2d-0.17891519465508338!3d5.636380888057941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9b501278f4a5%3A0xca081548a0c20ffd!2sEast%20Legon%2C%20Accra!5e0!3m2!1sen!2sgh!4v1795202672969!5m2!1sen!2sgh"
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          />
+          <div className="location-map-badge">
+            <span className="map-pin">⌖</span>
+            <span><b>East Legon, Accra</b><small>Ghana</small></span>
           </div>
         </div>
-        <div><h4>Explore</h4><a href="/about">About us</a><a href="/programmes">Our programmes</a><a href="/leaderboard">Leaderboard</a><a href="/rewards">Rewards</a><a href="/team">Our team</a></div>
-        <div><h4>Get involved</h4><a href="/contact">Volunteer</a><a href="/contact">Partner with us</a><a href="/contact">Donate</a><a href="/contact">Support a school</a></div>
-        <div><h4>Contact</h4><p className="location-flags-inline"><span><img className="location-flag" src="https://flagcdn.com/w40/be.png" alt="Belgium flag" width={20} height={15} loading="lazy" />Belgium</span><span><img className="location-flag" src="https://flagcdn.com/w40/us.png" alt="USA flag" width={20} height={15} loading="lazy" />USA</span><span><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" />Ghana</span></p><a href="mailto:support@skillbridgeacademy.tech">support@skillbridgeacademy.tech</a><a href="mailto:info@skillbridgeacademy.tech">info@skillbridgeacademy.tech</a></div>
       </div>
-      <div className="footer-bottom section-wrap">
-        <span>© {new Date().getFullYear()} SkillBridge. All rights reserved.</span>
-        <div><a href="/contact">Privacy</a><a href="/contact">Child safeguarding</a><a href="/contact">Terms</a></div>
-        <b>LEARN TODAY. INNOVATE TOMORROW.</b>
-      </div>
-    </footer>
+    </section>
+  );
+}
+
+export function SiteFooter({ showMap = true } = {}) {
+  return (
+    <>
+      {showMap ? <LocationMapSection /> : null}
+      <footer className="site-footer">
+        <div className="footer-main section-wrap">
+          <div className="footer-brand">
+            <Brand />
+            <p>Empowering young people in Ghana through accessible technology education, creativity and practical skills.</p>
+            <div className="socials">
+              <a href="/contact" aria-label="Facebook">f</a><a href="/contact" aria-label="Instagram">◎</a>
+              <a href="/contact" aria-label="LinkedIn">in</a><a href="/contact" aria-label="YouTube">▶</a>
+            </div>
+          </div>
+          <div><h4>Explore</h4><a href="/about">About us</a><a href="/programmes">Our programmes</a><a href="/leaderboard">Leaderboard</a><a href="/rewards">Rewards</a><a href="/team">Our team</a></div>
+          <div><h4>Get involved</h4><a href="/contact">Volunteer</a><a href="/contact">Partner with us</a><a href="/contact">Donate</a><a href="/contact">Support a school</a></div>
+          <div><h4>Contact</h4><p className="location-flags-inline"><span><img className="location-flag" src="https://flagcdn.com/w40/be.png" alt="Belgium flag" width={20} height={15} loading="lazy" />Belgium</span><span><img className="location-flag" src="https://flagcdn.com/w40/us.png" alt="USA flag" width={20} height={15} loading="lazy" />USA</span><span><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" />Ghana</span></p><a href="mailto:support@skillbridgeacademy.tech">support@skillbridgeacademy.tech</a><a href="mailto:info@skillbridgeacademy.tech">info@skillbridgeacademy.tech</a></div>
+        </div>
+        <div className="footer-bottom section-wrap">
+          <span>© {new Date().getFullYear()} SkillBridge. All rights reserved.</span>
+          <div><a href="/contact">Privacy</a><a href="/contact">Child safeguarding</a><a href="/contact">Terms</a></div>
+          <b>LEARN TODAY. INNOVATE TOMORROW.</b>
+        </div>
+      </footer>
+    </>
   );
 }
