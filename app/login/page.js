@@ -94,8 +94,8 @@ export default function LoginPage() {
                 <button type="submit" className="button button-primary" disabled={status === "sending"}>
                   {status === "sending" ? "Signing in…" : "Sign in"}
                 </button>
-                <Link href="/forgot-password" className="text-link">Forgot password?</Link>
               </div>
+              <p className="form-note form-field-wide" style={{ marginTop: 4 }}>Need help? Email <a href="mailto:support@skillbridgeacademy.tech">support@skillbridgeacademy.tech</a></p>
             </form>
           </div>
         </section>
