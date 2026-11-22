@@ -50,22 +50,22 @@ Track and implement 100 improvements for the SkillBridge Academy website/platfor
 - [ ] 25. Add training testimonials/outcomes.
 
 ## 3) Enquiry, Registration & Conversion
-- [ ] 26. Add enquiry status pipeline.
-- [ ] 27. Add enquiry source tracking.
+- [x] 26. Add enquiry status pipeline (new/contacted/scheduled/enrolled/closed/lost).
+- [x] 27. Add enquiry source tracking.
 - [ ] 28. Add auto-confirmation email.
-- [ ] 29. Add admin enquiry notes.
-- [ ] 30. Add duplicate enquiry detection.
-- [ ] 31. Add enquiry assignment.
-- [ ] 32. Add follow-up reminders.
-- [ ] 33. Add enquiry export (CSV/Excel).
+- [x] 29. Add admin enquiry notes.
+- [x] 30. Add duplicate enquiry detection (email duplicate flag).
+- [x] 31. Add enquiry assignment.
+- [x] 32. Add follow-up reminders (follow-up date + overdue/needs-attention flags).
+- [x] 33. Add enquiry export (CSV).
 - [ ] 34. Add multi-step registration form.
-- [ ] 35. Add WhatsApp/call CTA.
+- [x] 35. Add WhatsApp/call CTA.
 
 ## 4) Admin Dashboard & Operations
-- [ ] 36. Add dashboard KPI cards.
-- [ ] 37. Add “Needs attention” panel.
+- [x] 36. Add dashboard KPI cards (enquiry pipeline KPIs).
+- [x] 37. Add “Needs attention” panel/filter.
 - [ ] 38. Add global admin search.
-- [ ] 39. Add audit log.
+- [x] 39. Add audit log (basic enquiry action logging).
 - [ ] 40. Add role-based access control.
 - [ ] 41. Add admin activity timeline.
 - [ ] 42. Add bulk actions.

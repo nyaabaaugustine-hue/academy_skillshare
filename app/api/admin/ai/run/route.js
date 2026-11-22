@@ -42,7 +42,13 @@ async function gatherStudentRecords() {
     safeQuery("course_progress", () => sql`select user_id, course_slug, completed_lessons, total_lessons, percent, updated_at from course_progress order by updated_at desc limit 200`),
     safeQuery("course_progress_events", () => sql`select user_id, course_slug, lesson_id, event_type, created_at from course_progress_events order by created_at desc limit 200`),
     safeQuery("leaderboard_entries", () => sql`select id, name, score, course_slug, updated_at from leaderboard_entries order by score desc limit 100`),
-    safeQuery("school_enquiries", () => sql`select id, school_name, school_location, contact_name, email, phone, learner_count, programme_interest, status, created_at from school_enquiries order by created_at desc limit 100`),
+    (async () => {
+      try {
+        return await sql`select id, school_name, school_location, contact_name, email, phone, learner_count, programme_interest, status, source, assigned_to, admin_note, follow_up_at, last_contacted_at, created_at, updated_at from school_enquiries order by created_at desc limit 100`;
+      } catch {
+        return safeQuery("school_enquiries", () => sql`select id, school_name, school_location, contact_name, email, phone, learner_count, programme_interest, status, created_at from school_enquiries order by created_at desc limit 100`);
+      }
+    })(),
     safeQuery("lms_courses", () => sql`select id, title, level, summary, duration, start_date, featured, published, position from lms_courses order by position asc, id asc limit 100`),
   ]);
 

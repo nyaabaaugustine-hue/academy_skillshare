@@ -188,7 +188,7 @@ export default async function Home({ searchParams }) {
         <div className="section-wrap featured-grid">
           <div className="featured-media">
             <img
-              src={course.image}
+              src="https://res.cloudinary.com/z43ds8bn/image/upload/v1795347916/programer-sitting-desk-with-multiple-screens-running-code-talking-with-colleague-about-artificial-intelligence-algorithm-software-developers-doing-innovative-artificial-intelligence-project.jpg"
               alt={`${course.title} at SkillBridge`}
               loading="lazy"
             />

@@ -50,11 +50,11 @@ export async function POST(request) {
     await db()`
       insert into school_enquiries
         (school_name, school_location, contact_name, email, phone,
-         learner_count, programme_interest, message)
+         learner_count, programme_interest, message, source)
       values
         (${enquiry.school_name}, ${enquiry.school_location}, ${enquiry.contact_name},
          ${enquiry.email}, ${enquiry.phone}, ${enquiry.learner_count},
-         ${enquiry.programme_interest}, ${enquiry.message})
+         ${enquiry.programme_interest}, ${enquiry.message}, ${"school_registration"})
     `;
   } catch {
     return NextResponse.redirect(

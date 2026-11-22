@@ -35,6 +35,7 @@ async function main() {
     "004_project_showcase.sql",
     "005_project_submissions.sql",
     "006_awards_reports.sql",
+    "007_enquiry_pipeline.sql",
   ]) {
     const source = await readFile(new URL(`./${filename}`, import.meta.url), "utf8");
     // Strip full-line comments, then run one statement at a time: the Neon

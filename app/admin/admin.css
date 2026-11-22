@@ -1215,6 +1215,22 @@
   background: #eef1f6;
   color: #6b7c99;
 }
+.admin-pill-scheduled { background: #fff4db; color: #9a6700; }
+.admin-pill-enrolled { background: #e7f7ee; color: #1b7a52; }
+.admin-pill-lost { background: #fde8e8; color: #9b1c1c; }
+
+.admin-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 0 0 20px; }
+.admin-kpi-card { background: #fff; border: 1px solid #dfe7f1; border-radius: 12px; padding: 14px 16px; }
+.admin-kpi-value { display: block; font: 800 24px/1 Manrope, sans-serif; color: #0b2d52; }
+.admin-kpi-label { display: block; margin-top: 6px; font-size: 12px; color: #5a6b82; font-weight: 600; }
+.admin-filter-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.admin-input { font: inherit; font-size: 12.5px; padding: 9px 11px; border: 1px solid #d7dfec; border-radius: 7px; background: #fff; color: #12233d; }
+.admin-input:focus { outline: none; border-color: #5b8cff; box-shadow: 0 0 0 3px rgba(91,140,255,.14); }
+.admin-filter-bar .admin-input { min-width: 160px; }
+.admin-filter-bar input[type="search"] { min-width: 240px; flex: 1; }
+.admin-enquiry-form { margin-top: 14px; padding-top: 14px; border-top: 1px solid #e7edf5; display: grid; gap: 12px; }
+.admin-enquiry-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+@media (max-width: 700px) { .admin-filter-bar input[type="search"] { min-width: 100%; } }
 
 .admin-search {
   display: flex;

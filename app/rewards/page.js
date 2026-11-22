@@ -80,7 +80,7 @@ export default async function RewardsPage() {
     <>
       <SiteHeader />
       <main>
-        <section className="inner-hero">
+        <section className="inner-hero rewards-hero">
           <div className="inner-hero-content">
             <div className="eyebrow"><span />REWARDS &amp; SHOWCASE</div>
             <h1>Learn. Build. Get <em>recognized.</em></h1>

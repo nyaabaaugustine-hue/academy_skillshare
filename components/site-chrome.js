@@ -41,8 +41,10 @@ export function SiteHeader() {
             <a href="/programmes">Programmes</a><a href="/leaderboard">Leaderboard</a>
             <a href="/rewards">Rewards</a><a href="/team">Our team</a>
             <a href="/contact">Contact</a>
-            <a href={pwaUrl}>Register</a>
-            <a href={pwaUrl}>Login</a>
+            <div className="mobile-auth-row">
+              <a href={pwaUrl}>Register</a>
+              <a href={pwaUrl}>Login</a>
+            </div>
           </nav>
         </details>
       </div>
