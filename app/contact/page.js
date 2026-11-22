@@ -31,8 +31,8 @@ export default function ContactPage() {
             <div className="eyebrow"><span />SAY HELLO</div>
             <h2>We’d love to hear from you.</h2>
             <p>Start a conversation with our team and tell us how you would like to get involved.</p>
-            <a className="contact-detail" href="mailto:support@skillsbridge.tech"><span className="contact-detail-icon">✉</span><span><small>EMAIL</small><b>support@skillsbridge.tech</b></span></a>
-            <div className="contact-detail"><span className="contact-detail-icon">⌖</span><span><small>HEADQUARTERS · GHANA</small><b>East Legon, Accra</b></span></div>
+            <div className="contact-detail"><span className="contact-detail-icon">✉</span><span><small>EMAIL</small><b><a href="mailto:support@skillbridgeacademy.tech">support@skillbridgeacademy.tech</a></b><b><a href="mailto:info@skillbridgeacademy.tech">info@skillbridgeacademy.tech</a></b></span></div>
+            <div className="contact-detail"><span className="contact-detail-icon">⌖</span><span><small>LOCATIONS</small><b>🇧🇪 Belgium</b><b>🇺🇸 USA</b><b>🇬🇭 Ghana — East Legon, Accra</b></span></div>
             <a className="button button-primary" href="https://www.google.com/maps/search/?api=1&query=East%20Legon%2C%20Accra" target="_blank" rel="noreferrer">Open in Google Maps <span className="arrow">↗</span></a>
           </div>
           <div className="map-frame">
@@ -43,7 +43,7 @@ export default function ContactPage() {
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
             />
-            <div className="map-caption"><span className="map-pin">⌖</span><span><b>East Legon, Accra</b><small>SkillBridge headquarters · Ghana</small></span></div>
+            <div className="map-caption"><span className="map-pin">⌖</span><span><b>East Legon, Accra</b><small>🇧🇪 Belgium · 🇺🇸 USA · 🇬🇭 Ghana</small></span></div>
           </div>
         </section>
       </main>

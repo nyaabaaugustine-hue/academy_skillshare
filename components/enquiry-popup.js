@@ -118,7 +118,7 @@ export default function EnquiryButton({
     } catch {
       setStatus("error");
       setError(
-        "That did not send. Check your details and try again, or email support@skillsbridge.tech.",
+        "That did not send. Check your details and try again, or email support@skillbridgeacademy.tech or info@skillbridgeacademy.tech.",
       );
     }
   };
@@ -161,7 +161,7 @@ export default function EnquiryButton({
                     <h2 id={headingId}>Thank you — your message is on its way.</h2>
                     <p>
                       Our team has your details and will reply by email. For anything urgent, write to
-                      support@skillsbridge.tech.
+                      support@skillbridgeacademy.tech or info@skillbridgeacademy.tech.
                     </p>
                     <button type="button" className="button button-primary" onClick={close}>
                       Close

@@ -29,7 +29,7 @@ export default async function AdminLayout({ children }) {
               <li>Track learners through the pipeline</li>
               <li>Publish courses, news and team profiles</li>
             </ul>
-            <small>Authorised staff only · Accra, Ghana</small>
+            <small>Authorised staff only · 🇧🇪 Belgium · 🇺🇸 USA · 🇬🇭 Ghana</small>
           </aside>
           <div className="admin-gate-card">{children}</div>
         </div>

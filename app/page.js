@@ -479,7 +479,7 @@ export default async function Home({ searchParams }) {
                 <button className="button button-primary school-submit" type="submit">Submit school enquiry <span aria-hidden="true" className="arrow">↗</span></button>
                 <p className="form-note">
                   Your enquiry will be sent to our team. For help, contact{" "}
-                  <a href="mailto:support@skillsbridge.tech">support@skillsbridge.tech</a>.
+                  <a href="mailto:support@skillbridgeacademy.tech">support@skillbridgeacademy.tech</a> or <a href="mailto:info@skillbridgeacademy.tech">info@skillbridgeacademy.tech</a>.
                 </p>
               </div>
             </form>
