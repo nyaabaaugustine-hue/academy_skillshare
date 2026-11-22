@@ -379,8 +379,14 @@ export default async function Home({ searchParams }) {
             </div>
             <span className="phone-caption">SKILLBRIDGE APP PREVIEW</span>
             <div className="hero-actions" style={{ justifyContent: "center", marginTop: 14, gap: 10, flexWrap: "wrap" }}>
-              <a className="button button-primary button-small" href="/downloads/skillsbridge-1.0.0-beta.apk" download>Download for Android</a>
-              <a className="button button-glass button-small" href="/app/index.html?v=2">Install on iOS / PWA</a>
+              <a className="button button-primary button-small" href="/downloads/skillsbridge-1.0.0-beta.apk" download style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 0 0-.83.22l-1.88 3.24a11.463 11.463 0 0 0-8.94 0L5.65 5.67a.643.643 0 0 0-.87-.2c-.28.18-.37.54-.22.83L6.4 9.48A10.78 10.78 0 0 0 1 18h22a10.78 10.78 0 0 0-5.4-8.52zM7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z"/></svg>
+                Download for Android
+              </a>
+              <a className="button button-glass button-small" href="/app/index.html?v=2" style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.365 1.43c0 1.14-.417 2.2-1.243 3.13-.998 1.115-2.205 1.76-3.515 1.654-.03-.14-.046-.287-.046-.44 0-1.094.476-2.265 1.32-3.23.422-.48.96-.88 1.613-1.2.654-.315 1.272-.49 1.854-.523.012.203.017.406.017.61zM20.5 17.08c-.585 1.35-.867 1.953-1.62 3.148-1.05 1.665-2.53 3.74-4.366 3.755-1.63.015-2.05-1.06-4.263-1.048-2.213.012-2.675 1.067-4.306 1.052-1.835-.016-3.24-1.886-4.29-3.55-2.94-4.66-3.245-10.13-1.435-13.03 1.285-2.057 3.314-3.262 5.223-3.262 1.942 0 3.163 1.065 4.77 1.065 1.558 0 2.507-1.067 4.754-1.067 1.7 0 3.5.926 4.783 2.527-4.202 2.303-3.52 8.304.55 10.41z"/></svg>
+                Download for iOS
+              </a>
             </div>
           </div>
         </div>
