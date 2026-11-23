@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 const DEFAULT_REWARDS = [
   { title: "Branded Pencil", detail: "Earned for completing your first learning step.", image: "/rewards/pencil.png", icon: "✏️", tag: "Stationery" },
   { title: "SkillBridge Notebook", detail: "A place to plan, sketch, and capture your ideas.", image: "/rewards/notebook.png", icon: "📓", tag: "Stationery" },
-  { title: "Learner T-Shirt", detail: "Worn by project builders and top performers.", image: "/rewards/tshirt.png", icon: "👕", tag: "Wearables" },
+  { title: "Learner T-Shirt", detail: "Worn by project builders and top performers.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795422003/Education_Tech_Logo_T-Shirt_Mockup_1.png", icon: "👕", tag: "Wearables" },
   { title: "Exercise books & branded Diaries", detail: "Premium exercise books and branded diaries for notes, plans, and practice.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795421286/Blue_Tech_Education_Journal_Mockup.png", icon: "📔", tag: "Stationery" },
   { title: "Digital Certificate", detail: "Shareable proof of your milestones and progress.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795421661/SkillBridge_Academy_Python_Certificate_1.png", icon: "📜", tag: "Certificates" },
   { title: "Top Learner Trophy", detail: "Celebrating standout performance on the leaderboard.", image: "/rewards/trophy.png", icon: "🏆", tag: "Awards" },
@@ -85,6 +85,11 @@ export default function RewardsMarquee({ rewards }) {
               Every milestone unlocks something tangible. From branded stationery to certificates and t-shirts,
               rewards celebrate the effort behind the learning.
             </p>
+            <div style={{ marginTop: 12 }}>
+              <a className="button button-outline button-small" href="https://res.cloudinary.com/z43ds8bn/image/upload/v1795421661/SkillBridge_Academy_Python_Certificate_1.png" target="_blank" rel="noreferrer">
+                View sample certificate ↗
+              </a>
+            </div>
           </div>
         </div>
       </div>
