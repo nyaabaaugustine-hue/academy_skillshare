@@ -9,7 +9,7 @@ const DEFAULT_REWARDS = [
   { title: "SkillBridge Notebook", detail: "A place to plan, sketch, and capture your ideas.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795421286/Blue_Tech_Education_Journal_Mockup.png", icon: "📓", tag: "Stationery", whiteMedia: true },
   { title: "Digital Certificate", detail: "Shareable proof of your milestones and progress.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795422288/businessman-standing-top-view_1116086-20307.jpg", icon: "📜", tag: "Certificates" },
   { title: "Top Learner Trophy", detail: "Celebrating standout performance on the leaderboard.", image: "/rewards/trophy.png", icon: "🏆", tag: "Awards" },
-  { title: "Sticker Pack", detail: "Fun stickers to celebrate every small win.", image: "/rewards/stickers.png", icon: "⭐", tag: "Swag" },
+  { title: "Lapel Pins", detail: "Collectible SkillBridge pins to show off your progress.", image: "/rewards/pins.png", icon: "📌", tag: "Swag" },
 ];
 
 function RewardCard({ item }) {
