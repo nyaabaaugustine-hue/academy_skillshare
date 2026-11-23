@@ -1,5 +1,6 @@
 import "./globals.css";
 import AiFloatingButton from "./components/AiFloatingButton";
+import ImageProtection from "./components/image-protection";
 import { cloudflarePublicConfig } from "../lib/cloudflare/public-config";
 import { getSiteUrl } from "../lib/site-url";
 
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
           before React hydrates, which React reports as a mismatch on an
           element this app never gave a className or style to. */}
       <body suppressHydrationWarning>
+        <ImageProtection />
         {children}
         <AiFloatingButton />
         {cloudflarePublicConfig().analyticsToken ? (
