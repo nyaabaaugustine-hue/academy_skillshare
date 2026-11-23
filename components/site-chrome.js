@@ -65,8 +65,8 @@ function LocationMapSection() {
           <p>We work with learners, families, schools and partners across borders — with our learning community anchored in Kumasi - Wiamoase, Ashanti.</p>
           <div className="location-map-locations">
             <div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" /><div><b>Ghana</b><small>Kumasi - Wiamoase, Ashanti</small></div></div>
-<div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/be.png" alt="Belgium flag" width={20} height={15} loading="lazy" /><div><b>Belgium</b><small>Partner presence</small></div></div>
-<div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/us.png" alt="USA flag" width={20} height={15} loading="lazy" /><div><b>USA</b><small>Partner presence</small></div></div>
+<div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/be.png" alt="Belgium flag" width={20} height={15} loading="lazy" /><div><b>Belgium</b></div></div>
+<div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/us.png" alt="USA flag" width={20} height={15} loading="lazy" /><div><b>USA</b></div></div>
             
             
           </div>
