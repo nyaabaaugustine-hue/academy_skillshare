@@ -70,7 +70,7 @@ export default function NotificationsClient() {
     }
   }
 
-  if (loading) return <p className="admin-muted">Loading notifications.</p>;
+  if (loading) return <p className="admin-muted">Loading notifications…</p>;
 
   return (
     <div style={{ display: "grid", gap: 12, maxWidth: 720 }}>
@@ -99,7 +99,7 @@ export default function NotificationsClient() {
                 ) : null}
               </div>
               {n.link ? (
-                <Link href={n.link} className="admin-link" style={{ fontSize: 12, marginTop: 6, display: "inline-block" }}>Open</Link>
+                <Link href={n.link} className="admin-link" style={{ fontSize: 12, marginTop: 6, display: "inline-block" }}>Open ↗</Link>
               ) : null}
             </li>
           ))}
