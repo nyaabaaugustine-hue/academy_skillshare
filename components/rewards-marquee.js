@@ -8,7 +8,7 @@ const DEFAULT_REWARDS = [
   { title: "SkillBridge Notebook", detail: "A place to plan, sketch, and capture your ideas.", image: "/rewards/notebook.png", icon: "📓", tag: "Stationery" },
   { title: "Learner T-Shirt", detail: "Worn by project builders and top performers.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795422003/Education_Tech_Logo_T-Shirt_Mockup_1.png", icon: "👕", tag: "Wearables" },
   { title: "Exercise books & branded Diaries", detail: "Premium exercise books and branded diaries for notes, plans, and practice.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795421286/Blue_Tech_Education_Journal_Mockup.png", icon: "📔", tag: "Stationery", whiteMedia: true },
-  { title: "Digital Certificate", detail: "Shareable proof of your milestones and progress.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795421661/SkillBridge_Academy_Python_Certificate_1.png", icon: "📜", tag: "Certificates" },
+  { title: "Digital Certificate", detail: "Shareable proof of your milestones and progress.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795422288/businessman-standing-top-view_1116086-20307.jpg", icon: "📜", tag: "Certificates" },
   { title: "Top Learner Trophy", detail: "Celebrating standout performance on the leaderboard.", image: "/rewards/trophy.png", icon: "🏆", tag: "Awards" },
   { title: "Sticker Pack", detail: "Fun stickers to celebrate every small win.", image: "/rewards/stickers.png", icon: "⭐", tag: "Swag" },
 ];
