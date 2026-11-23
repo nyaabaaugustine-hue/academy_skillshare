@@ -65,8 +65,8 @@ function LocationMapSection() {
           <p>We work with learners, families, schools and partners across borders — with our learning community anchored in East Legon, Accra.</p>
           <div className="location-map-locations">
             <div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" /><div><b>Ghana</b><small>East Legon, Accra</small></div></div>
-            <div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/be.png" alt="Belgium flag" width={20} height={15} loading="lazy" /><div><b>Belgium</b><small>Partner presence</small></div></div>
-            <div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/us.png" alt="USA flag" width={20} height={15} loading="lazy" /><div><b>USA</b><small>Partner presence</small></div></div>
+            
+            
           </div>
           <a className="button button-primary" href="https://www.google.com/maps/search/?api=1&query=East%20Legon%2C%20Accra" target="_blank" rel="noreferrer">Open in Google Maps <span className="arrow">↗</span></a>
         </div>
@@ -104,7 +104,7 @@ export function SiteFooter({ showMap = true } = {}) {
           </div>
           <div><h4>Explore</h4><a href="/about">About us</a><a href="/programmes">Our programmes</a><a href="/leaderboard">Leaderboard</a><a href="/settings">Settings</a><a href="/rewards">Rewards</a><a href="/team">Our team</a></div>
           <div><h4>Get involved</h4><a href="/contact">Volunteer</a><a href="/contact">Partner with us</a><a href="/contact">Donate</a><a href="/contact">Support a school</a><InstallAppButton className="text-link" label="Install app" /></div>
-          <div><h4>Contact</h4><p className="location-flags-inline"><span><img className="location-flag" src="https://flagcdn.com/w40/be.png" alt="Belgium flag" width={20} height={15} loading="lazy" />Belgium</span><span><img className="location-flag" src="https://flagcdn.com/w40/us.png" alt="USA flag" width={20} height={15} loading="lazy" />USA</span><span><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" />Ghana</span></p><a href="mailto:support@skillbridgeacademy.tech">support@skillbridgeacademy.tech</a><a href="mailto:info@skillbridgeacademy.tech">info@skillbridgeacademy.tech</a></div>
+          <div><h4>Contact</h4><p className="location-flags-inline"><span><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" />Ghana</span></p><a href="mailto:support@skillbridgeacademy.tech">support@skillbridgeacademy.tech</a><a href="mailto:info@skillbridgeacademy.tech">info@skillbridgeacademy.tech</a></div>
         </div>
         <div className="footer-bottom section-wrap">
           <span>© {new Date().getFullYear()} SkillBridge. All rights reserved.</span>
