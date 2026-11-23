@@ -1,9 +1,24 @@
+import { DM_Sans, Manrope } from "next/font/google";
 import "./globals.css";
 import AiFloatingButton from "./components/AiFloatingButton";
 import PremiumLoader from "./components/premium-loader";
 import PushRegistration from "./components/push-registration";
 import { cloudflarePublicConfig } from "../lib/cloudflare/public-config";
 import { getSiteUrl } from "../lib/site-url";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-dm-sans",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-manrope",
+});
 
 export const metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -26,7 +41,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${dmSans.variable} ${manrope.variable}`}>
       {/* Browser extensions (ClickUp and friends) stamp attributes onto <body>
           before React hydrates, which React reports as a mismatch on an
           element this app never gave a className or style to. */}
