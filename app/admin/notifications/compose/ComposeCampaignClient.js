@@ -96,7 +96,7 @@ export default function ComposeCampaignClient() {
         <input className="admin-input" value={form.image_url} onChange={(e) => update("image_url", e.target.value)} maxLength={1200} placeholder="https://..." />
       </label>
       <label className="admin-field"><span>Action URL / deep link (optional)</span>
-        <input className="admin-input" value={form.action_url} onChange={(e) => update("action_url", e.target.value)} maxLength={500} placeholder="/notifications or app deep link" />
+        <input className="admin-input" value={form.action_url} onChange={(e) => update("action_url", e.target.value)} maxLength={500} placeholder="app deep link or in-app route (e.g. /app/index.html, /learn, skillbridge://notifications)" />
       </label>
       <label className="admin-field"><span>Category</span>
         <select className="admin-input" value={form.category} onChange={(e) => update("category", e.target.value)}>
