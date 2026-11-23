@@ -9,7 +9,7 @@ const DEFAULT_REWARDS = [
   { title: "Digital Certificate", detail: "Shareable proof of your milestones and progress.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795421661/SkillBridge_Academy_Python_Certificate_1.png", icon: "📜", tag: "Certificates" },
   { title: "Top Learner Trophy", detail: "Celebrating standout performance on the leaderboard.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795423009/isolated-golden-soccer-trophy-football-sport_207634-9604-logo.png", icon: "🏆", tag: "Awards" },
   { title: "Lapel Pins", detail: "Collectible SkillBridge pins to show off your progress.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795423197/Glossy_Gold-Trimmed_Education_Tech_Pin.png", icon: "📌", tag: "Swag" },
-  { title: "Social Spotlight", detail: "A celebratory social-media feature for outstanding learners and projects.", image: "", icon: "✨", tag: "Community" },
+  { title: "Social Spotlight", detail: "A celebratory social-media feature for outstanding learners and projects.", image: "https://res.cloudinary.com/z43ds8bn/image/upload/v1795422964/businessman-standing-top-view_1116086-20307.png", icon: "✨", tag: "Community" },
 ];
 
 function RewardCard({ item }) {
