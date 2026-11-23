@@ -476,15 +476,6 @@ button.enquiry-plain{border:0;background:none;padding:0;color:inherit;font:inher
 @media(max-width:650px){.rewards-marquee-section{padding:60px 0}.rewards-marquee:before,.rewards-marquee:after{width:40px}.rewards-marquee-track{gap:14px;padding:4px 16px}.rewards-marquee-slide{width:min(220px,70vw)}.rewards-marquee-body{padding:14px}.rewards-marquee-body h3{font-size:16px}}
 @media(prefers-reduced-motion:reduce){.rewards-marquee-track,.rewards-marquee-card,.rewards-marquee-media img{transition:none!important;animation:none!important;transform:none!important}}
 
-/* Image protection ------------------------------------------------------- */
-img, picture, figure { user-select: none; -webkit-user-select: none; -webkit-user-drag: none; -khtml-user-drag: none; -moz-user-select: none; -ms-user-select: none; }
-img { pointer-events: auto; }
-body.sb-protected-blur main, body.sb-protected-blur .site-header, body.sb-protected-blur .site-footer { filter: blur(14px) brightness(0.6); transition: filter .15s ease; }
-@media print {
-  body * { visibility: hidden !important; }
-  body::after { content: "Printing and saving are disabled on SkillBridge Academy."; visibility: visible !important; display: block; text-align: center; margin-top: 40vh; font-size: 18px; color: #111; }
-}
-
 /* Learner auth pages ------------------------------------------------------ */
 .auth-page{padding:72px 20px 88px;background:linear-gradient(180deg,#f8fbff 0%,#eef4fb 100%);min-height:calc(100vh - 180px)}
 .auth-shell{max-width:560px;margin:0 auto}
