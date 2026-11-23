@@ -47,5 +47,6 @@ test('tutor proxy supports mode directives', () => {
   const s = read('app/api/tutor/[...path]/route.ts');
   assert.match(s, /TUTOR_MODE_DIRECTIVES/);
   assert.match(s, /parsed\.mode \|\| parsed\.tutorMode/);
-  assert.match(s, /Mode: Quiz/);
+  assert.match(s, /AI_TUTOR_MODES/);
+  assert.match(s, /Mode: \$\{mode\.label\}/);
 });

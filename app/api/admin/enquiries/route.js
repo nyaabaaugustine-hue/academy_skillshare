@@ -69,6 +69,43 @@ export async function POST(request) {
   try {
     const sql = db();
 
+    const parseIds = () => {
+      const values = form.getAll("ids");
+      const raw = values.length ? values : [form.get("ids")];
+      return [...new Set(raw.flatMap((v) => String(v || "").split(",")).map((v) => Number(v.trim())).filter((n) => Number.isInteger(n) && n > 0))];
+    };
+
+    if (intent.startsWith("bulk_")) {
+      const ids = parseIds();
+      if (ids.length === 0) return NextResponse.redirect(new URL("/admin/enquiries?error=missing", request.url), 303);
+
+      if (intent === "bulk_status") {
+        const status = clean(form.get("status"), 30);
+        if (!ALLOWED.has(status)) return NextResponse.redirect(new URL("/admin/enquiries?error=bad", request.url), 303);
+        await sql`update school_enquiries set status=${status}, last_contacted_at=case when ${status}='contacted' then now() else last_contacted_at end, updated_at=now() where id = any(${ids})`;
+        await logAudit(sql, "enquiry.bulk_status", 0, { ids, status });
+        return NextResponse.redirect(new URL("/admin/enquiries?saved=bulk", request.url), 303);
+      }
+
+      if (intent === "bulk_assign") {
+        const assignedTo = clean(form.get("assigned_to"), 120);
+        await sql`update school_enquiries set assigned_to=${assignedTo || null}, updated_at=now() where id = any(${ids})`;
+        await logAudit(sql, "enquiry.bulk_assign", 0, { ids, assigned: !!assignedTo });
+        return NextResponse.redirect(new URL("/admin/enquiries?saved=bulk", request.url), 303);
+      }
+
+      if (intent === "bulk_followup") {
+        const followUpRaw = clean(form.get("follow_up_at"), 40);
+        const followUpAt = followUpRaw ? new Date(followUpRaw) : null;
+        const validFollowUp = followUpAt && !Number.isNaN(followUpAt.getTime()) ? followUpAt.toISOString() : null;
+        await sql`update school_enquiries set follow_up_at=${validFollowUp}, updated_at=now() where id = any(${ids})`;
+        await logAudit(sql, "enquiry.bulk_followup", 0, { ids, followUp: !!validFollowUp });
+        return NextResponse.redirect(new URL("/admin/enquiries?saved=bulk", request.url), 303);
+      }
+
+      return NextResponse.redirect(new URL("/admin/enquiries?error=unknown", request.url), 303);
+    }
+
     if (intent === "delete") {
       if (!Number.isInteger(id) || id <= 0) {
         return NextResponse.redirect(new URL("/admin/enquiries?error=missing", request.url), 303);

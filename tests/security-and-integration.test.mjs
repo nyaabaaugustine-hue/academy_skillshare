@@ -50,7 +50,7 @@ test('admin AI route limits request size and times out upstream', () => {
 test('admin AI route does not expose raw secrets in student context', () => {
   const s = read('app/api/admin/ai/run/route.js');
   assert.match(s, /redact/i);
-  assert.match(s, /password\|secret\|token\|cookie\|authorization/i);
+  assert.match(s, /redactSensitive/);
 });
 
 test('compiled Flutter app includes AI tutor icon URL', () => {

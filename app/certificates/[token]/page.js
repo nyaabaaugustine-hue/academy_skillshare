@@ -30,7 +30,7 @@ export default async function CertificatePage({ params }) {
   const award = await getAwardByToken(token);
   if (!award) notFound();
 
-  const isPublic = Boolean(award.public_share);
+  const isPublic = Boolean(award.public_share && award.consent_verified);
   const name = award.learner_alias || award.learner_name || "SkillBridge Learner";
   const shareUrl = absoluteUrl(`/certificates/${award.share_token}`);
 

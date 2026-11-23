@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { db } from "../../../lib/db";
 import { verifyTurnstile } from "../../../lib/cloudflare/turnstile";
 import { sendSlackNotification } from "../../../lib/notifications/slack";
+import { sendEnquiryAutoReply, sendEnquiryAdminAlert } from "../../../lib/email";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/maeodqly";
 
@@ -82,6 +83,9 @@ export async function POST(request) {
     ],
     adminPath: "/admin/enquiries",
   });
+
+  void sendEnquiryAutoReply(enquiry).catch(() => {});
+  void sendEnquiryAdminAlert(enquiry).catch(() => {});
 
   return NextResponse.redirect(
     new URL("/?school=received#school-registration", request.url),

@@ -78,7 +78,17 @@ export default async function AdminAwardsPage({ searchParams }) {
                     <span className={`admin-pill admin-pill-${a.public_share ? "new" : "closed"}`}>{a.public_share ? "shareable" : "private"}</span>
                   </div>
                   <p className="admin-record-body">{a.award_detail || "No details"}</p>
-                  <p className="admin-record-meta">Prize: {a.prize_item || "—"} · Guardian consent: {a.consent_verified ? "verified" : "not verified"} · <a href={shareUrl} target="_blank" rel="noreferrer">Share link ↗</a></p>
+                  <p className="admin-record-meta">Prize: {a.prize_item || "—"} · Guardian consent: {a.consent_verified ? "verified" : "not verified"}{a.consent_requested_at ? ` · requested ${new Date(a.consent_requested_at).toLocaleDateString()}` : ""}{a.consent_responded_at ? ` · responded ${new Date(a.consent_responded_at).toLocaleDateString()}` : ""} · <a href={shareUrl} target="_blank" rel="noreferrer">Share link ↗</a></p>
+                  {a.guardian_email && !a.consent_verified ? (
+                    <div className="admin-actions" style={{ marginTop: 8, flexWrap: "wrap" }}>
+                      <form action="/api/admin/awards" method="post" style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
+                        <input type="hidden" name="intent" value="request_consent" />
+                        <input type="hidden" name="id" value={a.id} />
+                        <button type="submit" className="admin-button admin-button-quiet">Request guardian consent</button>
+                      </form>
+                      <a className="admin-button admin-button-quiet" href={`/certificates/${a.share_token}/consent`} target="_blank" rel="noreferrer">Open consent page ↗</a>
+                    </div>
+                  ) : null}
                   <form action="/api/admin/awards" method="post" className="admin-actions" style={{ marginTop: 10 }}>
                     <input type="hidden" name="id" value={a.id} />
                     <input type="hidden" name="intent" value="update_status" />

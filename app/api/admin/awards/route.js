@@ -2,9 +2,11 @@ import { NextResponse } from "next/server";
 
 import { assertAdmin } from "../../../../lib/admin-auth";
 import { db } from "../../../../lib/db";
-import { createAward, createCertificateAwardsFromLeaderboard } from "../../../../lib/awards";
+import { createAward, createCertificateAwardsFromLeaderboard, requestAwardConsent, getAwardByToken } from "../../../../lib/awards";
 import { listLeaderboard } from "../../../../lib/server/leaderboard";
 import { sendSlackNotification } from "../../../../lib/notifications/slack";
+import { sendAwardConsentRequest } from "../../../../lib/email";
+import { getSiteUrl } from "../../../../lib/site-url";
 
 const text = (form, key, max = 400) => String(form.get(key) ?? "").trim().slice(0, max);
 const back = (request, query) => NextResponse.redirect(new URL(`/admin/awards${query}`, request.url), 303);
@@ -28,6 +30,24 @@ export async function POST(request) {
         }).catch(() => {});
       }
       return back(request, `?saved=generated&count=${created}`);
+    }
+
+    if (intent === "request_consent") {
+      const id = Number(form.get("id") ?? 0);
+      if (!Number.isInteger(id) || id <= 0) return back(request, "?error=missing");
+      const award = await requestAwardConsent(id);
+      if (!award) return back(request, "?error=missing");
+      const siteUrl = getSiteUrl().replace(/\/$/, "");
+      const consentUrl = `${siteUrl}/certificates/${award.share_token}/consent`;
+      const declineUrl = `${siteUrl}/certificates/${award.share_token}/consent`;
+      const emailResult = await sendAwardConsentRequest({ award, consentUrl, declineUrl });
+      await sendSlackNotification({
+        event: "award_consent_requested",
+        title: "Guardian consent requested",
+        details: [`Award: ${award.award_title}`, `Guardian: ${award.guardian_email}`, `Email: ${emailResult.ok ? "sent" : emailResult.error || "skipped"}`],
+        adminPath: "/admin/awards",
+      }).catch(() => {});
+      return back(request, emailResult.ok ? "?saved=consent_requested" : "?saved=consent_requested&email=skipped");
     }
 
     if (intent === "update_status") {

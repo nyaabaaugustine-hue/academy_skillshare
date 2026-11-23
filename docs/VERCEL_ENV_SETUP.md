@@ -86,6 +86,27 @@ TUTOR_WORKER_URL=
 TUTOR_SERVICE_AUTHORIZATION=
 ```
 
+## Email (optional, Resend free tier)
+| Key | Suggested value / format | Notes |
+|---|---|---|
+| `RESEND_API_KEY` | `re_...` | Server-side only. Enables enquiry auto-replies, welcome emails, guardian consent requests, admin digests. |
+| `EMAIL_FROM` | `SkillBridge Academy <hello@yourdomain>` | Must be a verified sender in Resend. |
+| `EMAIL_REPLY_TO` | `support@skillbridgeacademy.tech` | Optional reply-to. |
+| `ADMIN_NOTIFICATION_EMAIL` | `ops@skillbridgeacademy.tech` | Ops inbox; falls back to `ADMIN_EMAIL`. |
+
+## Database migrations
+Run once per environment (owner role):
+```bash
+npm run db:install
+```
+This applies `db/001`..`db/011` in order, including enquiry pipeline, tutor history/bookmarks, playground snippets, account preferences, award consent.
+
+## Admin sign-in
+- URL: `https://www.skillbridgeacademy.tech/admin/login`
+- Username (email): value of `ADMIN_EMAIL`
+- Password: value of `ADMIN_PASSWORD`
+- If either is missing, login fails closed (no demo mode).
+
 ## Quick sanity checks
 
 - **Slack missing?** If `SLACK_WEBHOOK_URL` is not set in Vercel Production/Preview as intended, Slack notifications are skipped.

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 function getStandalone() {
   if (typeof window === "undefined") return false;
@@ -14,6 +15,7 @@ function getIosInstallable() {
 }
 
 export default function InstallAppButton({ className = "button button-outline button-small", label = "Install app" }) {
+  const router = useRouter();
   const [deferred, setDeferred] = useState(null);
   const [installed, setInstalled] = useState(getStandalone);
   const [ios] = useState(getIosInstallable);
@@ -46,7 +48,7 @@ export default function InstallAppButton({ className = "button button-outline bu
       alert("To install on iPhone/iPad: tap Share, then 'Add to Home Screen'.");
       return;
     }
-    window.location.href = "/app/index.html?v=2";
+    router.push("/app/index.html?v=2");
   }
 
   if (installed) return null;

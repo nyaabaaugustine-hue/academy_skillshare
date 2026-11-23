@@ -20,6 +20,7 @@ const links = [
   { href: "/admin/ai", label: "AI tools", icon: "✦" },
   { href: "/admin/ai-audit", label: "AI audit", icon: "⎘" },
   { href: "/admin/at-risk", label: "At-risk learners", icon: "⚠" },
+  { href: "/admin/notifications", label: "Notifications", icon: "🔔" },
 ];
 
 export default function AdminNav() {
