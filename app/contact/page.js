@@ -12,7 +12,7 @@ export default function ContactPage() {
     <>
       <SiteHeader />
       <main>
-        <section className="inner-hero contact-hero">
+        <section className="inner-hero contact-hero" style={{ backgroundImage: "linear-gradient(rgba(7,31,73,0.62), rgba(7,31,73,0.62)), url('https://res.cloudinary.com/z43ds8bn/image/upload/v1795345421/Modern_Educational_Tech_Wave_Banner.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
           <div className="inner-hero-content">
             <div className="eyebrow"><span />LET’S CONNECT</div>
             <h1>Let’s open more doors <em>together.</em></h1>
