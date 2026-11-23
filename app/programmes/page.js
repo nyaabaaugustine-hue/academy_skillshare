@@ -48,7 +48,7 @@ export default function ProgrammesPage() {
               <EnquiryButton className="button button-green" enquiryType="Programmes and courses" title="Ask about a programme" description="Tell us the learner's age and what they are curious about, and we will point you to the right pathway.">
                 Ask about a programme <span className="arrow">→</span>
               </EnquiryButton>
-              <a className="button button-glass" href="/playground">Try Python Playground <span className="arrow">→</span></a>
+              <a className="button button-glass" href="/leaderboard">View leaderboard <span className="arrow">→</span></a>
             </div>
           </div>
         </section>

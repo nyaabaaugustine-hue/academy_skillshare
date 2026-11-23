@@ -19,7 +19,7 @@ export default function SettingsPage() {
             <p>Control app installation, learning preferences, and how you use SkillBridge Academy.</p>
             <div className="hero-actions" style={{ justifyContent: "center", marginTop: 14, gap: 10, flexWrap: "wrap" }}>
               <InstallAppButton className="button button-primary button-small" label="Install app" />
-              <a className="button button-glass button-small" href="/playground">Open Python Playground <span className="arrow">→</span></a>
+              <a className="button button-glass button-small" href="/rewards">View rewards <span className="arrow">→</span></a>
             </div>
           </div>
         </section>

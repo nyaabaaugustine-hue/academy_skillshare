@@ -53,7 +53,7 @@ export default async function LeaderboardPage() {
             </p>
             <div className="hero-actions">
               <a className="button button-green" href="/rewards">View rewards <span className="arrow">→</span></a>
-              <a className="button button-glass" href="/playground">Practice Python <span className="arrow">→</span></a>
+              <a className="button button-glass" href="/programmes">Explore programmes <span className="arrow">→</span></a>
             </div>
             <div className="hero-share-wrap">
               <ShareActions url={absoluteUrl("/leaderboard")} text="See who’s leading the learning journey on the SkillBridge Academy leaderboard!" title="Share leaderboard" />
