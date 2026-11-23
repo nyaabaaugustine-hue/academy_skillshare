@@ -1,4 +1,4 @@
-﻿(function dartProgram(){function copyProperties(a,b){var s=Object.keys(a)
+(function dartProgram(){function copyProperties(a,b){var s=Object.keys(a)
 for(var r=0;r<s.length;r++){var q=s[r]
 b[q]=a[q]}}function mixinPropertiesHard(a,b){var s=Object.keys(a)
 for(var r=0;r<s.length;r++){var q=s[r]
@@ -110602,7 +110602,7 @@ else{r=h.y
 r===$&&A.a()
 s=B.c.m(r.gaNB(),"Cloudflare")?"Online":"Offline"}r=B.v.a7(0.12)
 q=A.ai(12)
-q=new A.Lr("AI",new A.zT("https://cdn-icons-png.flaticon.com/512/4674/4674192.png"),36,g)
+q=new A.Lr("AI",new A.zT("https://res.cloudinary.com/ea91sdts/image/upload/v1795290743/robot_ai_button_tight_transparent.png"),36,g)
 r=t.p
 p=A.b([A.z("App Robot",g,g,g,g,g,g,g,g)],r)
 c=!(c.a.a<420)
@@ -131972,4 +131972,4 @@ return}if(typeof document.currentScript!="undefined"){a(document.currentScript)
 return}var s=document.scripts
 function onLoad(b){for(var q=0;q<s.length;++q){s[q].removeEventListener("load",onLoad,false)}a(b.target)}for(var r=0;r<s.length;++r){s[r].addEventListener("load",onLoad,false)}})(function(a){v.currentScript=a
 var s=A.aZD
-if(typeof dartMainRunner==="function"){dartMainRunner(s,[])}else{s([])}})})()  
+if(typeof dartMainRunner==="function"){dartMainRunner(s,[])}else{s([])}})})()
