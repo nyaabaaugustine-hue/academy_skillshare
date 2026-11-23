@@ -84,7 +84,48 @@ CLOUDFLARE_WEB_ANALYTICS_TOKEN=
 # Optional - AI Tutor
 TUTOR_WORKER_URL=
 TUTOR_SERVICE_AUTHORIZATION=
+
+# Optional - Firebase Cloud Messaging (FCM) for centralized push campaigns
+FIREBASE_PROJECT_ID=
+FIREBASE_CLIENT_EMAIL=
+FIREBASE_PRIVATE_KEY=
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+NEXT_PUBLIC_FIREBASE_VAPID_KEY=
+
+# Optional - Web push scheduling (Vercel Cron hits /api/cron/notifications)
+CRON_SECRET=
 ```
+
+## Firebase Cloud Messaging (optional, free)
+
+| Key | Suggested value / format | Notes |
+|---|---|---|
+| `FIREBASE_PROJECT_ID` | Firebase project id (e.g. `skillbridge-academy`) | Server-side. |
+| `FIREBASE_CLIENT_EMAIL` | `firebase-adminsdk@....iam.gserviceaccount.com` | Service account email. Server-side only. |
+| `FIREBASE_PRIVATE_KEY` | Full private key incl. `\n` escapes | Server-side only; paste with literal `\n` line breaks. |
+| `NEXT_PUBLIC_FIREBASE_API_KEY` | Web API key | Public. |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | `<project>.firebaseapp.com` | Public. |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | project id | Public. |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | Sender id | Public. |
+| `NEXT_PUBLIC_FIREBASE_APP_ID` | app id | Public. |
+| `NEXT_PUBLIC_FIREBASE_VAPID_KEY` | VAPID public key (from `npx web-push generate-vapid-keys`) | Public; used for FCM web push. |
+
+- Enable Firebase Cloud Messaging in the Firebase console (Cloud Messaging → enable).
+- Create a service account and download the JSON key; use `client_email`/`private_key`.
+- Without these vars the backend FCM send path skips gracefully (web push via VAPID still works).
+
+## Push scheduling (optional, Vercel Hobby cron)
+
+| Key | Suggested value / format | Notes |
+|---|---|---|
+| `CRON_SECRET` | random 32+ chars | Shared secret sent as `Authorization: Bearer <CRON_SECRET>` to `/api/cron/notifications`. |
+
+- `vercel.json` schedules `0 9 * * *` → `/api/cron/notifications` (daily batch of due campaigns; Hobby plan allows daily crons only).
+- The cron picks up campaigns with `status='scheduled' and scheduled_at <= now()`, up to 10 per run, `for update skip locked`.
 
 ## Email (optional, Resend free tier)
 | Key | Suggested value / format | Notes |
@@ -99,7 +140,7 @@ Run once per environment (owner role):
 ```bash
 npm run db:install
 ```
-This applies `db/001`..`db/011` in order, including enquiry pipeline, tutor history/bookmarks, playground snippets, account preferences, award consent.
+This applies `db/001`..`db/013` in order, including enquiry pipeline, tutor history/bookmarks, playground snippets, account preferences, award consent, notifications/push, FCM campaigns.
 
 ## Admin sign-in
 - URL: `https://www.skillbridgeacademy.tech/admin/login`

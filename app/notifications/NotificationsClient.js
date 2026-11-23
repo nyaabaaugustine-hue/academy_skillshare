@@ -10,8 +10,6 @@ export default function NotificationsClient() {
   const [error, setError] = useState("");
 
   async function load() {
-    setLoading(true);
-    setError("");
     try {
       const res = await fetch("/api/notifications", { cache: "no-store", credentials: "include" });
       const data = await res.json().catch(() => ({}));
@@ -25,7 +23,24 @@ export default function NotificationsClient() {
     }
   }
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/notifications", { cache: "no-store", credentials: "include" });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data?.error || "Could not load notifications.");
+        if (cancelled) return;
+        setItems(Array.isArray(data.notifications) ? data.notifications : []);
+        setUnread(Number(data.unread || 0));
+      } catch (err) {
+        if (!cancelled) setError(err instanceof Error ? err.message : "Could not load notifications.");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
 
   async function markAllRead() {
     try {
@@ -55,7 +70,7 @@ export default function NotificationsClient() {
     }
   }
 
-  if (loading) return <p className="admin-muted">Loading notifications…</p>;
+  if (loading) return <p className="admin-muted">Loading notifications.</p>;
 
   return (
     <div style={{ display: "grid", gap: 12, maxWidth: 720 }}>
@@ -84,7 +99,7 @@ export default function NotificationsClient() {
                 ) : null}
               </div>
               {n.link ? (
-                <Link href={n.link} className="admin-link" style={{ fontSize: 12, marginTop: 6, display: "inline-block" }}>Open ↗</Link>
+                <Link href={n.link} className="admin-link" style={{ fontSize: 12, marginTop: 6, display: "inline-block" }}>Open</Link>
               ) : null}
             </li>
           ))}

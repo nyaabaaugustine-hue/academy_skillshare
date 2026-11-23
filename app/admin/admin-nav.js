@@ -21,6 +21,8 @@ const links = [
   { href: "/admin/ai-audit", label: "AI audit", icon: "⎘" },
   { href: "/admin/at-risk", label: "At-risk learners", icon: "⚠" },
   { href: "/admin/notifications", label: "Notifications", icon: "🔔" },
+  { href: "/admin/notifications/campaigns", label: "Campaigns", icon: "📣" },
+  { href: "/admin/notifications/compose", label: "Compose", icon: "✏️" },
 ];
 
 export default function AdminNav() {
