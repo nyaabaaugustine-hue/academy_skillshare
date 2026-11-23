@@ -107,6 +107,13 @@ This applies `db/001`..`db/011` in order, including enquiry pipeline, tutor hist
 - Password: value of `ADMIN_PASSWORD`
 - If either is missing, login fails closed (no demo mode).
 
+## Web push (optional, free)
+| Key | Suggested value / format | Notes |
+|---|---|---|
+| `VAPID_PUBLIC_KEY` | base64url public key | Generate with `npx web-push generate-vapid-keys`. Safe to expose. |
+| `VAPID_PRIVATE_KEY` | base64url private key | Server-side only. |
+| `VAPID_SUBJECT` | `mailto:support@skillbridgeacademy.tech` | Contact for push service. |
+
 ## Quick sanity checks
 
 - **Slack missing?** If `SLACK_WEBHOOK_URL` is not set in Vercel Production/Preview as intended, Slack notifications are skipped.
