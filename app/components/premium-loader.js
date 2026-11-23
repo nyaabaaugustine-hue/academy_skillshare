@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 const LOGO_URL =
-  "https://res.cloudinary.com/z43ds8bn/image/upload/v1795200948/WhatsApp_Image_2026-11-16_at_7.25.58_AM.jpg";
+  "https://res.cloudinary.com/z43ds8bn/image/upload/v1795486090/WhatsApp_Image_2026-11-16_at_7.25.58_AM.png";
 
 export default function PremiumLoader() {
   const [phase, setPhase] = useState("hidden"); // hidden | visible | leaving
@@ -26,11 +26,13 @@ export default function PremiumLoader() {
       aria-label="Loading SkillBridge"
     >
       <div className="premium-loader__panel">
+        <div className="premium-loader__glow" aria-hidden="true" />
         <div className="premium-loader__ring" aria-hidden="true" />
         <img className="premium-loader__logo" src={LOGO_URL} alt="SkillBridge" />
         <div className="premium-loader__text">SkillBridge</div>
         <div className="premium-loader__tagline">LEARN TODAY. INNOVATE TOMORROW.</div>
       </div>
+      <div className="premium-loader__bar" aria-hidden="true" />
     </div>
   );
 }
