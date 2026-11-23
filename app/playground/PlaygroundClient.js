@@ -43,6 +43,9 @@ export default function PlaygroundClient() {
   const [stdout, setStdout] = useState("");
   const [stderr, setStderr] = useState("");
   const [traceback, setTraceback] = useState("");
+  const [aiResult, setAiResult] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState("");
   const workerRef = useRef(null);
   const runIdRef = useRef(0);
   const timeoutRef = useRef(null);
@@ -120,7 +123,6 @@ export default function PlaygroundClient() {
     if (!ready) {
       const initId = ++runIdRef.current;
       w.postMessage({ id: initId, type: "init" });
-      // wait briefly for ready via status; simple approach: poll ready ref not available, so use small delay
       await new Promise((r) => setTimeout(r, 100));
     }
     const id = ++runIdRef.current;
@@ -140,7 +142,37 @@ export default function PlaygroundClient() {
     setStatus("Stopped.");
   }
 
+  async function askAppRobot() {
+    const message = traceback || stderr || `Help me improve or explain this Python code:\n\`\`\`python\n${code}\n\`\`\``;
+    setAiLoading(true);
+    setAiError("");
+    setAiResult("");
+    try {
+      const res = await fetch("/api/tutor/v1/tutor/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          message,
+          mode: traceback || stderr ? "debug" : "explain",
+          history: [],
+          studentContext: { name: "Learner", role: "student" },
+          teachingStyle: "clear",
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || data?.message || "App Robot unavailable");
+      setAiResult(typeof data?.text === "string" ? data.text : JSON.stringify(data ?? {}, null, 2));
+      setStatus("App Robot responded.");
+    } catch (err) {
+      setAiError(err instanceof Error ? err.message : "App Robot unavailable.");
+      setStatus("App Robot error.");
+    } finally {
+      setAiLoading(false);
+    }
+  }
+
   const output = [stdout, stderr, traceback].filter(Boolean).join("\n");
+  const hasError = Boolean(stderr || traceback);
 
   return (
     <div style={{ display: "grid", gap: 16 }}>
@@ -149,6 +181,14 @@ export default function PlaygroundClient() {
         <button className="button button-outline button-small" type="button" onClick={stopRun} disabled={!running}>Stop</button>
         <button className="button button-outline button-small" type="button" onClick={() => { setStdout(""); setStderr(""); setTraceback(""); setStatus("Output cleared."); }}>Clear output</button>
         <button className="button button-outline button-small" type="button" onClick={() => download("skillbridge-playground.py", code)}>Download .py</button>
+        <button
+          className={`button ${aiLoading ? "button-outline" : "button-primary"} button-small`}
+          type="button"
+          onClick={askAppRobot}
+          disabled={aiLoading || !code.trim()}
+        >
+          {aiLoading ? "Asking App Robot…" : hasError ? "Ask App Robot to fix" : "Ask App Robot to explain"}
+        </button>
         <label style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
           <span className="admin-muted" style={{ fontSize: 12 }}>Template</span>
           <select className="admin-input" style={{ width: 180 }} defaultValue="" onChange={(e) => {
@@ -180,8 +220,19 @@ export default function PlaygroundClient() {
         </label>
       </div>
 
+      {aiResult || aiError ? (
+        <section style={{ border: "1px solid rgba(255,255,255,0.12)", borderRadius: 12, padding: 16, background: "rgba(0,0,0,0.12)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+            <span style={{ fontWeight: 700, fontSize: 12 }}>App Robot</span>
+            {aiLoading && <span className="admin-muted" style={{ fontSize: 11, marginLeft: "auto" }}>Thinking…</span>}
+          </div>
+          {aiError && <p style={{ color: "#f87171", fontSize: 13, margin: 0, marginBottom: 8 }}>{aiError}</p>}
+          {aiResult && <pre style={{ whiteSpace: "pre-wrap", wordBreak: "break-word", fontSize: 13, lineHeight: 1.6, color: "#e5e7eb", margin: 0, overflow: "auto" }}>{aiResult}</pre>}
+        </section>
+      ) : null}
+
       <div className="admin-muted" style={{ fontSize: 12 }}>
-        Runs locally in your browser with Pyodide. No server execution. `input()` and some system/network features are limited in browser Python. Execution stops after 10 seconds.
+        Runs locally in your browser with Pyodide. No server execution. `input()` and some system/network features are limited in browser Python. Execution stops after 10 seconds. App Robot help is sent to the AI tutor proxy (server-side).
       </div>
     </div>
   );

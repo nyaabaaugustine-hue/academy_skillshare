@@ -19,6 +19,7 @@ const links = [
   { href: "/admin/health", label: "Health", icon: "♥" },
   { href: "/admin/ai", label: "AI tools", icon: "✦" },
   { href: "/admin/ai-audit", label: "AI audit", icon: "⎘" },
+  { href: "/admin/at-risk", label: "At-risk learners", icon: "⚠" },
 ];
 
 export default function AdminNav() {
