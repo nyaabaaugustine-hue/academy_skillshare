@@ -148,7 +148,7 @@ export default async function RewardsPage() {
           </div>
         </section>
 
-        <section className="values-band">
+        <section className="values-band" style={{ backgroundImage: "linear-gradient(rgba(7,31,73,0.72), rgba(7,31,73,0.72)), url('https://res.cloudinary.com/z43ds8bn/image/upload/v1795423381/vibrant-ghanaian-kente-cloth-with-black-stars_995107-1482.jpg')", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
           <div className="section-wrap">
             <div className="inner-section-heading">
               <div className="eyebrow"><span />REWARDS &amp; PRIZES</div>
