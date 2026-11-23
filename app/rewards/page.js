@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { SiteFooter, SiteHeader } from "../../components/site-chrome";
 import EnquiryButton from "../../components/enquiry-popup";
+import RewardsMarquee from "../../components/rewards-marquee";
 import ProjectSubmissionForm from "../../components/project-submission-form";
 import ShareActions from "../../components/share-actions";
 import ReportProjectButton from "../../components/report-project-button";
@@ -99,6 +100,8 @@ export default async function RewardsPage() {
             </div>
           </div>
         </section>
+
+        <RewardsMarquee />
 
         <section className="inner-content section-wrap">
           <div className="inner-section-heading">

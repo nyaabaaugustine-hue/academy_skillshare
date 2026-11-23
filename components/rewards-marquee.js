@@ -1,0 +1,114 @@
+/* eslint-disable @next/next/no-img-element */
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+const DEFAULT_REWARDS = [
+  { title: "Branded Pencil", detail: "Earned for completing your first learning step.", image: "/rewards/pencil.png", icon: "✏️", tag: "Stationery" },
+  { title: "Branded Eraser", detail: "Keep your work neat as you practice and build.", image: "/rewards/eraser.png", icon: "🧽", tag: "Stationery" },
+  { title: "SkillBridge Notebook", detail: "A place to plan, sketch, and capture your ideas.", image: "/rewards/notebook.png", icon: "📓", tag: "Stationery" },
+  { title: "Learner T-Shirt", detail: "Worn by project builders and top performers.", image: "/rewards/tshirt.png", icon: "👕", tag: "Wearables" },
+  { title: "Educational Book", detail: "Age-appropriate books to grow your knowledge.", image: "/rewards/book.png", icon: "📚", tag: "Books" },
+  { title: "Digital Certificate", detail: "Shareable proof of your milestones and progress.", image: "/rewards/certificate.png", icon: "📜", tag: "Certificates" },
+  { title: "Top Learner Trophy", detail: "Celebrating standout performance on the leaderboard.", image: "/rewards/trophy.png", icon: "🏆", tag: "Awards" },
+  { title: "Sticker Pack", detail: "Fun stickers to celebrate every small win.", image: "/rewards/stickers.png", icon: "⭐", tag: "Swag" },
+];
+
+function RewardCard({ item }) {
+  const [imgFailed, setImgFailed] = useState(false);
+  return (
+    <article className="rewards-marquee-card">
+      <div className="rewards-marquee-media">
+        {!imgFailed && item.image ? (
+          <img src={item.image} alt={item.title} loading="lazy" onError={() => setImgFailed(true)} />
+        ) : (
+          <span className="rewards-marquee-fallback" aria-hidden="true">{item.icon}</span>
+        )}
+        <span className="rewards-marquee-tag">{item.tag}</span>
+      </div>
+      <div className="rewards-marquee-body">
+        <h3>{item.title}</h3>
+        <p>{item.detail}</p>
+      </div>
+    </article>
+  );
+}
+
+export default function RewardsMarquee({ rewards }) {
+  const base = rewards && rewards.length > 0 ? rewards : DEFAULT_REWARDS;
+  const trackRef = useRef(null);
+  const [paused, setPaused] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduceMotion(mq.matches);
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion) return undefined;
+    const track = trackRef.current;
+    if (!track) return undefined;
+    let raf = 0;
+    let last = 0;
+    let offset = 0;
+    const speed = 24;
+
+    const step = (ts) => {
+      if (!last) last = ts;
+      const dt = (ts - last) / 1000;
+      last = ts;
+      if (!paused && !document.hidden) {
+        offset += speed * dt;
+        const half = track.scrollWidth / 2;
+        if (half > 0 && offset >= half) offset -= half;
+        track.style.transform = `translate3d(${-offset}px,0,0)`;
+      }
+      raf = window.requestAnimationFrame(step);
+    };
+    raf = window.requestAnimationFrame(step);
+    return () => window.cancelAnimationFrame(raf);
+  }, [paused, reduceMotion]);
+
+  const items = [...base, ...base];
+
+  return (
+    <section className="rewards-marquee-section" aria-label="SkillBridge rewards">
+      <div className="section-wrap">
+        <div className="rewards-marquee-heading">
+          <div>
+            <div className="eyebrow"><span />REWARDS IN MOTION</div>
+            <h2>Premium rewards for <span>real progress.</span></h2>
+            <p>
+              Every milestone unlocks something tangible. From branded stationery to certificates and t-shirts,
+              rewards celebrate the effort behind the learning.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="rewards-marquee"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        onFocusCapture={() => setPaused(true)}
+        onBlurCapture={() => setPaused(false)}
+      >
+        <div className="rewards-marquee-track" ref={trackRef}>
+          {items.map((item, i) => (
+            <div
+              className="rewards-marquee-slide"
+              key={`${item.title}-${i}`}
+              aria-hidden={i >= base.length ? "true" : undefined}
+            >
+              <RewardCard item={item} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
