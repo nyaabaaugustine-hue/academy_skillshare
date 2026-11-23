@@ -33,6 +33,9 @@ export default function PremiumLoader() {
         <div className="premium-loader__tagline">LEARN TODAY. INNOVATE TOMORROW.</div>
       </div>
       <div className="premium-loader__bar" aria-hidden="true" />
+      <div className="premium-loader__arrow" aria-hidden="true">
+        ↓
+      </div>
     </div>
   );
 }
