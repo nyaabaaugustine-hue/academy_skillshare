@@ -28,7 +28,6 @@ export function SiteHeader() {
           <a href="/about">About us</a>
           <a href="/programmes">Programmes</a>
           <a href="/leaderboard">Leaderboard</a>
-          <a href="/notifications">Notifications</a>
           <a href="/settings">Settings</a>
           <a href="/rewards">Rewards</a>
           <a href="/team">Our team</a>
