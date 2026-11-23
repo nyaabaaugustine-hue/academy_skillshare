@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { getFlutterAppOrigin } from "@/lib/flutter-app-origin";
 import { tryDb } from "@/lib/db";
+import { AI_TUTOR_MODES } from "@/lib/ai-tutor-capabilities";
 
 /**
  * Same-origin proxy for the Cloudflare tutor Worker.
@@ -96,14 +97,9 @@ async function getStudentRecords(userId: string) {
   }
 }
 
-const TUTOR_MODE_DIRECTIVES: Record<string, string> = {
-  explain: "Mode: Explain. Explain clearly with simple steps, examples, and best practices.",
-  debug: "Mode: Debug. Identify likely cause, explain why, provide a fix, and prevention tips.",
-  quiz: "Mode: Quiz. Ask one question at a time, adapt difficulty, and explain answers after the student responds.",
-  plan: "Mode: Study Plan. Create a practical, personalized study plan with small milestones and next actions.",
-  review: "Mode: Code Review. Review for correctness, readability, security, performance, and best practices; give actionable feedback.",
-  project: "Mode: Project Coach. Break work into milestones, give architecture tips, and suggest next steps.",
-};
+const TUTOR_MODE_DIRECTIVES: Record<string, string> = Object.fromEntries(
+  Object.entries(AI_TUTOR_MODES).map(([key, mode]) => [key, `Mode: ${mode.label}. ${mode.directive}`]),
+);
 
 async function enrichTutorBody(request: Request, target: string, body: ArrayBuffer): Promise<ArrayBuffer> {
   if (!target.startsWith("v1/tutor/chat") && target !== "v1/tutor/vision") return body;
