@@ -52,13 +52,13 @@ Track and implement 100 improvements for the SkillBridge Academy website/platfor
 ## 3) Enquiry, Registration & Conversion
 - [x] 26. Add enquiry status pipeline (new/contacted/scheduled/enrolled/closed/lost).
 - [x] 27. Add enquiry source tracking.
-- [ ] 28. Add auto-confirmation email.
+- [x] 28. Add auto-confirmation email.
 - [x] 29. Add admin enquiry notes.
 - [x] 30. Add duplicate enquiry detection (email duplicate flag).
 - [x] 31. Add enquiry assignment.
 - [x] 32. Add follow-up reminders (follow-up date + overdue/needs-attention flags).
 - [x] 33. Add enquiry export (CSV).
-- [ ] 34. Add multi-step registration form.
+- [x] 34. Add multi-step registration form.
 - [x] 35. Add WhatsApp/call CTA.
 
 ## 4) Admin Dashboard & Operations
@@ -80,8 +80,8 @@ Track and implement 100 improvements for the SkillBridge Academy website/platfor
 
 ## 5) Learner Accounts & Auth
 - [x] 51. Unify/improve learner login experience (web login/forgot/reset pages added; Flutter app overlay added).
-- [ ] 52. Add account profile page.
-- [ ] 53. Add email verification status UI.
+- [x] 52. Add account profile page.
+- [x] 53. Add email verification status UI.
 - [ ] 54. Add secure branded password reset emails.
 - [ ] 55. Add MFA/2FA option.
 - [ ] 56. Add session/device management.

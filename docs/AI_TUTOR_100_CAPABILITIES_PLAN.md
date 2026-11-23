@@ -114,8 +114,8 @@ Guardrails: PII redaction, prompt-injection guard, role-based record access, adm
 [x] 83 Image/screenshot help — /v1/tutor/vision
 [x] 84 File/code upload review — vision + chat
 [x] 85 Code sandbox integration — /playground (Pyodide)
-[x] 86 Conversation history — client + Neon (partial)
-[ ] 87 Bookmark answers
+[x] 86 Conversation history - client + Neon (live)
+[x] 87 Bookmark answers
 [ ] 88 Permissioned sharing
 [x] 89 Multi-turn session memory — chat history
 [ ] 90 Long-term memory controls — consent-aware
