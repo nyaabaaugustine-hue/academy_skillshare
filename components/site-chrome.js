@@ -62,25 +62,25 @@ function LocationMapSection() {
         <div className="location-map-copy">
           <div className="eyebrow"><span />WHERE TO FIND US</div>
           <h2 id="location-map-heading">A global mission, <span>rooted in Ghana.</span></h2>
-          <p>We work with learners, families, schools and partners across borders — with our learning community anchored in East Legon, Accra.</p>
+          <p>We work with learners, families, schools and partners across borders — with our learning community anchored in Kumasi - Wiamoase, Ashanti.</p>
           <div className="location-map-locations">
-            <div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" /><div><b>Ghana</b><small>East Legon, Accra</small></div></div>
+            <div className="location-map-location"><img className="location-flag" src="https://flagcdn.com/w40/gh.png" alt="Ghana flag" width={20} height={15} loading="lazy" /><div><b>Ghana</b><small>Kumasi - Wiamoase, Ashanti</small></div></div>
             
             
           </div>
-          <a className="button button-primary" href="https://www.google.com/maps/search/?api=1&query=East%20Legon%2C%20Accra" target="_blank" rel="noreferrer">Open in Google Maps <span className="arrow">↗</span></a>
+          <a className="button button-primary" href="https://www.google.com/maps/search/?api=1&query=Kumasi%20Wiamoase%2C%20Ashanti" target="_blank" rel="noreferrer">Open in Google Maps <span className="arrow">↗</span></a>
         </div>
         <div className="location-map-frame">
           <iframe
-            title="SkillBridge Academy location in East Legon, Accra, Ghana"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31764.227970961805!2d-0.17891519465508338!3d5.636380888057941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9b501278f4a5%3A0xca081548a0c20ffd!2sEast%20Legon%2C%20Accra!5e0!3m2!1sen!2sgh!4v1795202672969!5m2!1sen!2sgh"
+            title="SkillBridge Academy location in Kumasi - Wiamoase, Ashanti, Ghana"
+            src="https://www.google.com/maps?q=Kumasi+Wiamoase,+Ashanti,+Ghana&output=embed"
             loading="lazy"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           />
           <div className="location-map-badge">
             <span className="map-pin">⌖</span>
-            <span><b>East Legon, Accra</b><small>Ghana</small></span>
+            <span><b>Kumasi - Wiamoase, Ashanti</b><small>Ghana</small></span>
           </div>
         </div>
       </div>
