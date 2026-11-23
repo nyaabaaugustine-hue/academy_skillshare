@@ -12,7 +12,7 @@ export default function SettingsPage() {
     <>
       <SiteHeader />
       <main>
-        <section className="inner-hero settings-hero">
+        <section className="inner-hero settings-hero" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.86), rgba(255,255,255,0.86)), url('https://res.cloudinary.com/z43ds8bn/image/upload/v1795345655/Repeating_Education_Coding_Logo_Pattern.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "repeat" }}>
           <div className="inner-hero-content">
             <div className="eyebrow"><span />SETTINGS</div>
             <h1>Manage your <em>SkillBridge experience.</em></h1>
