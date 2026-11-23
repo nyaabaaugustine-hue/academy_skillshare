@@ -61,7 +61,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="values-band">
+        <section className="values-band" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.82), rgba(255,255,255,0.82)), url('https://res.cloudinary.com/z43ds8bn/image/upload/v1795346894/Minimal_Premium_Login_Background_with_Girl_Child.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
           <div className="section-wrap">
             <div className="inner-section-heading">
               <div className="eyebrow"><span />WHAT GUIDES US</div>
