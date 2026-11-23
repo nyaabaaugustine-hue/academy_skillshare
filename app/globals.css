@@ -659,3 +659,16 @@ button.enquiry-plain{border:0;background:none;padding:0;color:inherit;font:inher
 .button-ghost:hover{background:#f4f8fe}
 @media(max-width:930px){.certificate-layout{grid-template-columns:1fr}}
 @media(max-width:650px){.certificate-card{padding:24px}.certificate-meta{grid-template-columns:1fr}.certificate-footer{flex-direction:column}}
+
+/* Premium loader ------------------------------------------------------- */
+.premium-loader{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 38%,#0d2c55 0%,#071f49 62%,#051530 100%);opacity:0;visibility:hidden;transition:opacity .55s ease,visibility .55s ease;}
+.premium-loader.is-visible{opacity:1;visibility:visible}
+.premium-loader.is-leaving{opacity:0;visibility:hidden}
+.premium-loader__panel{position:relative;width:190px;height:190px;display:flex;align-items:center;justify-content:center}
+.premium-loader__ring{position:absolute;inset:0;border-radius:50%;border:3px solid rgba(66,200,107,.16);border-top-color:#42c86b;animation:premium-loader-spin .9s linear infinite}
+.premium-loader__logo{width:104px;height:104px;object-fit:contain;display:block;filter:drop-shadow(0 14px 34px rgba(66,200,107,.38)) drop-shadow(0 2px 6px rgba(0,0,0,.35));animation:premium-loader-float 2.6s ease-in-out infinite}
+.premium-loader__text{font:800 26px 'Manrope',sans-serif;letter-spacing:.14em;color:#fff;margin-top:16px;text-transform:uppercase}
+.premium-loader__tagline{font:700 8.5px 'Manrope',sans-serif;letter-spacing:2.6px;color:#9fc0e6;margin-top:8px;text-transform:uppercase}
+@keyframes premium-loader-spin{to{transform:rotate(360deg)}}
+@keyframes premium-loader-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){.premium-loader__ring,.premium-loader__logo,.premium-loader__panel{animation:none!important;transition:none!important}}
