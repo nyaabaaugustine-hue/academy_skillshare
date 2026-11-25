@@ -45,7 +45,9 @@ const flutterAppOrigin = (() => {
  *    enough for those; fonts.gstatic.com serves the @import'd webfont files.
  *  - connect-src: the browser only calls same-origin /api/* (auth is proxied
  *    through /api/auth); ws:/wss: are for the development HMR socket. The web
- *    app also pulls Pyodide (cdn.jsdelivr.net) and CanvasKit (www.gstatic.com).
+ *    app pulls Pyodide (cdn.jsdelivr.net), CanvasKit (www.gstatic.com), Flutter
+ *    fallback fonts (fonts.gstatic.com) via fetch(), and the FCM worker needs
+ *    the Firebase Installations and FCM subscription endpoints.
  *  - frame-src: /learn embeds the Flutter web app - the copy shipped at /app
  *    ('self') and/or a separately hosted bundle at flutterAppOrigin. The
  *    contact page embeds a Google Maps iframe.
@@ -60,8 +62,8 @@ const contentSecurityPolicy = [
   "font-src 'self' data: https://fonts.gstatic.com",
   "media-src 'self' blob: data: https://res.cloudinary.com",
   isDev
-    ? "connect-src 'self' https://cdn.jsdelivr.net https://www.gstatic.com ws: wss:"
-    : "connect-src 'self' https://cdn.jsdelivr.net https://www.gstatic.com",
+    ? "connect-src 'self' https://cdn.jsdelivr.net https://www.gstatic.com https://fonts.gstatic.com https://firebaseinstallations.googleapis.com https://fcm.googleapis.com ws: wss:"
+    : "connect-src 'self' https://cdn.jsdelivr.net https://www.gstatic.com https://fonts.gstatic.com https://firebaseinstallations.googleapis.com https://fcm.googleapis.com",
   `frame-src 'self'${flutterAppOrigin ? ` ${flutterAppOrigin}` : ""} https://www.google.com`,
   "worker-src 'self' blob: https://www.gstatic.com",
   "frame-ancestors 'self'",
